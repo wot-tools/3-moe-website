@@ -1,6 +1,102 @@
 <% content_for :title do %>Distribution<% end %>
 <h1>3 MoE distribution data</h1>
 
+<p>Number of players with X 3 MoE</p>
+<table border="1" >
+  <tr>
+	<th>Type</th>
+	<th>Heavy Tank</th>
+	<th>Medium Tank</th>
+	<th>Light Tank</th>
+	<th>Tank Destroyer</th>
+	<th>SPG</th>
+	<th>Tier 5</th>
+	<th>Tier 6</th>
+	<th>Tier 7</th>
+	<th>Tier 8</th>
+	<th>Tier 9</th>
+	<th>Tier 10</th>
+  </tr>  
+  <tr>
+	<th>3 MoE</th>
+	<td><%= %></td>
+	<td><%= %></td>
+	<td><%= %></td>
+	<td><%= %></td>
+	<td><%= %></td>
+	<td><%= %></td>
+	<td><%= %></td>
+	<td><%= %></td>
+	<td><%= %></td>
+	<td><%= %></td>
+	<td><%= %></td>
+  </tr>
+    <tr>
+	<th>Total Tanks</th>
+	<td><%= number_with_delimiter(Tank.group("vehicle_type_id").count[1]) %></td>
+	<td><%= number_with_delimiter(Tank.group("vehicle_type_id").count[2]) %></td>
+	<td><%= number_with_delimiter(Tank.group("vehicle_type_id").count[3]) %></td>
+	<td><%= number_with_delimiter(Tank.group("vehicle_type_id").count[4]) %></td>
+	<td><%= number_with_delimiter(Tank.group("vehicle_type_id").count[5]) %></td>
+	<% (5..10).each do |tier| %>
+		<td><%= number_with_delimiter(Tank.group(:tier).count[tier])%></td>
+	<% end %>
+  </tr>
+    <tr>
+	<th>Available Tanks (non prem.)</th>
+	<td><%= number_with_delimiter(Tank.where("ispremium = false").group("vehicle_type_id").count[1]) %></td>
+	<td><%= number_with_delimiter(Tank.where("ispremium = false").group("vehicle_type_id").count[2]) %></td>
+	<td><%= number_with_delimiter(Tank.where("ispremium = false").group("vehicle_type_id").count[3]) %></td>
+	<td><%= number_with_delimiter(Tank.where("ispremium = false").group("vehicle_type_id").count[4]) %></td>
+	<td><%= number_with_delimiter(Tank.where("ispremium = false").group("vehicle_type_id").count[5]) %></td>
+	<% (5..10).each do |tier| %>
+		<td><%= number_with_delimiter(Tank.where("ispremium = false").group(:tier).count[tier])%></td>
+	<% end %>
+  </tr>
+    <tr>
+	<th>Players with 1+ 3 MoE</th>
+	<td><%= %></td>
+	<td><%= %></td>
+	<td><%= %></td>
+	<td><%= %></td>
+	<td><%= %></td>
+	<td><%= %></td>
+	<td><%= %></td>
+	<td><%= %></td>
+	<td><%= %></td>
+	<td><%= %></td>
+	<td><%= %></td>
+  </tr>
+    <tr>
+	<th>avg. 3 MoE/Tank</th>
+	<td><%= %></td>
+	<td><%= %></td>
+	<td><%= %></td>
+	<td><%= %></td>
+	<td><%= %></td>
+	<td><%= %></td>
+	<td><%= %></td>
+	<td><%= %></td>
+	<td><%= %></td>
+	<td><%= %></td>
+	<td><%= %></td>
+  </tr>
+    <tr>
+	<th>avg. 3 MoE/Player</th>
+	<td><%= %></td>
+	<td><%= %></td>
+	<td><%= %></td>
+	<td><%= %></td>
+	<td><%= %></td>
+	<td><%= %></td>
+	<td><%= %></td>
+	<td><%= %></td>
+	<td><%= %></td>
+	<td><%= %></td>
+	<td><%= %></td>
+  </tr>
+</table>
+<br>
 <p>3 MoE on WN8</p>
 <table border="1" >
   <tr>
@@ -57,7 +153,7 @@
   </tr>
 </table>
 
-<%= ActiveRecord::Base.connection.exec_query("SELECT MAX(mycount) from (SELECT player_id,COUNT(player_id) mycount FROM marks GROUP BY player_id) as T") %>
+<p>Number of players with X 3 MoE</p>
 <table border="1" >
   <tr>
 	<th>Marks</th>
