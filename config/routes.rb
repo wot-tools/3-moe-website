@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'stats/distribution'
+
   get 'welcome/index'
    
   resources :tanks, :only => [:index, :show]

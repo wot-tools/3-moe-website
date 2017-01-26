@@ -1,0 +1,58 @@
+<% content_for :title do %>Distribution<% end %>
+<h1>3 MoE distribution data</h1>
+
+<p>3 MoE on WN8</p>
+<table border="1" >
+  <tr>
+	<th>Lower</th>
+	<th>Upper</th>
+	<th>Players</th>
+	<th>Marks</th>
+  </tr>
+ 
+  <% (0..5000).step(100) do |wn8_number| %>
+    <tr>
+	  <td><%= number_with_delimiter(wn8_number) %></td>
+	  <td><%= number_with_delimiter(wn8_number + 100) %></td>
+	  <td><%= number_with_delimiter(Player.where("wn8 >="+ (wn8_number).to_s + " and wn8 <"+ (wn8_number + 100).to_s).count) %></td>
+	  <td></td>
+    </tr>
+  <% end %>
+  <tr>
+	<td><%= number_with_delimiter(5000)%></td>
+	<td>&#x221e;</td>
+	<td><%= number_with_delimiter(Player.where("wn8 >= 5000").count) %></td>
+	<td></td>
+  </tr>
+</table>
+<br>
+<p>3 MoE on Winratio</p>
+<table border="1" >
+  <tr>
+	<th>Lower</th>
+	<th>Upper</th>
+	<th>Players</th>
+	<th>Marks</th>
+  </tr>
+  
+  <tr>
+	<td><%= number_to_percentage(0, precision: 0) %></td>
+	<td><%= number_to_percentage(45, precision: 0) %></td>
+	<td><%= number_with_delimiter(Player.where("winratio < 0.45").count) %></td>
+	<td></td>
+  </tr>
+  <% (0.45..0.69).step(0.01) do |winratio_number| %>
+    <tr>
+	  <td><%= number_to_percentage(winratio_number*100, precision: 0) %></td>
+	  <td><%= number_to_percentage(winratio_number*100 + 1, precision: 0) %></td>
+	  <td><%= number_with_delimiter(Player.where("winratio >="+ (winratio_number).to_s + " and winratio <"+ (winratio_number + 0.01).to_s).count) %></td>
+	  <td></td>
+    </tr>
+  <% end %>
+  <tr>
+	<td><%= number_to_percentage(70, precision: 0)%></td>
+	<td><%= number_to_percentage(100, precision: 0)%></td>
+	<td><%= number_with_delimiter(Player.where("winratio >= 0.7").count) %></td>
+	<td></td>
+  </tr>
+</table>
