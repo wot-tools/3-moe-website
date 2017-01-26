@@ -56,3 +56,18 @@
 	<td><%= number_with_delimiter(Player.select("*").joins("INNER JOIN marks on players.id = marks.player_id").where("winratio >= 0.7").count) %></td>
   </tr>
 </table>
+
+<%= ActiveRecord::Base.connection.exec_query("SELECT MAX(mycount) from (SELECT player_id,COUNT(player_id) mycount FROM marks GROUP BY player_id) as T") %>
+<table border="1" >
+  <tr>
+	<th>Marks</th>
+	<th>Players</th>
+  </tr>
+  
+  <% (1..Mark.group(:player_id).count.max_by{|k,v| v}[1]).each do |marks_count| %>
+    <tr>
+	  <td><%= number_with_delimiter(marks_count) %></td>
+	  <td><%= number_with_delimiter(Mark.group(:player_id).count.values.count(marks_count)) %></td>
+    </tr>
+  <% end %>
+</table>
