@@ -1,0 +1,3 @@
+<h1>3 Marks of Excellence Data</h1>
+<p>This site displays detailed information about players and clans with 3 Marks of Excellence on the EU server.</p>
+<h2><%= link_to number_with_delimiter(@marks.count) + ' Marks', marks_path %> | <%= link_to number_with_delimiter(@tanks.count) + ' Tanks', tanks_path %> | <%= link_to number_with_delimiter(@players.count) + ' Players', players_path %> | <%= link_to number_with_delimiter(@clans.count) + ' Clans', clans_path %></h2>

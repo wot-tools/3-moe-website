@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  dbid: 1
+  tag: MyString
+  cHex: MyString
+  members: 1
+  updatedAt: 2017-01-21 21:44:44
+  icon24px: MyString
+  icon32px: MyString
+  icon64px: MyString
+  icon195px: MyString
+  icon256px: MyString
+
+two:
+  name: MyString
+  dbid: 1
+  tag: MyString
+  cHex: MyString
+  members: 1
+  updatedAt: 2017-01-21 21:44:44
+  icon24px: MyString
+  icon32px: MyString
+  icon64px: MyString
+  icon195px: MyString
+  icon256px: MyString

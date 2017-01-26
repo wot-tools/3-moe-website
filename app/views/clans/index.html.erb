@@ -1,0 +1,25 @@
+<% content_for :title do %>Clans<% end %>
+<%= render "shared/navigationbar" %>
+
+<h1>All clans with 3 MoE</h1>
+<table border="1">
+  <tr>
+	<th>Clan</th>
+    <th>Tag</th>
+	<th>Members</th>
+	<th>3 MoE</th>
+	<th>Updated at (WG)</th>
+  </tr>
+ 
+  <% @clans.each do |clan| %>
+    <tr>
+      <td><img src="<%= clan.icon32px%>" style="height:32px;width:32px"><%= link_to clan.name, clan_path(clan) %></td>
+      <td><%= clan.tag %></td>
+	  <td><%= clan.members %></td>
+	  <td><%= number_with_delimiter(clan.marks.count) %></td>
+	  <td><%= clan.updatedAt %></td>
+    </tr>
+  <% end %>
+</table>
+
+<%= render "shared/footer" %>

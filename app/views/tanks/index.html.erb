@@ -1,0 +1,27 @@
+<% content_for :title do %>Tanks<% end %>
+<%= render "shared/navigationbar" %>
+
+<h1>Tank Overview</h1>
+<table border="1">
+  <tr>
+    <th>Tank</th>
+	<th>Short Name</th>
+	<th>3 MoE</th>
+    <th>Tier</th>
+	<th>Nation</th>
+	<th>Type</th>
+  </tr>
+ 
+  <% @tanks.each do |tank| %>
+    <tr>
+      <td><img src="<%= tank.smallicon %>" style="height:31px;width:124px"> <%= link_to tank.name, tank_path(tank)%></td>
+      <td><%= tank.shortname %></td>
+	  <td><%= number_with_delimiter(tank.marks.count) %></td>
+	  <td><%= tank.tier %></td>
+	  <td><%= image_tag "nations/" + tank.nation.wgid + ".png" %> <%= tank.nation.name %></td>
+	  <td><%= image_tag "vehicletypes/" + tank.vehicle_type.wgid + ".png"%> <%= tank.vehicle_type.name %></td>
+    </tr>
+  <% end %>
+</table>
+
+<%= render "shared/footer" %>

@@ -1,0 +1,39 @@
+<% content_for :title do %>Players<% end %>
+<%= render "shared/navigationbar" %>
+
+<h1>Player Overview</h1>
+<table border="1">
+  <tr>
+    <th>Player</th>
+	<th>Clan</th>
+	<th>3 Moe</th>
+    <th>Battles</th>
+	<th>Win ratio</th>
+	<th>WN8</th>
+	<th>WG Rating</th>
+	<th>Client language</th>
+	<th>Last battle</th>
+	<th>Last logout</th>
+	<th>Account created</th>
+	<th>Updated at (WG)</th>
+  </tr>
+ 
+  <% @players.each do |player| %>
+    <tr>
+      <td><%= link_to player.name, player_path(player) %></td>
+      <td><% if player.clan %><img src="<%= player.clan.icon24px%>" style="height:24px;width:24px"> <%= link_to player.clan.tag, clan_path(player.clan.id)%><% end %></td>
+	  <td><%= number_with_delimiter(player.marks.count) %></td>
+	  <td><%= number_with_delimiter(player.battles) %></td>
+	  <td style="background-color:<%= winratio_colorcode(player.winratio)%>"><p style="color:<%= winratio_foreground_colorcode(player.winratio)%>"><%= number_to_percentage(player.winratio, precision: 2) %></p></td>
+	  <td style="background-color:<%= wn8_colorcode(player.wn8) %>"><p style="color:<%= wn8_foreground_colorcode(player.wn8)%>"><%= number_with_delimiter(player.wn8) %></p></td>
+	  <td><%= number_with_delimiter(player.wgrating) %></td>
+	  <td><% if !player.clientLang.blank? %><%= image_tag "clientlang/" + player.clientLang + ".png"%><% end %> <%= player.clientLang %></td>
+	  <td><%= player.lastBattle %></td>
+	  <td><%= player.lastLogout %></td>
+	  <td><%= player.accountCreated %></td>
+	  <td><%= player.updatedAt %></td>
+    </tr>
+  <% end %>
+</table>
+
+<%= render "shared/footer" %>

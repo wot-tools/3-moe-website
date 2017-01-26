@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  accountdbid: 1
+  battles: 1
+  wgrating: 1
+  lastLogout: 2017-01-21 21:42:37
+  winratio: 1
+  lastBattle: 2017-01-21 21:42:37
+  accountCreated: 2017-01-21 21:42:37
+  updatedAt: 2017-01-21 21:42:37
+  wn8: 1
+  clientLang: MyString
+
+two:
+  name: MyString
+  accountdbid: 1
+  battles: 1
+  wgrating: 1
+  lastLogout: 2017-01-21 21:42:37
+  winratio: 1
+  lastBattle: 2017-01-21 21:42:37
+  accountCreated: 2017-01-21 21:42:37
+  updatedAt: 2017-01-21 21:42:37
+  wn8: 1
+  clientLang: MyString
