@@ -2,6 +2,7 @@
 <%= render "shared/navigationbar" %>
 
 <h1>Tank Overview</h1>
+<%= will_paginate @tanks %>
 <table border="1">
   <tr>
     <th>Tank</th>
@@ -23,5 +24,6 @@
     </tr>
   <% end %>
 </table>
+<%= will_paginate @tanks %>
 
 <%= render "shared/footer" %>

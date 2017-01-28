@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/mislav/will_paginate
+  revision: 18626f5285b284c14fbf1be3e8f49e166b222218
+  specs:
+    will_paginate (3.1.5)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -175,6 +181,7 @@ DEPENDENCIES
   tzinfo-data
   uglifier (>= 1.3.0)
   web-console (>= 3.3.0)
+  will_paginate (~> 3.1.0)!
 
 BUNDLED WITH
-   1.13.7
+   1.14.3
