@@ -3,26 +3,29 @@
 
 <h1>Tank Overview</h1>
 <%= will_paginate @tanks %>
-<table border="1">
-  <tr>
-    <th><%= sort_link(@q, :name, "Tank") %></th>
-	<th><%= sort_link(@q, :shortname, "Short Name") %></th>
-	<th><%= sort_link(@q, :mark, "3 MoE") %></th>
-    <th><%= sort_link(@q, :tier, "Tier") %></th>
-	<th><%= sort_link(@q, :nation, "Nation") %></th>
-	<th>Type</th>
-  </tr>
- 
-  <% @tanks.each do |tank| %>
+<table class="table">
+  <thead class="table__head">
     <tr>
-      <td><img src="<%= tank.smallicon %>" style="height:31px;width:124px"> <%= link_to tank.name, tank_path(tank)%></td>
-      <td><%= tank.shortname %></td>
-	  <td><%= number_with_delimiter(tank.marks.count) %></td>
-	  <td><%= tank.tier %></td>
-	  <td><%= image_tag "nations/" + tank.nation.wgid + ".png" %> <%= tank.nation.name %></td>
-	  <td><%= image_tag "vehicletypes/" + tank.vehicle_type.wgid + ".png"%> <%= tank.vehicle_type.name %></td>
+      <th><%= sort_link(@q, :name, "Tank") %></th>
+      <th><%= sort_link(@q, :shortname, "Short Name") %></th>
+      <th><%= sort_link(@q, :mark, "3 MoE") %></th>
+      <th><%= sort_link(@q, :tier, "Tier") %></th>
+      <th><%= sort_link(@q, :nation, "Nation") %></th>
+      <th>Type</th>
     </tr>
-  <% end %>
+  </thead>
+  <tbody>
+    <% @tanks.each do |tank| %>
+      <tr class="table__row">
+        <td><img src="<%= tank.smallicon %>" style="height:31px;width:124px"> <%= link_to tank.name, tank_path(tank)%></td>
+        <td><%= tank.shortname %></td>
+        <td><%= number_with_delimiter(tank.marks.count) %></td>
+        <td><%= tank.tier %></td>
+        <td><%= image_tag "nations/" + tank.nation.wgid + ".png" %> <%= tank.nation.name %></td>
+        <td><%= image_tag "vehicletypes/" + tank.vehicle_type.wgid + ".png"%> <%= tank.vehicle_type.name %></td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
 <%= will_paginate @tanks %>
 

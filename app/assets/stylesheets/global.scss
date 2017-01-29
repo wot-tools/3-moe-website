@@ -1,0 +1,14 @@
+.table{
+  border-collapse: collapse;
+	&__head{
+		background-color: #aaaaaa;
+	}
+	&__row{
+		&:nth-child(odd){
+			background-color: #555555;
+		}
+		&:nth-child(even){
+			background-color: #888888;
+		}
+	}
+}
