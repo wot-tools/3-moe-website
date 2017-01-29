@@ -5,11 +5,11 @@
 <%= will_paginate @tanks %>
 <table border="1">
   <tr>
-    <th>Tank</th>
-	<th>Short Name</th>
-	<th>3 MoE</th>
-    <th>Tier</th>
-	<th>Nation</th>
+    <th><%= sort_link(@q, :name, "Tank") %></th>
+	<th><%= sort_link(@q, :shortname, "Short Name") %></th>
+	<th><%= sort_link(@q, :mark, "3 MoE") %></th>
+    <th><%= sort_link(@q, :tier, "Tier") %></th>
+	<th><%= sort_link(@q, :nation, "Nation") %></th>
 	<th>Type</th>
   </tr>
  
