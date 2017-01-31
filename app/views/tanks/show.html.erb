@@ -30,7 +30,7 @@ Tier <%= @tank.tier %> | <%= image_tag "vehicletypes/" + @tank.vehicle_type.id +
 				<td><% if mark.player.clan %><img src="<%= mark.player.clan&.icon32px%>"><%= link_to mark.player.clan.tag, clan_path(mark.player.clan.id)%><% end %></td>
 				<td><%= number_with_delimiter(mark.player.battles) %></td>
 				<td><%= number_to_percentage(mark.player.winratio, precision: 2) %></td>
-				<td style="background-color:<%= winratio_colorcode(mark.player.winratio)%>"><p style="color:<%= winratio_foreground_colorcode(mark.player.winratio)%>"><%= number_to_percentage(mark.player.winratio * 100, precision: 2) %></p></td>
+				<td style="background-color:<%= winratio_colorcode(mark.player.winratio)%>"><p style="color:<%= winratio_foreground_colorcode(mark.player.winratio)%>"><%= winratio_percentage(mark.player.winratio) %></p></td>
 				<td style="background-color:<%= wn8_colorcode(mark.player.wn8) %>"><p style="color:<%= wn8_foreground_colorcode(mark.player.wn8)%>"><%= number_with_delimiter(mark.player.wn8) %></p></td>
 				<td><% if !mark.player.clientLang.blank? %><%= image_tag "clientlang/" + mark.player.clientLang + ".png"%><% end %> <%= mark.player.clientLang %></td>
 				<td><%= mark.player.lastBattle %></td>

@@ -7,7 +7,9 @@ class ClansController < ApplicationController
 	end
 
 	def show
+		#@q = @tank.ransack(params[:q])
 		@clan = Clan.find(params[:id])
+		@players = @clan.players.paginate(:page => params[:page], :per_page => 20)
 		rescue ActiveRecord::RecordNotFound
 			redirect_to clans_path and return
 	end

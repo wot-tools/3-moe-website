@@ -16,6 +16,10 @@ module ApplicationHelper
 		"http://wotlabs.net/eu/clan/" + tag
 	end
 	
+	def winratio_percentage winratio
+		number_to_percentage(winratio * 100, precision: 2)
+	end
+	
 	def wn8_colorcode wn8
 		if (wn8 < 300)
 			return "#930d0d";  # bad

@@ -4,7 +4,8 @@
 <h2><img src="<%= @clan.icon64px%>"> <%= @clan.name %> [<%= @clan.tag %>] - <%= number_with_delimiter(@clan.marks.count) %>x 3 MoE</h2>
 
 Members: <%= @clan.members %><br>
-<%= @clan.tag %>: <%= link_to "WG profile", clan_url_wg(@clan.dbid) %> | <%= link_to "Wotlabs", clan_url_wotlabs(@clan.tag) %>
+<%= @clan.tag %>: <%= link_to "WG profile", clan_url_wg(@clan.id) %> | <%= link_to "Wotlabs", clan_url_wotlabs(@clan.tag) %>
+<%= will_paginate @players %>
 <table class="table">
 	<thead class="table__head">
 		<tr>
@@ -22,22 +23,23 @@ Members: <%= @clan.members %><br>
 		</tr>
 	</thead>
 	<tbody>
-		<% @clan.players.each do |player| %>
+		<% @players.each do |player| %>
 			<tr class="table__row">
 				<td><%= link_to player.name, player_path(player.id) %></td>
 				<td><%= player.marks.count %></td>
 				<td><%= number_with_delimiter(player.battles) %></td>
-				<td style="background-color:<%= winratio_colorcode(player.winratio)%>"><p style="color:<%= winratio_foreground_colorcode(player.winratio)%>"><%= number_to_percentage(player.winratio * 100, precision: 2) %></p></td>
+				<td style="background-color:<%= winratio_colorcode(player.winratio)%>"><p style="color:<%= winratio_foreground_colorcode(player.winratio)%>"><%= winratio_percentage(player.winratio) %></p></td>
 				<td style="background-color:<%= wn8_colorcode(player.wn8) %>"><p style="color:<%= wn8_foreground_colorcode(player.wn8)%>"><%= number_with_delimiter(player.wn8) %></p></td>
 				<td><%= number_with_delimiter(player.wgrating) %></td>
 				<td><% if !player.clientLang.blank? %><%= image_tag "clientlang/" + player.clientLang + ".png"%><% end %> <%= player.clientLang %></td>
 				<td><%= player.lastBattle %></td>
 				<td><%= player.lastLogout %></td>
 				<td><%= player.accountCreated %></td>
-				<td><%= player.updatedAt %></td>
+				<td><%= player.updatedAtWG %></td>
 			</tr>
 		<% end %>
 	</tbody>
 </table>
+<%= will_paginate @players %>
 
 <%= render "shared/footer" %>

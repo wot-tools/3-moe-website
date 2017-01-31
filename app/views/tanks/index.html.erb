@@ -2,16 +2,23 @@
 <%= render "shared/navigationbar" %>
 
 <h1>Tank Overview</h1>
+
+<%= search_form_for @q do |f| %>
+  <%= f.search_field :name_cont %>
+
+  <%= f.submit %>
+<% end %>
+
 <%= will_paginate @tanks %>
 <table class="table">
   <thead class="table__head">
     <tr>
       <th><%= sort_link(@q, :name, "Tank") %></th>
       <th><%= sort_link(@q, :shortname, "Short Name") %></th>
-      <th><%= sort_link(@q, :mark, "3 MoE") %></th>
+      <th><%= sort_link(@q, :marks_count, "3 MoE") %></th>
       <th><%= sort_link(@q, :tier, "Tier") %></th>
-      <th><%= sort_link(@q, :nation, "Nation") %></th>
-      <th>Type</th>
+      <th><%= sort_link(@q, :nation_name, "Nation") %></th>
+	  <th><%= sort_link(@q, :vehicle_type_name, "Type") %></th>
     </tr>
   </thead>
   <tbody>
