@@ -1,7 +1,9 @@
 class ClansController < ApplicationController
 
 	def index
-		@clans = Clan.all
+		#@clans = Clan.all
+		@q = Clan.all.ransack(params[:q])
+		@clans = @q.result.paginate(:page => params[:page], :per_page => 20)
 	end
 
 	def show

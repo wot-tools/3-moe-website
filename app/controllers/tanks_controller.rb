@@ -1,7 +1,7 @@
 class TanksController < ApplicationController
 
 	def index
-		@q = Tank.joins(:marks).ransack(params[:q])
+		@q = Tank.joins(:marks).distinct.ransack(params[:q])
 		@tanks = @q.result.paginate(:page => params[:page], :per_page => 20)
 	end
 	

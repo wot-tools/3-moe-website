@@ -2,22 +2,27 @@
 <%= render "shared/navigationbar" %>
 
 <h1>All 3 Marks of Excellence</h1>
-<table border="1">
-  <tr>
-	<th>Player</th>
-    <th>Clan</th>
-	<th>Tank</th>
-	<th>First detected</th>
-  </tr>
- 
-  <% @marks.each do |mark| %>
-    <tr>
-	  <td><%= link_to mark.player.name, player_path(mark.player.id) %></td>
-      <td><% if mark.player.clan %><img src="<%= mark.player.clan.icon24px%>" style="height:24px;width:24px"> <%= link_to mark.player.clan.tag, clan_path(mark.player.clan.id) %><% end %></td>
-	  <td><img src="<%= mark.tank.smallicon %>" style="height:31px;width:124px"> <%= link_to mark.tank.name, tank_path(mark.tank.id) %></td>
-	  <td><%= mark.created_at %></td>
-    </tr>
-  <% end %>
+<%= will_paginate @marks %>
+<table class="table">
+	<thead class="table__head">
+		<tr>
+			<th>Player</th>
+			<th>Clan</th>
+			<th>Tank</th>
+			<th>First detected</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @marks.each do |mark| %>
+			<tr class="table__row">
+				<td><%= link_to mark.player.name, player_path(mark.player.id) %></td>
+				<td><% if mark.player.clan %><img src="<%= mark.player.clan.icon24px%>" style="height:24px;width:24px"> <%= link_to mark.player.clan.tag, clan_path(mark.player.clan.id) %><% end %></td>
+				<td><img src="<%= mark.tank.smallicon %>" style="height:31px;width:124px"> <%= link_to mark.tank.name, tank_path(mark.tank.id) %></td>
+				<td><%= mark.created_at %></td>
+			</tr>
+		<% end %>
+	</tbody>
 </table>
+<%= will_paginate @marks %>
 
 <%= render "shared/footer" %>

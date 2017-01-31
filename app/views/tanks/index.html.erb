@@ -21,8 +21,8 @@
         <td><%= tank.shortname %></td>
         <td><%= number_with_delimiter(tank.marks.count) %></td>
         <td><%= tank.tier %></td>
-        <td><%= image_tag "nations/" + tank.nation.wgid + ".png" %> <%= tank.nation.name %></td>
-        <td><%= image_tag "vehicletypes/" + tank.vehicle_type.wgid + ".png"%> <%= tank.vehicle_type.name %></td>
+        <td><%= image_tag "nations/" + tank.nation.id + ".png" %> <%= tank.nation.name %></td>
+        <td><%= image_tag "vehicletypes/" + tank.vehicle_type.id + ".png"%> <%= tank.vehicle_type.name %></td>
       </tr>
     <% end %>
   </tbody>
