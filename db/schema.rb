@@ -19,20 +19,20 @@ ActiveRecord::Schema.define(version: 20170122000148) do
     t.datetime "updated_at",               null: false
   end
 
-  create_table "clans", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "clans", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
-    t.integer  "dbid"
     t.string   "tag"
     t.string   "cHex"
     t.integer  "members"
-    t.datetime "updatedAt"
+    t.datetime "updatedAtWG"
+    t.datetime "clanCreated"
     t.string   "icon24px"
     t.string   "icon32px"
     t.string   "icon64px"
     t.string   "icon195px"
     t.string   "icon256px"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "marks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -44,33 +44,30 @@ ActiveRecord::Schema.define(version: 20170122000148) do
     t.index ["tank_id"], name: "index_marks_on_tank_id", using: :btree
   end
 
-  create_table "nations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "wgid"
+  create_table "nations", id: :string, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "players", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "players", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
-    t.integer  "accountdbid"
     t.integer  "battles"
     t.integer  "wgrating"
+    t.float    "winratio",       limit: 24
     t.datetime "lastLogout"
-    t.integer  "winratio"
     t.datetime "lastBattle"
     t.datetime "accountCreated"
-    t.datetime "updatedAt"
+    t.datetime "updatedAtWG"
     t.integer  "wn8"
     t.string   "clientLang"
     t.integer  "clan_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.index ["clan_id"], name: "index_players_on_clan_id", using: :btree
   end
 
-  create_table "tanks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "wgid"
+  create_table "tanks", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.boolean  "ispremium"
     t.string   "name"
     t.string   "shortname"
@@ -78,16 +75,15 @@ ActiveRecord::Schema.define(version: 20170122000148) do
     t.string   "bigicon"
     t.string   "contouricon"
     t.string   "smallicon"
-    t.integer  "nation_id"
-    t.integer  "vehicle_type_id"
+    t.string   "nation_id"
+    t.string   "vehicle_type_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.index ["nation_id"], name: "index_tanks_on_nation_id", using: :btree
     t.index ["vehicle_type_id"], name: "index_tanks_on_vehicle_type_id", using: :btree
   end
 
-  create_table "vehicle_types", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "wgid"
+  create_table "vehicle_types", id: :string, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

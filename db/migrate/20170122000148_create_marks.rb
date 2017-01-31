@@ -1,7 +1,6 @@
 class CreateMarks < ActiveRecord::Migration[5.0]
   def change
     create_table :marks do |t|
-
 	  t.references :tank, index: true, foreign_key: true
 	  t.references :player, index: true, foreign_key: true
 	  

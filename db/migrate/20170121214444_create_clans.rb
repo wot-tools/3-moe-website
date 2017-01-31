@@ -2,11 +2,11 @@ class CreateClans < ActiveRecord::Migration[5.0]
   def change
     create_table :clans do |t|
       t.string :name
-      t.integer :dbid
       t.string :tag
       t.string :cHex
       t.integer :members
-      t.datetime :updatedAt
+      t.datetime :updatedAtWG
+	  t.datetime :clanCreated
       t.string :icon24px
       t.string :icon32px
       t.string :icon64px
@@ -15,5 +15,7 @@ class CreateClans < ActiveRecord::Migration[5.0]
 
       t.timestamps
     end
+	
+	change_column :clans, :id, :integer
   end
 end
