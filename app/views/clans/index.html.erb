@@ -2,7 +2,7 @@
 <%= render "shared/navigationbar" %>
 
 <h1>All clans with 3 MoE</h1>
-<%= will_paginate @clans %>
+<div class="digg_pagination"><%= will_paginate @clans %></div>
 <table class="table">
 	<thead class="table__head">
 		<tr>
@@ -25,6 +25,6 @@
 		<% end %>
 	</tbody>
 </table>
-<%= will_paginate @clans %>
+<div class="digg_pagination"><%= will_paginate @clans %></div>
 
 <%= render "shared/footer" %>

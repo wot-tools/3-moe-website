@@ -9,7 +9,7 @@
   <%= f.submit %>
 <% end %>
 
-<%= will_paginate @tanks %>
+<div class="digg_pagination"><%= will_paginate @tanks %></div>
 <table class="table">
   <thead class="table__head">
     <tr>
@@ -34,6 +34,6 @@
     <% end %>
   </tbody>
 </table>
-<%= will_paginate @tanks %>
+<div class="digg_pagination"><%= will_paginate @tanks %></div>
 
 <%= render "shared/footer" %>

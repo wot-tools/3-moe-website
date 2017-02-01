@@ -2,7 +2,7 @@
 <%= render "shared/navigationbar" %>
 
 <h1>All 3 Marks of Excellence</h1>
-<%= will_paginate @marks %>
+<div class="digg_pagination"><%= will_paginate @marks %></div>
 <table class="table">
 	<thead class="table__head">
 		<tr>
@@ -23,6 +23,6 @@
 		<% end %>
 	</tbody>
 </table>
-<%= will_paginate @marks %>
+<div class="digg_pagination"><%= will_paginate @marks %></div>
 
 <%= render "shared/footer" %>

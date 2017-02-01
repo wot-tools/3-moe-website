@@ -5,7 +5,7 @@
 
 Members: <%= @clan.members %><br>
 <%= @clan.tag %>: <%= link_to "WG profile", clan_url_wg(@clan.id) %> | <%= link_to "Wotlabs", clan_url_wotlabs(@clan.tag) %>
-<%= will_paginate @players %>
+<div class="digg_pagination"><%= will_paginate @players %></div>
 <table class="table">
 	<thead class="table__head">
 		<tr>
@@ -40,6 +40,6 @@ Members: <%= @clan.members %><br>
 		<% end %>
 	</tbody>
 </table>
-<%= will_paginate @players %>
+<div class="digg_pagination"><%= will_paginate @players %></div>
 
 <%= render "shared/footer" %>

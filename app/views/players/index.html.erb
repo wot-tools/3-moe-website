@@ -2,7 +2,7 @@
 <%= render "shared/navigationbar" %>
 
 <h1>Player Overview</h1>
-<%= will_paginate @players %>
+<div class="digg_pagination"><%= will_paginate @players %></div>
 <table class="table">
 	<thead class="table__head">
 		<tr>
@@ -39,6 +39,6 @@
 		<% end %>
   </tbody>
 </table>
-<%= will_paginate @players %>
+<div class="digg_pagination"><%= will_paginate @players %></div>
 
 <%= render "shared/footer" %>

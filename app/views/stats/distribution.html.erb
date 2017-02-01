@@ -1,4 +1,5 @@
 <% content_for :title do %>Distribution<% end %>
+<%= render "shared/navigationbar" %>
 <h1>3 MoE distribution data</h1>
 
 <p>Number of players with X 3 MoE</p>
@@ -33,22 +34,22 @@
   </tr>
     <tr>
 	<th>Total Tanks</th>
-	<td><%= number_with_delimiter(Tank.group("vehicle_type_wgid").count[1]) %></td>
-	<td><%= number_with_delimiter(Tank.group("vehicle_type_wgid").count[2]) %></td>
-	<td><%= number_with_delimiter(Tank.group("vehicle_type_wgid").count[3]) %></td>
-	<td><%= number_with_delimiter(Tank.group("vehicle_type_wgid").count[4]) %></td>
-	<td><%= number_with_delimiter(Tank.group("vehicle_type_wgid").count[5]) %></td>
+	<td><%= number_with_delimiter(Tank.group("vehicle_type_id").count[1]) %></td>
+	<td><%= number_with_delimiter(Tank.group("vehicle_type_id").count[2]) %></td>
+	<td><%= number_with_delimiter(Tank.group("vehicle_type_id").count[3]) %></td>
+	<td><%= number_with_delimiter(Tank.group("vehicle_type_id").count[4]) %></td>
+	<td><%= number_with_delimiter(Tank.group("vehicle_type_id").count[5]) %></td>
 	<% (5..10).each do |tier| %>
 		<td><%= number_with_delimiter(Tank.group(:tier).count[tier])%></td>
 	<% end %>
   </tr>
     <tr>
 	<th>Available Tanks (non prem.)</th>
-	<td><%= number_with_delimiter(Tank.where("ispremium = false").group("vehicle_type_wgid").count[1]) %></td>
-	<td><%= number_with_delimiter(Tank.where("ispremium = false").group("vehicle_type_wgid").count[2]) %></td>
-	<td><%= number_with_delimiter(Tank.where("ispremium = false").group("vehicle_type_wgid").count[3]) %></td>
-	<td><%= number_with_delimiter(Tank.where("ispremium = false").group("vehicle_type_wgid").count[4]) %></td>
-	<td><%= number_with_delimiter(Tank.where("ispremium = false").group("vehicle_type_wgid").count[5]) %></td>
+	<td><%= number_with_delimiter(Tank.where("ispremium = false").group("vehicle_type_id").count[1]) %></td>
+	<td><%= number_with_delimiter(Tank.where("ispremium = false").group("vehicle_type_id").count[2]) %></td>
+	<td><%= number_with_delimiter(Tank.where("ispremium = false").group("vehicle_type_id").count[3]) %></td>
+	<td><%= number_with_delimiter(Tank.where("ispremium = false").group("vehicle_type_id").count[4]) %></td>
+	<td><%= number_with_delimiter(Tank.where("ispremium = false").group("vehicle_type_id").count[5]) %></td>
 	<% (5..10).each do |tier| %>
 		<td><%= number_with_delimiter(Tank.where("ispremium = false").group(:tier).count[tier])%></td>
 	<% end %>
@@ -111,14 +112,14 @@
 	  <td><%= number_with_delimiter(wn8_number) %></td>
 	  <td><%= number_with_delimiter(wn8_number + 100) %></td>
 	  <td><%= number_with_delimiter(Player.where("wn8 >="+ (wn8_number).to_s + " and wn8 <"+ (wn8_number + 100).to_s).count) %></td>
-	  <td><%= number_with_delimiter(Player.select("*").joins("INNER JOIN marks on players.dbid = marks.player_id").where("wn8 >="+ (wn8_number).to_s + " and wn8 <"+ (wn8_number + 100).to_s).count) %></td>
+	  <td><%= number_with_delimiter(Player.select("*").joins("INNER JOIN marks on players.id = marks.player_id").where("wn8 >="+ (wn8_number).to_s + " and wn8 <"+ (wn8_number + 100).to_s).count) %></td>
     </tr>
   <% end %>
   <tr>
 	<td><%= number_with_delimiter(5000)%></td>
 	<td>&#x221e;</td>
 	<td><%= number_with_delimiter(Player.where("wn8 >= 5000").count) %></td>
-	<td><%= number_with_delimiter(Player.select("*").joins("INNER JOIN marks on players.dbid = marks.player_id").where("wn8 >= 5000").count) %></td>
+	<td><%= number_with_delimiter(Player.select("*").joins("INNER JOIN marks on players.id = marks.player_id").where("wn8 >= 5000").count) %></td>
   </tr>
 </table>
 <br>
@@ -135,21 +136,21 @@
 	<td><%= number_to_percentage(0, precision: 0) %></td>
 	<td><%= number_to_percentage(45, precision: 0) %></td>
 	<td><%= number_with_delimiter(Player.where("winratio < 0.45").count) %></td>
-	<td><%= number_with_delimiter(Player.select("*").joins("INNER JOIN marks on players.dbid = marks.player_id").where("winratio < 0.45").count) %></td>
+	<td><%= number_with_delimiter(Player.select("*").joins("INNER JOIN marks on players.id = marks.player_id").where("winratio < 0.45").count) %></td>
   </tr>
   <% (0.45..0.69).step(0.01) do |winratio_number| %>
     <tr>
 	  <td><%= number_to_percentage(winratio_number * 100, precision: 0) %></td>
 	  <td><%= number_to_percentage(winratio_number * 100 + 1, precision: 0) %></td>
 	  <td><%= number_with_delimiter(Player.where("winratio >="+ (winratio_number).to_s + " and winratio <"+ (winratio_number + 0.01).to_s).count) %></td>
-	  <td><%= number_with_delimiter(Player.select("*").joins("INNER JOIN marks on players.dbid = marks.player_id").where("winratio >="+ (winratio_number).to_s + " and winratio <"+ (winratio_number + 0.01).to_s).count) %></td>
+	  <td><%= number_with_delimiter(Player.select("*").joins("INNER JOIN marks on players.id = marks.player_id").where("winratio >="+ (winratio_number).to_s + " and winratio <"+ (winratio_number + 0.01).to_s).count) %></td>
     </tr>
   <% end %>
   <tr>
 	<td><%= number_to_percentage(70, precision: 0)%></td>
 	<td><%= number_to_percentage(100, precision: 0)%></td>
 	<td><%= number_with_delimiter(Player.where("winratio >= 0.7").count) %></td>
-	<td><%= number_with_delimiter(Player.select("*").joins("INNER JOIN marks on players.dbid = marks.player_id").where("winratio >= 0.7").count) %></td>
+	<td><%= number_with_delimiter(Player.select("*").joins("INNER JOIN marks on players.id = marks.player_id").where("winratio >= 0.7").count) %></td>
   </tr>
 </table>
 
@@ -167,3 +168,4 @@
     </tr>
   <% end %>
 </table>
+<%= render "shared/footer" %>
