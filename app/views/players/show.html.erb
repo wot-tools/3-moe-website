@@ -14,8 +14,8 @@
 Last battle: <%= @player.lastBattle %> | Last logout: <%= @player.lastLogout %> | Account created: <%= @player.accountCreated %> | Last update (WG): <%= @player.updatedAtWG %> <br>
 <%= link_to "WG profile", player_url_wg(@player.id) %> | <%= link_to "Wotlabs", player_url_wotlabs(@player.name) %>
 <% if @player.clan %> || <%= @player.clan.tag %>: <%= link_to "WG profile", clan_url_wg(@player.clan.id) %> | <%= link_to "Wotlabs", clan_url_wotlabs(@player.clan.tag) %> <% end %>
-<table class="table">
-	<thead class="table__head">
+<table>
+	<thead>
 		<tr>
 			<th>Tank</th>
 			<th>Tier</th>
@@ -26,7 +26,7 @@ Last battle: <%= @player.lastBattle %> | Last logout: <%= @player.lastLogout %> 
 	</thead>
 	<tbody>
 		<% @player.marks.each do |mark| %>
-			<tr class="table__row">
+			<tr>
 				<td><img src="<%= mark.tank.smallicon %>" style="height:31px;width:124px"> <%= link_to mark.tank.name, tank_path(mark.tank.id) %></td>
 				<td><%= mark.tank.tier %></td>
 				<td><%= image_tag "nations/" + mark.tank.nation.id + ".png" %> <%= mark.tank.nation.name %></td>

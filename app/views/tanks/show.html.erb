@@ -4,8 +4,8 @@
 <h2><img src="<%= @tank.bigicon %>"> <%= @tank.name %> - <%= number_with_delimiter(@tank.marks.count) %>x 3 MoE</h2><br>
 Tier <%= @tank.tier %> | <%= image_tag "vehicletypes/" + @tank.vehicle_type.id + ".png"%> <%= @tank.vehicle_type.name %> | <%= image_tag "nations/" + @tank.nation.id + ".png" %> <%= @tank.nation.name %><br>
 <div class="digg_pagination"><%= will_paginate @marks %></div>
-<table class="table">
-	<thead class="table__head">
+<table>
+	<thead>
 		<tr>
 			<th>Player</th>
 			<th>Clan</th>
@@ -25,7 +25,7 @@ Tier <%= @tank.tier %> | <%= image_tag "vehicletypes/" + @tank.vehicle_type.id +
  
 	<tbody>
 		<% @marks.each do |mark| %>
-			<tr class="table__row">
+			<tr>
 				<td><%= link_to mark.player.name, player_path(mark.player.id) %></td>
 				<td><% if mark.player.clan %><img src="<%= mark.player.clan&.icon32px%>"><%= link_to mark.player.clan.tag, clan_path(mark.player.clan.id)%><% end %></td>
 				<td><%= number_with_delimiter(mark.player.battles) %></td>

@@ -3,8 +3,8 @@
 
 <h1>Player Overview</h1>
 <div class="digg_pagination"><%= will_paginate @players %></div>
-<table class="table">
-	<thead class="table__head">
+<table>
+	<thead>
 		<tr>
 			<th>Player</th>
 			<th>Clan</th>
@@ -22,7 +22,7 @@
 	</thead>
 	<tbody>
 		<% @players.each do |player| %>
-			<tr class="table__row">
+			<tr>
 				<td><%= link_to player.name, player_path(player) %></td>
 				<td><% if player.clan %><img src="<%= player.clan.icon24px%>" style="height:24px;width:24px"> <%= link_to player.clan.tag, clan_path(player.clan.id)%><% end %></td>
 				<td><%= number_with_delimiter(player.marks.count) %></td>

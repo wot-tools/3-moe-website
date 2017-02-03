@@ -6,8 +6,8 @@
 Members: <%= @clan.members %><br>
 <%= @clan.tag %>: <%= link_to "WG profile", clan_url_wg(@clan.id) %> | <%= link_to "Wotlabs", clan_url_wotlabs(@clan.tag) %>
 <div class="digg_pagination"><%= will_paginate @players %></div>
-<table class="table">
-	<thead class="table__head">
+<table>
+	<thead>
 		<tr>
 			<th>Player</th>
 			<th>Marks</th>
@@ -24,7 +24,7 @@ Members: <%= @clan.members %><br>
 	</thead>
 	<tbody>
 		<% @players.each do |player| %>
-			<tr class="table__row">
+			<tr>
 				<td><%= link_to player.name, player_path(player.id) %></td>
 				<td><%= player.marks.count %></td>
 				<td><%= number_with_delimiter(player.battles) %></td>
