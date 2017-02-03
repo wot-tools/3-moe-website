@@ -11,16 +11,20 @@
 			<th>Members</th>
 			<th>3 MoE</th>
 			<th>Updated at (WG)</th>
+			<th>Created at</th>
+			<th>Tracking started</th>
 		</tr>
 	</thead>
 	<tbody>
 		<% @clans.each do |clan| %>
 			<tr class="table__row">
-				<td><img src="<%= clan.icon32px%>" style="height:32px;width:32px"><%= link_to clan.name, clan_path(clan) %></td>
+				<td><img src="<%= clan.icon32px%>" style="height:32px;width:32px"> <%= link_to clan.name, clan_path(clan) %></td>
 				<td><%= clan.tag %></td>
 				<td><%= clan.members %></td>
 				<td><%= number_with_delimiter(clan.marks.count) %></td>
 				<td><%= clan.updatedAtWG %></td>
+				<td><%= clan.clanCreated %></td>
+				<td><%= clan.created_at %></td>
 			</tr>
 		<% end %>
 	</tbody>

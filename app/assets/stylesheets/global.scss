@@ -1,22 +1,35 @@
 * {
-    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   }
 
-
-.table{
-  border-collapse: collapse;
-	&__head{
-		background-color: #aaaaaa;
-	}
-	&__row{
-		&:nth-child(odd){
-			background-color: #777777;
-		}
-		&:nth-child(even){
-			background-color: #AAAAAA;
-		}
-	}
+.table {
+    border-collapse: collapse;
+    width: 100%;
 }
+
+.table td, .table th {
+    border: 1px solid #ddd;
+    padding: 5px;
+}
+
+.table tr:nth-child(even){background-color: #e6e6e6;}
+
+.table tr:hover {background-color: #dfd8f3;}
+
+.table th {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: left;
+    background-color: #865DAD;
+    color: white;
+	font-size: 16px;
+}
+
+.table th a {	
+	text-decoration: none;
+	color: white;
+}
+
 
 .digg_pagination {
   background: white;
