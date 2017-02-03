@@ -2,21 +2,21 @@
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   }
 
-.table {
+table {
     border-collapse: collapse;
     width: 100%;
 }
 
-.table td, .table th {
+table td, table th {
     border: 1px solid #ddd;
     padding: 5px;
 }
 
-.table tr:nth-child(even){background-color: #e6e6e6;}
+table tr:nth-child(even){background-color: #e6e6e6;}
 
-.table tr:hover {background-color: #dfd8f3;}
+table tr:hover {background-color: #dfd8f3;}
 
-.table th {
+table th {
     padding-top: 10px;
     padding-bottom: 10px;
     text-align: left;
@@ -25,12 +25,12 @@
 	font-size: 16px;
 }
 
-.table tr a {	
+table tr a {	
 	text-decoration: none;
 	color: white;
 }
 
-.table td a {
+table td a {
 	text-decoration: none;
 	color: #7524D8;
 }
