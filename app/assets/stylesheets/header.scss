@@ -1,4 +1,44 @@
 .headerNavigationBar {
+    width: 100%;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #AF9DE0;
+	text-transform:uppercase;
+}
+
+.headerButton {
+    float: left;
+    border-right:1px solid #bbb;
+}
+
+.headerButton:last-child {
+    /* border-right: none; */
+}
+
+.headerButton a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+	background: #865DAD;
+	font-family: 'Ubuntu Condensed', sans-serif;
+	font-size: 14px;
+	font-weight: 500;
+    font-style: normal;
+    font-weight: bold;
+    color: #FFFFFF;
+}
+
+.headerButton a:hover, .headerButton a:focus {
+	color: #230033;
+	background: #A775FF;
+}
+
+
+.aheaderNavigationBar {
     background-color: #AF9DE0;
   	overflow: auto;
 	position: relative;
@@ -7,25 +47,17 @@
     display:block;    
 	padding: 9px 18px 10px 3px;
 	color:#808080;
-	text-transform:uppercase;
 }
-.headerLink {
+.aheaderLink {
 	padding: 0.2em 0.3em;
-    background: #865DAD;
+    
 	border: 2px solid #230033;
     margin-left: 0.1em;
     margin-right: 0.1em;
     text-decoration: none;
     text-align: center;
-  	font-family: 'Ubuntu Condensed', sans-serif;
-	font-size: 14px;
-	font-weight: 500;
-	width: 100px;
-    font-style: normal;
-    font-weight: bold;
-    color: #FFFFFF;
+
 }
-.headerLink:hover, .headerLink:focus {
-      color: #230033;
-	  background: #A775FF;
+.aheaderLink:hover, .aheaderLink:focus {
+
       border-color: #230033; }
