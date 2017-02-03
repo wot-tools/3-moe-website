@@ -6,13 +6,13 @@
 <table>
 	<thead>
 		<tr>
-			<th>Clan</th>
-			<th>Tag</th>
-			<th>Members</th>
-			<th>3 MoE</th>
-			<th>Updated at (WG)</th>
-			<th>Created at</th>
-			<th>Tracking started</th>
+			<th><%= sort_link(@q, :name, "Clan") %></th>
+			<th><%= sort_link(@q, :tag, "Tag") %></th>
+			<th><%= sort_link(@q, :members, "Members") %></th>
+			<th><%= sort_link(@q, :marks_count, "3 MoE") %></th>
+			<th><%= sort_link(@q, :updatedAtWG, "Updated at (WG)") %></th>
+			<th><%= sort_link(@q, :clanCreated, "Created at") %></th>
+			<th><%= sort_link(@q, :created_at, "Tracking started") %></th>
 		</tr>
 	</thead>
 	<tbody>

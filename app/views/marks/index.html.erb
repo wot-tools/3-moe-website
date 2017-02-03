@@ -6,10 +6,10 @@
 <table>
 	<thead>
 		<tr>
-			<th>Player</th>
-			<th>Clan</th>
-			<th>Tank</th>
-			<th>First detected</th>
+			<th><%= sort_link(@q, :player_name, "Player") %></th>
+			<th><%= sort_link(@q, :player_clan_tag, "Clan") %></th>
+			<th><%= sort_link(@q, :tank_name, "Tank") %></th>
+			<th><%= sort_link(@q, :created_at, "First detected") %></th>
 		</tr>
 	</thead>
 	<tbody>
