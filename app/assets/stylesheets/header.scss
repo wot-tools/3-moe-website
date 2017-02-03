@@ -1,0 +1,31 @@
+.headerNavigationBar {
+    background-color: #AF9DE0;
+  	overflow: auto;
+	position: relative;
+	width: 100%;
+	float: left;
+    display:block;    
+	padding: 9px 18px 10px 3px;
+	color:#808080;
+	text-transform:uppercase;
+}
+.headerLink {
+	padding: 0.2em 0.3em;
+    background: #865DAD;
+	border: 2px solid #230033;
+    margin-left: 0.1em;
+    margin-right: 0.1em;
+    text-decoration: none;
+    text-align: center;
+  	font-family: 'Ubuntu Condensed', sans-serif;
+	font-size: 14px;
+	font-weight: 500;
+	width: 100px;
+    font-style: normal;
+    font-weight: bold;
+    color: #FFFFFF;
+}
+.headerLink:hover, .headerLink:focus {
+      color: #230033;
+	  background: #A775FF;
+      border-color: #230033; }

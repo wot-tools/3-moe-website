@@ -1,2 +1,5 @@
-<h3><%= link_to "3 MoE Data", root_path %> | <%= link_to "Mark distribution", stats_distribution_path %> | <%= link_to "Marks", marks_path %> | <%= link_to "Tanks", tanks_path %> | <%= link_to "Players", players_path %> | <%= link_to "Clans", clans_path %></h3>
-<hr><br>
+<% content_for :head do %>
+     <link rel="stylesheet" href="/assets/header.scss"> 
+<% end %>
+
+<div class="headerNavigationBar"><%= link_to "3 MoE Data", root_path, :class => "headerLink" %><%= link_to "Mark distribution", stats_distribution_path, :class => "headerLink" %><%= link_to "Marks", marks_path, :class => "headerLink" %><%= link_to "Tanks", tanks_path, :class => "headerLink" %><%= link_to "Players", players_path, :class => "headerLink" %><%= link_to "Clans", clans_path, :class => "headerLink" %></div>
