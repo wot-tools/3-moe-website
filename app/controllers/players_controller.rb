@@ -7,6 +7,8 @@ class PlayersController < ApplicationController
 
 	def show
 		@player = Player.find(params[:id])
+		@marks = @player.marks.paginate(:page => params[:page], :per_page => 20)
+		
 		rescue ActiveRecord::RecordNotFound
 			redirect_to players_path and return
 	end

@@ -8,6 +8,7 @@ class ClansController < ApplicationController
 	def show
 		@clan = Clan.find(params[:id])
 		@players = @clan.players.paginate(:page => params[:page], :per_page => 20)
+		
 		rescue ActiveRecord::RecordNotFound
 			redirect_to clans_path and return
 	end

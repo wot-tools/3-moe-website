@@ -8,6 +8,7 @@ class TanksController < ApplicationController
 	def show
 		@tank = Tank.find(params[:id])
 		@marks = @tank.marks.paginate(:page => params[:page], :per_page => 20)
+		
 		rescue ActiveRecord::RecordNotFound
 			redirect_to tanks_path and return
 	end
