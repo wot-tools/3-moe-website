@@ -14,18 +14,20 @@
 Last battle: <%= @player.lastBattle %> | Last logout: <%= @player.lastLogout %> | Account created: <%= @player.accountCreated %> | Last update (WG): <%= @player.updatedAtWG %> <br>
 <%= link_to "WG profile", player_url_wg(@player.id) %> | <%= link_to "Wotlabs", player_url_wotlabs(@player.name) %>
 <% if @player.clan %> || <%= @player.clan.tag %>: <%= link_to "WG profile", clan_url_wg(@player.clan.id) %> | <%= link_to "Wotlabs", clan_url_wotlabs(@player.clan.tag) %> <% end %>
+
+<div class="digg_pagination"><%= will_paginate @marks %></div>
 <table>
 	<thead>
 		<tr>
-			<th>Tank</th>
-			<th>Tier</th>
-			<th>Nation</th>
-			<th>Type</th>
-			<th>First detected</th>
+			<th><%= sort_link(@q, :tank_name, "Tank") %></th>
+			<th><%= sort_link(@q, :tank_tier, "Tier") %></th>
+			<th><%= sort_link(@q, :tank_nation_name, "Nation") %></th>
+			<th><%= sort_link(@q, :tank_vehicle_type_name, "Type") %></th>
+			<th><%= sort_link(@q, :created_at, "First detected") %></th>
 		</tr>
 	</thead>
 	<tbody>
-		<% @player.marks.each do |mark| %>
+		<% @marks.each do |mark| %>
 			<tr>
 				<td><img src="<%= mark.tank.smallicon %>" style="height:31px;width:124px"> <%= link_to mark.tank.name, tank_path(mark.tank.id) %></td>
 				<td><%= mark.tank.tier %></td>
@@ -36,4 +38,6 @@ Last battle: <%= @player.lastBattle %> | Last logout: <%= @player.lastLogout %> 
 		<% end %>
 	<tbody>
 </table>
+<div class="digg_pagination"><%= will_paginate @marks %></div>
+
 <%= render "shared/footer" %>

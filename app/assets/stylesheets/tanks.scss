@@ -1,3 +1,27 @@
 // Place all the styles related to the Tanks controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.tankInfoBlock {
+	margin: 10px 0px 10px 0px;
+}
+
+.tankImageDiv {
+    float: left;
+    margin: 0px 5px 0px 0px;
+    border: 1px solid #865DAD;
+}
+.tankName {
+	font-size: 26px;
+}
+.moeCount {
+	font-size: 22px;
+    font-weight: bold;
+}
+.imageAlignBottom img{
+	vertical-align: bottom;
+}
+.image3moe {
+	height: 34px;
+    width: 38px;
+}

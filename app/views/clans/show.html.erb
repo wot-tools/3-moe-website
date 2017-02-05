@@ -9,17 +9,17 @@ Members: <%= @clan.members %><br>
 <table>
 	<thead>
 		<tr>
-			<th>Player</th>
-			<th>Marks</th>
-			<th>Battles</th>
-			<th>Win ratio</th>
-			<th>WN8</th>
-			<th>WG Rating</th>
-			<th>Client language</th>
-			<th>Last battle</th>
-			<th>Last logout</th>
-			<th>Account created</th>
-			<th>Updated at (WG)</th>	
+			<th><%= sort_link(@q, :name, "Player") %></th>
+			<th><%= sort_link(@q, :marks_count, "Marks") %></th>
+			<th><%= sort_link(@q, :battles, "Battles") %></th>
+			<th><%= sort_link(@q, :winratio, "Win ratio") %></th>
+			<th><%= sort_link(@q, :wn8, "WN8") %></th>
+			<th><%= sort_link(@q, :wgrating, "WG Rating") %></th>
+			<th><%= sort_link(@q, :clientLang, "Client language") %></th>
+			<th><%= sort_link(@q, :lastBattle, "Last battle") %></th>
+			<th><%= sort_link(@q, :lastLogout, "Last logout") %></th>
+			<th><%= sort_link(@q, :accountCreated, "Account created") %></th>
+			<th><%= sort_link(@q, :updatedAtWG, "Updated at (WG)") %></th>	
 		</tr>
 	</thead>
 	<tbody>

@@ -7,7 +7,9 @@ class TanksController < ApplicationController
 	
 	def show
 		@tank = Tank.find(params[:id])
-		@marks = @tank.marks.paginate(:page => params[:page], :per_page => 20)
+		
+		@q = @tank.marks.ransack(params[:q])
+		@marks = @q.result.distinct.paginate(:page => params[:page], :per_page => 20)
 		
 		rescue ActiveRecord::RecordNotFound
 			redirect_to tanks_path and return

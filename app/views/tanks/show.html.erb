@@ -1,25 +1,34 @@
 <% content_for :title do %><% @tank.name %><% end %>
 <%= render "shared/navigationbar" %>
 
-<h2><img src="<%= @tank.bigicon %>"> <%= @tank.name %> - <%= number_with_delimiter(@tank.marks.count) %>x 3 MoE</h2><br>
-Tier <%= @tank.tier %> | <%= image_tag "vehicletypes/" + @tank.vehicle_type.id + ".png"%> <%= @tank.vehicle_type.name %> | <%= image_tag "nations/" + @tank.nation.id + ".png" %> <%= @tank.nation.name %><br>
+<div class="tankInfoBlock">
+	<div class="tankImageDiv">
+		<img src="<%= @tank.bigicon %>">
+	</div>
+
+	<div class="tankName"><%= @tank.name %></div>
+	<div class="moeCount"><%= image_tag("moe/95x85/" + @tank.nation.id + "_3_marks.png", :class => "image3moe") %> <%= number_with_delimiter(@tank.marks.count) %></div>
+	<%= image_tag "nations/" + @tank.nation.id + ".png" %><%= image_tag "vehicletypes/" + @tank.vehicle_type.id + ".png"%><%= image_tag "tiers/tank_level_" + @tank.tier.to_s + ".png"%>
+	<div><%= @tank.nation.name %>, <%= @tank.vehicle_type.name %>, Tier <%= @tank.tier %></div>
+</div>
+
 <div class="digg_pagination"><%= will_paginate @marks %></div>
 <table>
 	<thead>
 		<tr>
-			<th>Player</th>
-			<th>Clan</th>
-			<th>Battles</th>
-			<th>Win ratio</th>
-			<th>WN8</th>
-			<th>WG Rating</th>
-			<th>Client language</th>
-			<th>Last battle</th>
-			<th>Last logout</th>
-			<th>Account created</th>
-			<th>Last update (WG)</th>
-			<th>Checked last at</th>
-			<th>First checked at</th>
+			<th><%= sort_link(@q, :player_name, "Player") %></th>
+			<th><%= sort_link(@q, :player_clan_tag, "Clan") %></th>
+			<th><%= sort_link(@q, :player_battles, "Battles") %></th>
+			<th><%= sort_link(@q, :player_winratio, "Win ratio") %></th>
+			<th><%= sort_link(@q, :player_wn8, "WN8") %></th>
+			<th><%= sort_link(@q, :player_wgrating, "WG Rating") %></th>
+			<th><%= sort_link(@q, :player_clientLang, "Client language") %></th>
+			<th><%= sort_link(@q, :player_lastBattle, "Last battle") %></th>
+			<th><%= sort_link(@q, :player_lastLogout, "Last logout") %></th>
+			<th><%= sort_link(@q, :player_accountCreated, "Account created") %></th>
+			<th><%= sort_link(@q, :player_updatedAtWG, "Last update (WG)") %></th>
+			<th><%= sort_link(@q, :updated_at, "Checked last at") %></th>
+			<th><%= sort_link(@q, :created_at, "First checked at") %></th>
 		</tr>
 	</thead>
  
