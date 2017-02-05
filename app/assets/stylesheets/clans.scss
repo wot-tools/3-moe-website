@@ -1,3 +1,41 @@
 // Place all the styles related to the Clans controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.clanInfoBlock {
+	margin: 10px 0px 10px 0px;
+}
+
+.clanImageDiv {
+    float: left;
+    margin: 0px 5px 0px 0px;
+    border: 1px solid #865DAD;
+	height: 128px;
+}
+
+.externalClanLinks a{
+	text-decoration: none;
+}
+
+.clanImage {
+	height: 128px;
+	width: 128px;
+}
+
+.clanName {
+	font-size: 26px;
+}
+.clanTag {
+	font-size: 20px;
+}
+.moeCount {
+	font-size: 30px;
+    font-weight: bold;
+}
+.imageAlignBottom img{
+	vertical-align: bottom;
+}
+.image3moe {
+	height: 34px;
+    width: 38px;
+}

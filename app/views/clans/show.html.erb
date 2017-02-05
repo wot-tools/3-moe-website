@@ -1,10 +1,17 @@
 <% content_for :title do %><% @clan.tag %><% end %>
 <%= render "shared/navigationbar" %>
 
-<h2><img src="<%= @clan.icon64px%>"> <%= @clan.name %> [<%= @clan.tag %>] - <%= number_with_delimiter(@clan.marks.count) %>x 3 MoE</h2>
+<div class="clanInfoBlock">
+	<div class="clanImageDiv">
+		<img class="clanImage" src="<%= @clan.icon256px %>">
+	</div>
 
-Members: <%= @clan.members %><br>
-<%= @clan.tag %>: <%= link_to "WG profile", clan_url_wg(@clan.id) %> | <%= link_to "Wotlabs", clan_url_wotlabs(@clan.tag) %>
+	<div class="clanName"><%= @clan.name %></div>
+	<div class="clanTag"><%= @clan.tag %></div>
+	<div class="moeCount"><%= image_tag("moe/95x85/china_3_marks.png", :class => "image3moe") %> <%= number_with_delimiter(@clan.marks.count) %></div>
+	<div><%= @clan.members %> Members</div>
+	<div class="externalClanLinks"><%= image_tag "http://eu.wargaming.net/favicon.ico" %> <%= link_to "WG profile", clan_url_wg(@clan.id) %> | <%= image_tag "http://wotlabs.net/images/favicon.png" %> <%= link_to "Wotlabs", clan_url_wotlabs(@clan.tag) %></div>
+</div>
 <div class="digg_pagination"><%= will_paginate @players %></div>
 <table>
 	<thead>
