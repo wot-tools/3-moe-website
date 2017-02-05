@@ -5,59 +5,30 @@
     padding: 0;
     overflow: hidden;
     background-color: #AF9DE0;
-	text-transform:uppercase;
+	text-transform: uppercase;
 }
 
 .headerButton {
     float: left;
-    border-right:1px solid #bbb;
+    border-right: 1px solid #bbb;
+
+	a {
+		display: block;
+		color: white;
+		text-align: center;
+		padding: 10px 10px;
+		text-decoration: none;
+		background: #865DAD;
+		font-family: 'Ubuntu Condensed', sans-serif;
+		font-size: 14px;
+		font-weight: 500;
+		font-style: normal;
+		font-weight: bold;
+		color: #FFFFFF;
+		
+		&:hover, &:focus {
+			color: #230033;
+			background: #A775FF;
+		}
+	}
 }
-
-.headerButton:last-child {
-    /* border-right: none; */
-}
-
-.headerButton a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 10px 10px;
-    text-decoration: none;
-	background: #865DAD;
-	font-family: 'Ubuntu Condensed', sans-serif;
-	font-size: 14px;
-	font-weight: 500;
-    font-style: normal;
-    font-weight: bold;
-    color: #FFFFFF;
-}
-
-.headerButton a:hover, .headerButton a:focus {
-	color: #230033;
-	background: #A775FF;
-}
-
-
-.aheaderNavigationBar {
-    background-color: #AF9DE0;
-  	overflow: auto;
-	position: relative;
-	width: 100%;
-	float: left;
-    display:block;    
-	padding: 9px 18px 10px 3px;
-	color:#808080;
-}
-.aheaderLink {
-	padding: 0.2em 0.3em;
-    
-	border: 2px solid #230033;
-    margin-left: 0.1em;
-    margin-right: 0.1em;
-    text-decoration: none;
-    text-align: center;
-
-}
-.aheaderLink:hover, .aheaderLink:focus {
-
-      border-color: #230033; }
