@@ -29,10 +29,10 @@ Last battle: <%= @player.lastBattle %> | Last logout: <%= @player.lastLogout %> 
 	<tbody>
 		<% @marks.each do |mark| %>
 			<tr>
-				<td><img src="<%= mark.tank.smallicon %>" style="height:31px;width:124px"> <%= link_to mark.tank.name, tank_path(mark.tank.id) %></td>
+				<td><img class="smallTankIcon" src="<%= mark.tank.smallicon %>"> <%= link_to mark.tank.name, tank_path(mark.tank.id) %></td>
 				<td><%= mark.tank.tier %></td>
-				<td><%= image_tag "nations/" + mark.tank.nation.id + ".png" %> <%= mark.tank.nation.name %></td>
-				<td><%= image_tag "vehicletypes/" + mark.tank.vehicle_type.id + ".png"%> <%= mark.tank.vehicle_type.name %></td>
+				<td><%= image_tag("nations/" + mark.tank.nation.id + ".png", :class => "smallNationIcon") %> <%= mark.tank.nation.name %></td>
+				<td><%= image_tag("vehicletypes/" + mark.tank.vehicle_type.id + ".png", :class => "smallVehicleTypeIcon") %> <%= mark.tank.vehicle_type.name %></td>
 				<td><%= mark.created_at %></td>
 			</tr>
 		<% end %>

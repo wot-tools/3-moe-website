@@ -17,7 +17,7 @@
 			<tr>
 				<td><%= link_to mark.player.name, player_path(mark.player.id) %></td>
 				<td><% if mark.player.clan %><img src="<%= mark.player.clan.icon24px%>" style="height:24px;width:24px"> <%= link_to mark.player.clan.tag, clan_path(mark.player.clan.id) %><% end %></td>
-				<td><img src="<%= mark.tank.smallicon %>" style="height:31px;width:124px"> <%= link_to mark.tank.name, tank_path(mark.tank.id) %></td>
+				<td><img class="smallTankIcon" src="<%= mark.tank.smallicon %>"> <%= link_to mark.tank.name, tank_path(mark.tank.id) %></td>
 				<td><%= mark.created_at %></td>
 			</tr>
 		<% end %>
