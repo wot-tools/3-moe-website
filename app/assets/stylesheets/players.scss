@@ -1,3 +1,99 @@
 // Place all the styles related to the Players controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.valueBoxes {
+	margin-top: 5px;
+	margin-bottom: 5px;
+	clear: left;
+}
+
+.valueBox {
+    font-weight: bold;
+    padding: 10px 0;
+    text-align: center;
+    border: 2px solid #865DAD;
+    box-sizing: border-box;
+  	width: 10%;
+    float: left;
+    margin-right: 5px;
+}
+
+.statValueBox {
+	@extend .valueBox;
+	font-size: 10px;
+	min-width: 100px;
+	
+	div {
+		font-size: 25px;
+	}
+}
+
+.dateValueBox {
+	@extend .valueBox;
+	font-size: 10px;
+	padding: 5px 0;
+	border: 1px solid #865DAD;
+	width: 15%;
+	min-width: 120px;
+	
+	div {
+		font-size: 13px;
+	}
+}
+
+.playerInfoDiv {
+	float: left;
+	padding: 5px;
+	border: 2px solid #865DAD;
+	margin-right: 5px;
+}
+
+.playerInfoBlock {
+	margin: 10px 0px 10px 0px;
+}
+
+.playerImageDiv {
+    float: left;
+    margin: 0px 5px 0px 0px;
+    border: 2px solid #865DAD;
+	height: 128px;
+}
+
+.clanInfoDiv {
+	border: 2px solid #865DAD;
+	padding: 5px;
+	float: left;
+	
+	.clanIcon img {
+		height: 32px;
+		width: 32px;
+	}
+	
+	a {
+		text-decoration: none;
+	}
+	
+	span {
+		font-size: 20px;
+	}
+}
+
+.playerName {
+	font-size: 26px;
+}
+
+.moeCount {
+	font-size: 30px;
+    font-weight: bold;
+}
+
+.image3moe {
+	height: 34px;
+    width: 38px;
+}

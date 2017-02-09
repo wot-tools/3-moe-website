@@ -1,20 +1,35 @@
 <% content_for :title do %><% @player.name %><% end %>
 <%= render "shared/navigationbar" %>
 
-<h2><% if @player.clan %><img src="<%= @player.clan&.icon32px%>"><% end %> <%= @player.name %><% if @player.clan %>[<%= link_to @player.clan.tag, clan_path(@player.clan.id)%>]<% end %> - <%= @player.marks.count %>x 3 MoE</h2>
+<div class="playerInfoBlock">
+	<div class="clearfix">
+		<div class="playerInfoDiv">
+			<div class="playerName"><%= @player.name %> <% if !@player.clientLang.blank? %><%= image_tag "clientlang/" + @player.clientLang + ".png"%><% end %></div>
+			<div class="moeCount"><%= @player.marks.count %></div>
+			<div><%= link_to "WG profile", player_url_wg(@player.id) %> | <%= link_to "Wotlabs", player_url_wotlabs(@player.name) %></div>
+		</div>
 
-<%= number_with_delimiter(@player.battles) %> Battles
- | <span style="color:<%= winratio_foreground_colorcode(@player.winratio) %>;background:<%= winratio_colorcode(@player.winratio)%>"><%= winratio_percentage(@player.winratio) %></span> Winratio
- | <span style="color:<%= wn8_foreground_colorcode(@player.wn8) %>;background:<%= wn8_colorcode(@player.wn8) %>"><%= number_with_delimiter(@player.wn8) %></span> WN8
- | <%= number_with_delimiter(@player.wgrating) %> WG Rating
- | <% if !@player.clientLang.blank? %><%= image_tag "clientlang/" + @player.clientLang + ".png"%><% end %> <%= @player.clientLang %>
- 
-<br>
-
-Last battle: <%= @player.lastBattle %> | Last logout: <%= @player.lastLogout %> | Account created: <%= @player.accountCreated %> | Last update (WG): <%= @player.updatedAtWG %> <br>
-<%= link_to "WG profile", player_url_wg(@player.id) %> | <%= link_to "Wotlabs", player_url_wotlabs(@player.name) %>
-<% if @player.clan %> || <%= @player.clan.tag %>: <%= link_to "WG profile", clan_url_wg(@player.clan.id) %> | <%= link_to "Wotlabs", clan_url_wotlabs(@player.clan.tag) %> <% end %>
-
+		<% if @player.clan %>
+		<div class="clanInfoDiv">
+			<img class="clanIcon" src="<%= @player.clan&.icon32px%>"><span class="clanTag"> <%= link_to @player.clan.tag, clan_path(@player.clan.id)%></span>
+			<div><%= image_tag "http://eu.wargaming.net/favicon.ico" %> <%= link_to "WG profile", clan_url_wg(@player.clan.id) %> | <%= image_tag "http://wotlabs.net/images/favicon.png" %> <%= link_to "Wotlabs", clan_url_wotlabs(@player.clan.tag) %></div>
+		</div>
+		<% end %>
+	</div>
+	<div class="valueBoxes clearfix">
+		<div class="statValueBox"><div><%= number_with_delimiter(@player.wn8) %></div>WN 8</div>
+		<div class="statValueBox"><div><%= winratio_percentage(@player.winratio) %></div>Winratio</div>
+		<div class="statValueBox"><div><%= number_with_delimiter(@player.battles) %></div>Battles</div>
+		<div class="statValueBox"><div><%= number_with_delimiter(@player.wgrating) %></div>WG Rating</div>
+		<div class="statValueBox"><div>420</div>MoE Rating</div>
+	</div>
+	<div class="valueBoxes clearfix">
+		<div class="dateValueBox"><div><%= @player.lastBattle %></div>Last Battle</div>
+		<div class="dateValueBox"><div><%= @player.lastLogout %></div>Last Logout</div>
+		<div class="dateValueBox"><div><%= @player.accountCreated %></div>Account created</div>
+		<div class="dateValueBox"><div><%= @player.updatedAtWG %></div>Last update (WG)</div>
+	</div>
+</div>
 <div class="digg_pagination"><%= will_paginate @marks %></div>
 <table>
 	<thead>
