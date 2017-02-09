@@ -1,8 +1,15 @@
 <% content_for :title do %><% @nation.name %><% end %>
 <%= render "shared/navigationbar" %>
 
-<h1><%= image_tag "nations/" + @nation.id + ".png" %> <%= @nation.name %></h1>
+<div class="nationInfoBlock">
+	<div class="MoEImageDiv">
+		<%= image_tag("moe/95x85/" +@nation.id + "_3_marks.png", :class => "largeImageMoE") %>
+	</div>
 
+	<div class="nationName"><%= @nation.name %> <%= image_tag("nations/" + @nation.id + ".png", :class => "nationImage") %></div>
+	<div class="moeCount"><%= number_with_delimiter(@nation.marks.count) %></div>
+	<div class="tankCount"><%= number_with_delimiter(@nation.tanks.count) %> Tanks</div>
+</div>
 
 <%= render partial: "shared/tank_list", locals: {tanks: @tanks} %>
 

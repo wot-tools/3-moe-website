@@ -1,3 +1,38 @@
 // Place all the styles related to the Nations controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.tankCount {
+	font-size: 18px;
+}
+
+.nationInfoBlock {
+	margin: 10px 0px 10px 0px;
+	height: 85px;
+}
+
+.MoEImageDiv {
+	float: left;
+	margin: 0px 5px 0px 0px;
+	border: 1px solid #865DAD;
+	height: 85px;
+} 
+
+.largeImageMoE { 
+	height: 85px;
+	width: 95px;
+}
+
+.nationName {
+	font-size: 26px;
+}
+
+.nationMoECount {
+	font-size: 30px;
+	font-weight: bold;
+}
+
+.nationImage {
+	height: 16px;
+	width: 26px;
+} 
