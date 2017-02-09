@@ -7,7 +7,9 @@ class NationsController < ApplicationController
 	
 	def show
 		@nation = Nation.find(params[:id])
-		@tanks = @nation.tanks.paginate(:page => params[:page], :per_page => 20)
+		
+		@q = @nation.tanks.ransack(params[:q])
+		@tanks = @q.result.paginate(:page => params[:page], :per_page => 20)
 		
 		rescue ActiveRecord::RecordNotFound
 			redirect_to nations_path and return

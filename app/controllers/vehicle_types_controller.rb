@@ -7,7 +7,9 @@ class VehicleTypesController < ApplicationController
 	
 	def show
 		@vehicle_type = VehicleType.find(params[:id])
-		@tanks = @vehicle_type.tanks.paginate(:page => params[:page], :per_page => 20)
+		
+		@q = @vehicle_type.tanks.ransack(params[:q])
+		@tanks = @q.result.paginate(:page => params[:page], :per_page => 20)
 		
 		rescue ActiveRecord::RecordNotFound
 			redirect_to vehicle_types_path and return
