@@ -2,9 +2,9 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .clearfix::after {
-    content: "";
-    clear: both;
-    display: table;
+	content: "";
+	clear: both;
+	display: table;
 }
 
 .valueBoxes {
@@ -14,14 +14,14 @@
 }
 
 .valueBox {
-    font-weight: bold;
-    padding: 10px 0;
-    text-align: center;
-    border: 2px solid #865DAD;
-    box-sizing: border-box;
-  	width: 10%;
-    float: left;
-    margin-right: 5px;
+	font-weight: bold;
+	padding: 10px 0;
+	text-align: center;
+	border: 2px solid #865DAD;
+	box-sizing: border-box;
+	width: 10%;
+	float: left;
+	margin-right: 5px;
 }
 
 .statValueBox {
@@ -59,9 +59,9 @@
 }
 
 .playerImageDiv {
-    float: left;
-    margin: 0px 5px 0px 0px;
-    border: 2px solid #865DAD;
+	float: left;
+	margin: 0px 5px 0px 0px;
+	border: 2px solid #865DAD;
 	height: 128px;
 }
 
@@ -90,10 +90,10 @@
 
 .moeCount {
 	font-size: 30px;
-    font-weight: bold;
+	font-weight: bold;
 }
 
 .image3moe {
 	height: 34px;
-    width: 38px;
+	width: 38px;
 }

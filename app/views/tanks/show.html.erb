@@ -38,8 +38,8 @@
 				<td><%= link_to mark.player.name, player_path(mark.player.id) %></td>
 				<td><% if mark.player.clan %><img src="<%= mark.player.clan&.icon32px%>"> <%= link_to mark.player.clan.tag, clan_path(mark.player.clan.id)%><% end %></td>
 				<td><%= number_with_delimiter(mark.player.battles) %></td>
-				<td style="background-color:<%= winratio_colorcode(mark.player.winratio)%>"><p style="color:<%= winratio_foreground_colorcode(mark.player.winratio)%>"><%= winratio_percentage(mark.player.winratio) %></p></td>
-				<td style="background-color:<%= wn8_colorcode(mark.player.wn8) %>"><p style="color:<%= wn8_foreground_colorcode(mark.player.wn8)%>"><%= number_with_delimiter(mark.player.wn8) %></p></td>
+				<td class="<%= css_class_by_winrate(mark.player.winratio)%>"><%= winratio_percentage(mark.player.winratio) %></td>
+				<td class="<%= css_class_by_wn8(mark.player.wn8) %>"><%= number_with_delimiter(mark.player.wn8) %></td>
 				<td><%= number_with_delimiter(mark.player.wgrating) %>
 				<td><% if !mark.player.clientLang.blank? %><%= image_tag "clientlang/" + mark.player.clientLang + ".png"%><% end %> <%= mark.player.clientLang %></td>
 				<td><%= mark.player.lastBattle %></td>

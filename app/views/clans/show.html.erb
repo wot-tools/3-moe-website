@@ -35,8 +35,8 @@
 				<td><%= link_to player.name, player_path(player.id) %></td>
 				<td><%= player.marks.count %></td>
 				<td><%= number_with_delimiter(player.battles) %></td>
-				<td style="background-color:<%= winratio_colorcode(player.winratio)%>"><p style="color:<%= winratio_foreground_colorcode(player.winratio)%>"><%= winratio_percentage(player.winratio) %></p></td>
-				<td style="background-color:<%= wn8_colorcode(player.wn8) %>"><p style="color:<%= wn8_foreground_colorcode(player.wn8)%>"><%= number_with_delimiter(player.wn8) %></p></td>
+				<td class="<%= css_class_by_winrate(player.winratio)%>"><%= winratio_percentage(player.winratio) %></td>
+				<td class="<%= css_class_by_wn8(player.wn8) %>"><%= number_with_delimiter(player.wn8) %></td>
 				<td><%= number_with_delimiter(player.wgrating) %></td>
 				<td><% if !player.clientLang.blank? %><%= image_tag "clientlang/" + player.clientLang + ".png"%><% end %> <%= player.clientLang %></td>
 				<td><%= player.lastBattle %></td>

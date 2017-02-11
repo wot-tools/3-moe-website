@@ -20,67 +20,52 @@ module ApplicationHelper
 		number_to_percentage(winratio * 100, precision: 2)
 	end
 	
-	def wn8_colorcode wn8
+	def css_class_by_wn8 wn8
 		if (wn8 < 300)
-			return "#930d0d";  # bad
+			return "dred";  # bad
 		elsif (wn8 < 450)
-			return "#f11919";   # bad
+			return "red";   # bad
 		elsif (wn8 < 650)
-			return "#ff8a00";   # below average
+			return "orange";   # below average
 		elsif (wn8 < 900)
-			return "#e6df27";   # average
+			return "yellow";   # average
 		elsif (wn8 < 1200)
-			return "#77e812";   # above average
+			return "green";   # above average
 		elsif (wn8 < 1600)
-			return "#459300";    # good
+			return "dgreen";    # good
 		elsif (wn8 < 2000)
-			return "#2ae4ff";    # very good
+			return "blue";    # very good
 		elsif (wn8 < 2450)
-			return "#00a0b8";    # great
+			return "dblue";    # great
 		elsif (wn8 < 2900)
-			return "#c64cff";    # unicum
+			return "purple";    # unicum
 		else
-			return "#8225ad";    # super_unicum
+			return "dpurple";    # super_unicum
 		end
 	end
 	
-	def wn8_foreground_colorcode wn8
-		if (wn8 >= 1600 && wn8 < 2000) || (wn8 >= 650 || wn8 < 1200)
-			return "#FFFFFF"
-		else
-			return "#000000"
-		end
-	end
-	
-	def winratio_colorcode winrate
+	def css_class_by_winrate winrate
 		if (winrate < 0.46)
-			return "#930d0d";  # bad
+			return "dred";  # bad
 		elsif (winrate < 0.47)
-			return "#f11919";   # bad
+			return "red";   # bad
 		elsif (winrate < 0.48)
-			return "#ff8a00";   # below average
+			return "#orange";   # below average
 		elsif (winrate < 0.50)
-			return "#e6df27";   # average
+			return "yellow";   # average
 		elsif (winrate < 0.52)
-			return "#77e812";   # above average
+			return "green";   # above average
 		elsif (winrate < 0.54)
-			return "#459300";    # good
+			return "dgreen";    # good
 		elsif (winrate < 0.56)
-			return "#2ae4ff";    # very good
+			return "blue";    # very good
 		elsif (winrate < 0.60)
-			return "#00a0b8";    # great
+			return "dblue";    # great
 		elsif (winrate < 0.65)
-			return "#c64cff";    # unicum
+			return "purple";    # unicum
 		else
-			return "#8225ad";    # super_unicum
+			return "dpurple";    # super_unicum
 		end
 	end
 
-	def winratio_foreground_colorcode winrate
-		if (winrate >= 0.54 && winrate < 0.56) || (winrate >= 0.48 || winrate < 0.52)
-			return "#FFFFFF"
-		else
-			return "#000000"
-		end
-	end
 end
