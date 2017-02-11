@@ -34,6 +34,10 @@
 	}
 }
 
+.darkBorder {
+	border: 2px solid #000;
+}
+
 .dateValueBox {
 	@extend .valueBox;
 	font-size: 10px;
@@ -41,6 +45,7 @@
 	border: 1px solid #865DAD;
 	width: 15%;
 	min-width: 120px;
+	margin-right: 2px;
 	
 	div {
 		font-size: 13px;
