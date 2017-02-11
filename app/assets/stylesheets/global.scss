@@ -99,7 +99,7 @@ $link-color: #7524D8;
 .smallNationIcon {
 	
 }
-  
+
 table {
     border-collapse: collapse;
     width: 100%;
@@ -110,8 +110,16 @@ table {
 	}
 	
 	td {
+		span {
+			vertical-align: middle;
+		}
+		img {
+			vertical-align: middle
+		}
+
 		a {
 			text-decoration: none;
+			vertical-align: middle;
 			color: $link-color;
 		}
 	}
@@ -159,14 +167,15 @@ table {
 	}
 	
 	a {
-    text-decoration: none;
-    color: #4C10B5;
-    border: 1px solid #AF9DE0;
-	
-    &:hover, &:focus {
-		color: $primary-highlight-backgroundcolor;
-		background: $primary-highlight-color;
-		border-color: $primary-highlight-backgroundcolor; }
+		text-decoration: none;
+		color: #4C10B5;
+		border: 1px solid #AF9DE0;
+		
+		&:hover, &:focus {
+			color: $primary-highlight-backgroundcolor;
+			background: $primary-highlight-color;
+			border-color: $primary-highlight-backgroundcolor;
+		}
 	}
 	
 	.page_info {

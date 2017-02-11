@@ -18,7 +18,7 @@
 	<tbody>
 		<% @clans.each do |clan| %>
 			<tr>
-				<td><img src="<%= clan.icon32px%>" style="height:32px;width:32px"> <%= link_to clan.name, clan_path(clan) %></td>
+				<td><div class="clanName32px"><img src="<%= clan.icon32px%>"> <%= link_to clan.name, clan_path(clan) %></div></td>
 				<td><%= clan.tag %></td>
 				<td><%= clan.members %></td>
 				<td><%= number_with_delimiter(clan.marks.count) %></td>
