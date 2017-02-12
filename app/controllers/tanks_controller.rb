@@ -1,8 +1,20 @@
 class TanksController < ApplicationController
 
 	def index
-		@q = Tank.distinct.ransack(params[:q])
+		@q = Tank.ransack(params[:q])
 		@tanks = @q.result.includes(:marks).paginate(:page => params[:page], :per_page => 20)
+	end
+	
+	def index_winrate
+		@q = Tank.ransack(params[:q])
+		@tanks = @q.result.includes(:marks).paginate(:page => params[:page], :per_page => 20)
+		@tanks_calculation = @q.result.joins("INNER JOIN marks ON tanks.id=marks.tank_id").joins("INNER JOIN players ON marks.player_id=players.id");
+	end
+	
+	def index_wn8
+		@q = Tank.ransack(params[:q])
+		@tanks = @q.result.includes(:marks).paginate(:page => params[:page], :per_page => 20)
+		@tanks_calculation = @q.result.joins("INNER JOIN marks ON tanks.id=marks.tank_id").joins("INNER JOIN players ON marks.player_id=players.id");
 	end
 	
 	def show
@@ -14,4 +26,7 @@ class TanksController < ApplicationController
 		rescue ActiveRecord::RecordNotFound
 			redirect_to tanks_path and return
 	end
+
 end
+
+#SELECT tanks.id, players.wn8 FROM tanks INNER JOIN marks ON tank.id = marks.tank_id INNER JOIN players ON players.id = mark.player_id

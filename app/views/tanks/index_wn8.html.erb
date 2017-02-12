@@ -1,0 +1,80 @@
+<% content_for :title do %>Tanks WN8 Data<% end %>
+<%= render "shared/navigationbar" %>
+
+<div class="headline">Tank Overview - WN8</div>
+<%= render "link_bar" %>
+<div>
+	<%= search_form_for @q do |f| %>
+	  <%= f.search_field :name_or_shortname_cont %>
+	  <%= f.submit %>
+	<% end %>
+
+	<div class="digg_pagination"><%= will_paginate @tanks %></div>
+	<table>
+	  <thead>
+		<tr>
+		  <th><%= sort_link(@q, :name, "Tank") %></th>
+		  <th><%= sort_link(@q, :shortname, "Short Name") %></th>
+		  <th><%= sort_link(@q, :marks_count, "3 MoE") %></th>
+		  <th><%= sort_link(@q, :tier, "Tier") %></th>
+		  <th><%= sort_link(@q, :nation_name, "Nation") %></th>
+		  <th><%= sort_link(@q, :vehicle_type_name, "Type") %></th>
+		  <th class="dred">0-299</th>
+		  <th class="red">300-449</th>
+		  <th class="orange">450-649</th>
+		  <th class="yellow">650-899</th>
+		  <th class="green">900-1199</th>
+		  <th class="dgreen">1200-1599</th>
+		  <th class="blue">1600-1999</th>
+		  <th class="dblue">2000-2349</th>
+		  <th class="purple">2450-2899</th>
+		  <th class="dpurple">&ge; 2900</th>
+		  <th class="dred">&le;299</th>
+		  <th class="red">&le;449</th>
+		  <th class="orange">&le;649</th>
+		  <th class="yellow">&le;899</th>
+		  <th class="green">&le;1199</th>
+		  <th class="dgreen">&le;1599</th>
+		  <th class="blue">&le;1999</th>
+		  <th class="dblue">&le;2349</th>
+		  <th class="purple">&le;2899</th>
+		  <th class="dpurple">Total</th>
+		</tr>
+	  </thead>
+	  <tbody>
+		<% @tanks.each do |tank| %>
+		  <tr>
+			<td><img src="<%= tank.smallicon %>"> <%= link_to tank.name, tank_path(tank)%></td>
+			<td><%= tank.shortname %></td>
+			<td><%= number_with_delimiter(tank.marks.count) %></td>
+			<td><%= tank.tier %></td>
+			<td><%= image_tag "nations/" + tank.nation.id + ".png" %> <%= link_to tank.nation.name, nation_path(tank.nation.id) %></td>
+			<td><%= image_tag("vehicletypes/" + tank.vehicle_type.id + ".png", :class => "smallVehicleTypeIcon") %> <%= link_to tank.vehicle_type.name, vehicle_type_path(tank.vehicle_type.id) %></td>
+			<td><%= number_with_delimiter(@tanks_calculation.where("tanks.id = " + tank.id.to_s + " AND players.wn8 <= 299").count)%>
+			<td><%= number_with_delimiter(@tanks_calculation.where("tanks.id = " + tank.id.to_s + " AND players.wn8 >= 300 AND players.wn8 < 450").count)%>
+			<td><%= number_with_delimiter(@tanks_calculation.where("tanks.id = " + tank.id.to_s + " AND players.wn8 >= 450 AND players.wn8 < 650").count)%>
+			<td><%= number_with_delimiter(@tanks_calculation.where("tanks.id = " + tank.id.to_s + " AND players.wn8 >= 650 AND players.wn8 < 900").count)%>
+			<td><%= number_with_delimiter(@tanks_calculation.where("tanks.id = " + tank.id.to_s + " AND players.wn8 >= 900 AND players.wn8 < 1200").count)%>
+			<td><%= number_with_delimiter(@tanks_calculation.where("tanks.id = " + tank.id.to_s + " AND players.wn8 >= 1200 AND players.wn8 < 1600").count)%>
+			<td><%= number_with_delimiter(@tanks_calculation.where("tanks.id = " + tank.id.to_s + " AND players.wn8 >= 1600 AND players.wn8 < 2000").count)%>
+			<td><%= number_with_delimiter(@tanks_calculation.where("tanks.id = " + tank.id.to_s + " AND players.wn8 >= 2000 AND players.wn8 < 2450").count)%>
+			<td><%= number_with_delimiter(@tanks_calculation.where("tanks.id = " + tank.id.to_s + " AND players.wn8 >= 2450 AND players.wn8 < 2900").count)%>
+			<td><%= number_with_delimiter(@tanks_calculation.where("tanks.id = " + tank.id.to_s + " AND players.wn8 >= 2900").count)%>
+			<td><%= number_with_delimiter(@tanks_calculation.where("tanks.id = " + tank.id.to_s + " AND players.wn8 <= 299").count)%>
+			<td><%= number_with_delimiter(@tanks_calculation.where("tanks.id = " + tank.id.to_s + " AND players.wn8 <= 449").count)%>
+			<td><%= number_with_delimiter(@tanks_calculation.where("tanks.id = " + tank.id.to_s + " AND players.wn8 <= 649").count)%>
+			<td><%= number_with_delimiter(@tanks_calculation.where("tanks.id = " + tank.id.to_s + " AND players.wn8 <= 899").count)%>
+			<td><%= number_with_delimiter(@tanks_calculation.where("tanks.id = " + tank.id.to_s + " AND players.wn8 <= 1199").count)%>
+			<td><%= number_with_delimiter(@tanks_calculation.where("tanks.id = " + tank.id.to_s + " AND players.wn8 <= 1599").count)%>
+			<td><%= number_with_delimiter(@tanks_calculation.where("tanks.id = " + tank.id.to_s + " AND players.wn8 <= 1999").count)%>
+			<td><%= number_with_delimiter(@tanks_calculation.where("tanks.id = " + tank.id.to_s + " AND players.wn8 <= 2349").count)%>
+			<td><%= number_with_delimiter(@tanks_calculation.where("tanks.id = " + tank.id.to_s + " AND players.wn8 <= 2899").count)%>
+			<td><%= number_with_delimiter(tank.marks.count)%>
+		  </tr>
+		<% end %>
+	  </tbody>
+	</table>
+	<div class="digg_pagination"><%= will_paginate @tanks %></div>
+</div>
+
+<%= render "shared/footer" %>

@@ -1,7 +1,8 @@
 <% content_for :title do %>Tanks<% end %>
 <%= render "shared/navigationbar" %>
 
-<h1>Tank Overview</h1>
+<div class="headline">Tank Overview</div>
+<%= render "link_bar" %>
 
 <%= render partial: "shared/tank_list", locals: {tanks: @tanks} %>
 

@@ -85,6 +85,12 @@ $link-color: #7524D8;
 	}
 }
 
+.headline {
+	font-size: 30px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
 
 .smallTankIcon {
 	height: 31px;
@@ -100,9 +106,15 @@ $link-color: #7524D8;
 	
 }
 
+a {
+	text-decoration: none;
+	color: $link_color;
+}
+
 table {
     border-collapse: collapse;
     width: 100%;
+	overflow-x: auto;
 	
 	td, th {
 		border: 1px solid #ddd;
