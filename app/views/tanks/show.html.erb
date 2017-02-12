@@ -9,7 +9,7 @@
 	<div class="tankName"><%= @tank.name %></div>
 	<div class="moeCount"><%= image_tag("moe/95x85/" + @tank.nation.id + "_3_marks.png", :class => "image3moe") %> <%= number_with_delimiter(@tank.marks.count) %></div>
 	<%= image_tag "nations/" + @tank.nation.id + ".png" %><%= image_tag "vehicletypes/" + @tank.vehicle_type.id + ".png"%><%= image_tag "tiers/tank_level_" + @tank.tier.to_s + ".png"%>
-	<div><%= @tank.nation.name %>, <%= @tank.vehicle_type.name %>, Tier <%= @tank.tier %></div>
+	<div><%= link_to @tank.nation.name, nation_path(@tank.nation.id) %>, <%= link_to @tank.vehicle_type.name, vehicle_type_path(@tank.vehicle_type.id) %>, Tier <%= @tank.tier %></div>
 </div>
 
 <div class="digg_pagination"><%= will_paginate @marks %></div>
