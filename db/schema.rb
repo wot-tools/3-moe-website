@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170122000148) do
+ActiveRecord::Schema.define(version: 20170216230446) do
 
   create_table "articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "title"
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 20170122000148) do
     t.string   "icon256px"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "moe_rating"
   end
 
   create_table "marks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -64,6 +65,7 @@ ActiveRecord::Schema.define(version: 20170122000148) do
     t.integer  "clan_id"
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+    t.integer  "moe_rating"
     t.index ["clan_id"], name: "index_players_on_clan_id", using: :btree
   end
 
@@ -79,6 +81,7 @@ ActiveRecord::Schema.define(version: 20170122000148) do
     t.string   "vehicle_type_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.integer  "moe_value"
     t.index ["nation_id"], name: "index_tanks_on_nation_id", using: :btree
     t.index ["vehicle_type_id"], name: "index_tanks_on_vehicle_type_id", using: :btree
   end
