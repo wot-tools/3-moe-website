@@ -10,6 +10,7 @@
 			<th><%= sort_link(@q, :tag, "Tag") %></th>
 			<th><%= sort_link(@q, :members, "Members") %></th>
 			<th><%= sort_link(@q, :marks_count, "3 MoE") %></th>
+			<th><%= sort_link(@q, :moe_rating, "MoE Rating") %></th>
 			<th><%= sort_link(@q, :updatedAtWG, "Updated at (WG)") %></th>
 			<th><%= sort_link(@q, :clanCreated, "Created at") %></th>
 			<th><%= sort_link(@q, :created_at, "Tracking started") %></th>
@@ -22,6 +23,7 @@
 				<td><%= clan.tag %></td>
 				<td><%= clan.members %></td>
 				<td><%= number_with_delimiter(clan.marks.count) %></td>
+				<td><%= number_with_delimiter(clan.moe_rating) %></td>
 				<td><%= clan.updatedAtWG %></td>
 				<td><%= clan.clanCreated %></td>
 				<td><%= clan.created_at %></td>

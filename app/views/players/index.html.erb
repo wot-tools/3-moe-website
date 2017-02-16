@@ -12,6 +12,7 @@
 			<th><%= sort_link(@q, :battles, "Battles") %></th>
 			<th><%= sort_link(@q, :winratio, "Win ratio") %></th>
 			<th><%= sort_link(@q, :wn8, "WN8") %></th>
+			<th><%= sort_link(@q, :moe_rating, "MoE Rating") %></th>
 			<th><%= sort_link(@q, :wgrating, "WG Rating") %></th>
 			<th><%= sort_link(@q, :clientLang, "Client language") %></th>
 			<th><%= sort_link(@q, :lastBattle, "Last battle") %></th>
@@ -29,6 +30,7 @@
 				<td><%= number_with_delimiter(player.battles) %></td>
 				<td class="<%= css_class_by_winrate(player.winratio)%>"><%= winratio_percentage(player.winratio) %></td>
 				<td class="<%= css_class_by_wn8(player.wn8) %>"><%= number_with_delimiter(player.wn8) %></td>
+				<td><%= number_with_delimiter(player.moe_rating) %></td>
 				<td><%= number_with_delimiter(player.wgrating) %></td>
 				<td><% if !player.clientLang.blank? %><%= image_tag "clientlang/" + player.clientLang + ".png"%><% end %> <%= player.clientLang %></td>
 				<td><%= player.lastBattle %></td>

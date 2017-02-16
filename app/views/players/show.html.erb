@@ -20,8 +20,8 @@
 		<div class="statValueBox darkBorder <%= css_class_by_wn8(@player.wn8) %>"><div><%= number_with_delimiter(@player.wn8) %></div>WN 8</div>
 		<div class="statValueBox darkBorder <%= css_class_by_winrate(@player.winratio) %>"><div><%= winratio_percentage(@player.winratio) %></div>Winratio</div>
 		<div class="statValueBox"><div><%= number_with_delimiter(@player.battles) %></div>Battles</div>
-		<div class="statValueBox"><div><%= number_with_delimiter(@player.wgrating) %></div>WG Rating</div>
-		<div class="statValueBox"><div>420</div>MoE Rating</div>
+		<div class="statValueBox"><div><%= number_with_delimiter(@player.moe_rating) %></div>MoE Rating</div>
+		<div class="statValueBox"><div><%= number_with_delimiter(@player.wgrating) %></div>WG Rating</div>		
 	</div>
 	<div class="valueBoxes clearfix">
 		<div class="dateValueBox"><div><%= @player.lastBattle %></div>Last Battle</div>
