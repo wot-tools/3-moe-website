@@ -22,6 +22,7 @@ moe.sql
 # ignore everything in monoapps except the Dockerfile
 #/mono_apps
 !/mono_apps/Dockerfile
+/mono_apps/*.xml
 
 
 # User-specific files
