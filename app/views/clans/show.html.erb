@@ -12,7 +12,19 @@
 	<div><%= @clan.members %> Members</div>
 	<div class="externalClanLinks"><%= image_tag "http://eu.wargaming.net/favicon.ico" %> <%= link_to "WG profile", clan_url_wg(@clan.id) %> | <%= image_tag "http://wotlabs.net/images/favicon.png" %> <%= link_to "Wotlabs", clan_url_wotlabs(@clan.tag) %></div>
 </div>
+
+<%= search_form_for @q do |f| %>
+	<div class="fields">
+		<%= f.label :name_cont, "Player:" %>
+		<%= f.search_field :name_cont %>
+	</div>
+	<div class="actions">
+		<%= f.submit %>
+	</div>
+<% end %>
+
 <div class="digg_pagination"><%= will_paginate @players %></div>
+
 <table>
 	<thead>
 		<tr>

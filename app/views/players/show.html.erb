@@ -30,7 +30,19 @@
 		<div class="dateValueBox"><div><%= @player.updatedAtWG %></div>Last update (WG)</div>
 	</div>
 </div>
+
+<%= search_form_for @q do |f| %>
+	<div class="fields">
+		<%= f.label :tank_name_cont, "Tank:" %>
+		<%= f.search_field :tank_name_cont %>
+	</div>
+	<div class="actions">
+		<%= f.submit %>
+	</div>
+<% end %>
+
 <div class="digg_pagination"><%= will_paginate @marks %></div>
+
 <table>
 	<thead>
 		<tr>
@@ -53,6 +65,7 @@
 		<% end %>
 	<tbody>
 </table>
+
 <div class="digg_pagination"><%= will_paginate @marks %></div>
 
 <%= render "shared/footer" %>

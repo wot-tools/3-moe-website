@@ -2,12 +2,26 @@
 <%= render "shared/navigationbar" %>
 
 <h1>Player Overview</h1>
+
+<%= search_form_for @q do |f| %>
+	<div class="fields">
+		<%= f.label :name_cont, "Player:" %>
+		<%= f.search_field :name_cont %>
+		<%= f.label :clan_tag_cont, "Clan:" %>
+		<%= f.search_field :clan_tag_cont %>
+	</div>
+	<div class="actions">
+		<%= f.submit %>
+	</div>
+<% end %>
+
 <div class="digg_pagination"><%= will_paginate @players %></div>
+
 <table>
 	<thead>
 		<tr>
 			<th><%= sort_link(@q, :name, "Player") %></th>
-			<th><%= sort_link(@q, :clan_name, "Clan") %></th>
+			<th><%= sort_link(@q, :clan_tag, "Clan") %></th>
 			<th><%= sort_link(@q, :marks_count, "3 Moe") %></th>
 			<th><%= sort_link(@q, :battles, "Battles") %></th>
 			<th><%= sort_link(@q, :winratio, "Win ratio") %></th>
@@ -41,6 +55,7 @@
 		<% end %>
   </tbody>
 </table>
+
 <div class="digg_pagination"><%= will_paginate @players %></div>
 
 <%= render "shared/footer" %>

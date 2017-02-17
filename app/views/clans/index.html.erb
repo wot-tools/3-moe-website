@@ -2,7 +2,19 @@
 <%= render "shared/navigationbar" %>
 
 <h1>All clans with 3 MoE</h1>
+
+<%= search_form_for @q do |f| %>
+	<div class="fields">
+		<%= f.label :name_or_tag_cont, "Clan name or tag:" %>
+		<%= f.search_field :name_or_tag_cont %>
+	</div>
+	<div class="actions">
+		<%= f.submit %>
+	</div>
+<% end %>
+
 <div class="digg_pagination"><%= will_paginate @clans %></div>
+
 <table>
 	<thead>
 		<tr>
@@ -31,6 +43,7 @@
 		<% end %>
 	</tbody>
 </table>
+
 <div class="digg_pagination"><%= will_paginate @clans %></div>
 
 <%= render "shared/footer" %>
