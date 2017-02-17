@@ -1,0 +1,7 @@
+<td><img src="<%= tank.smallicon %>"> <%= link_to tank.name, tank_path(tank)%></td>
+<td><%= tank.shortname %></td>
+<td><%= number_with_delimiter(tank.marks.count) %></td>
+<td><%= number_with_delimiter(tank.moe_value) %></td>
+<td><%= tank.tier %></td>
+<td><%= image_tag "nations/" + tank.nation.id + ".png" %> <%= link_to tank.nation.name, nation_path(tank.nation.id) %></td>
+<td><%= image_tag("vehicletypes/" + tank.vehicle_type.id + ".png", :class => "smallVehicleTypeIcon") %> <%= link_to tank.vehicle_type.name, vehicle_type_path(tank.vehicle_type.id) %></td>
