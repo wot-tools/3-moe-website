@@ -42,13 +42,12 @@ namespace MoeFetcher
         static IEnumerable<Tank> ReadTanksArray(JsonTextReader reader, int minMark)
         {
             Tank currentResult;
-            while (true)
-            {
-                if ((currentResult = ReadTank(reader)) == null)
-                    yield break;
-                if (currentResult.Mark >= minMark)
-                    yield return currentResult;
-            }
+            LOOP:
+            if ((currentResult = ReadTank(reader)) == null)
+                yield break;
+            if (currentResult.Mark >= minMark)
+                yield return currentResult;
+            goto LOOP;
         }
 
         static Tank ReadTank(JsonTextReader reader)
