@@ -65,5 +65,10 @@ namespace WgApi
             }
             throw new Exception();
         }
+
+        public DateTime ReadAsEpoch()
+        {
+            return new DateTime(1970, 1, 1).AddSeconds(ReadAsInt32().Value);
+        }
     }
 }

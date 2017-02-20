@@ -1,0 +1,190 @@
+StartObject         
+	PropertyName        status
+	String              ok
+	PropertyName        meta
+	StartObject         
+		PropertyName        count
+		Integer             2
+	EndObject           
+	PropertyName        data
+	StartObject         
+		PropertyName        501114475
+		StartObject         
+			PropertyName        client_language
+			String              en
+			PropertyName        statistics
+			StartObject         
+				PropertyName        all
+				StartObject         
+					PropertyName        spotted
+					Integer             34333
+					PropertyName        max_frags_tank_id
+					Integer             6177
+					PropertyName        max_xp
+					Integer             2928
+					PropertyName        avg_damage_blocked
+					Float               316,85
+					PropertyName        max_xp_tank_id
+					Integer             1105
+					PropertyName        explosion_hits
+					Integer             7635
+					PropertyName        piercings
+					Integer             93208
+					PropertyName        xp
+					Integer             24378331
+					PropertyName        avg_damage_assisted
+					Float               518,41
+					PropertyName        dropped_capture_points
+					Integer             34122
+					PropertyName        damage_dealt
+					Integer             50634656
+					PropertyName        hits_percents
+					Integer             74
+					PropertyName        draws
+					Integer             398
+					PropertyName        tanking_factor
+					Float               0,39
+					PropertyName        battles
+					Integer             32035
+					PropertyName        damage_received
+					Integer             29791166
+					PropertyName        survived_battles
+					Integer             11885
+					PropertyName        frags
+					Integer             37827
+					PropertyName        avg_damage_assisted_radio
+					Float               395,43
+					PropertyName        direct_hits_received
+					Integer             62648
+					PropertyName        max_damage_tank_id
+					Integer             16913
+					PropertyName        max_damage
+					Integer             8916
+					PropertyName        capture_points
+					Integer             72087
+					PropertyName        hits
+					Integer             212977
+					PropertyName        battle_avg_xp
+					Integer             761
+					PropertyName        wins
+					Integer             18530
+					PropertyName        losses
+					Integer             13107
+					PropertyName        piercings_received
+					Integer             44649
+					PropertyName        no_damage_direct_hits_received
+					Integer             17999
+					PropertyName        max_frags
+					Integer             11
+					PropertyName        shots
+					Integer             289130
+					PropertyName        explosion_hits_received
+					Integer             2949
+					PropertyName        avg_damage_assisted_track
+					Float               122,99
+				EndObject           
+			EndObject           
+			PropertyName        clan_id
+			Integer             500034335
+			PropertyName        created_at
+			Integer             1312729201
+			PropertyName        updated_at
+			Integer             1487543380
+			PropertyName        global_rating
+			Integer             9481
+			PropertyName        last_battle_time
+			Integer             1487542942
+			PropertyName        logout_at
+			Integer             1487543377
+		EndObject           
+		PropertyName        523993923
+		StartObject         
+			PropertyName        client_language
+			String              en
+			PropertyName        statistics
+			StartObject         
+				PropertyName        all
+				StartObject         
+					PropertyName        spotted
+					Integer             1427
+					PropertyName        max_frags_tank_id
+					Integer             14865
+					PropertyName        max_xp
+					Integer             2379
+					PropertyName        avg_damage_blocked
+					Float               63,48
+					PropertyName        max_xp_tank_id
+					Integer             18449
+					PropertyName        explosion_hits
+					Integer             38
+					PropertyName        piercings
+					Integer             6174
+					PropertyName        xp
+					Integer             648936
+					PropertyName        avg_damage_assisted
+					Float               602,78
+					PropertyName        dropped_capture_points
+					Integer             1214
+					PropertyName        damage_dealt
+					Integer             1049458
+					PropertyName        hits_percents
+					Integer             65
+					PropertyName        draws
+					Integer             9
+					PropertyName        tanking_factor
+					Float               0,07
+					PropertyName        battles
+					Integer             731
+					PropertyName        damage_received
+					Integer             668070
+					PropertyName        survived_battles
+					Integer             264
+					PropertyName        frags
+					Integer             851
+					PropertyName        avg_damage_assisted_radio
+					Float               518,5
+					PropertyName        direct_hits_received
+					Integer             2972
+					PropertyName        max_damage_tank_id
+					Integer             14865
+					PropertyName        max_damage
+					Integer             5772
+					PropertyName        capture_points
+					Integer             1146
+					PropertyName        hits
+					Integer             8568
+					PropertyName        battle_avg_xp
+					Integer             888
+					PropertyName        wins
+					Integer             469
+					PropertyName        losses
+					Integer             253
+					PropertyName        piercings_received
+					Integer             2521
+					PropertyName        no_damage_direct_hits_received
+					Integer             451
+					PropertyName        max_frags
+					Integer             8
+					PropertyName        shots
+					Integer             13157
+					PropertyName        explosion_hits_received
+					Integer             107
+					PropertyName        avg_damage_assisted_track
+					Float               84,28
+				EndObject           
+			EndObject           
+			PropertyName        clan_id
+			Null                
+			PropertyName        created_at
+			Integer             1417612680
+			PropertyName        updated_at
+			Integer             1487532995
+			PropertyName        global_rating
+			Integer             5682
+			PropertyName        last_battle_time
+			Integer             1481577499
+			PropertyName        logout_at
+			Integer             1481577575
+		EndObject           
+	EndObject           
+EndObject           

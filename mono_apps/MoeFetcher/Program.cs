@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using WgApi;
 
 namespace MoeFetcher
 {
@@ -16,7 +17,8 @@ namespace MoeFetcher
             WGApiClient client = new WGApiClient();
             Player foo = client.GetPlayerMarks(-1, 2);
             Player[] bar = client.GetPlayerWinrateRecords();
-            //Tokenize("TankBattles");
+            Player[] foobar = client.GetPlayerStats();
+            //Tokenize("AccountInfo");
             Console.Read();
         }
 
