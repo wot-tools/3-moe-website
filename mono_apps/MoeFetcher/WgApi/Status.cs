@@ -1,4 +1,4 @@
-﻿namespace WgApi
+﻿namespace MoeFetcher.WgApi
 {
     enum Status { ok }
 }

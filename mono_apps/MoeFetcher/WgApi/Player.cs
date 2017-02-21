@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WgApi
+namespace MoeFetcher.WgApi
 {
     class Player
     {
@@ -8,7 +8,7 @@ namespace WgApi
         public int? ClanID { get; set; }
         public string Nick { get; set; }
         public string ClientLanguage { get; set; }
-        public DateTime LastLogin { get; set; }
+        public DateTime LastLogout { get; set; }
         public DateTime AccountCreated { get; set; }
         public DateTime LastBattle { get; set; }
         public DateTime UpdatedAt { get; set; }

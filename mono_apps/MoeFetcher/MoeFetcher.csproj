@@ -45,11 +45,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Setting.cs" />
+    <Compile Include="WgApi\Clan.cs" />
     <Compile Include="WgApi\CustomJsonReader.cs" />
+    <Compile Include="WgApi\Emblems.cs" />
     <Compile Include="WgApi\Moe.cs" />
     <Compile Include="WgApi\Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WgApi\Region.cs" />
     <Compile Include="WgApi\Statistics.cs" />
     <Compile Include="WgApi\Status.cs" />
     <Compile Include="StringExtensions.cs" />

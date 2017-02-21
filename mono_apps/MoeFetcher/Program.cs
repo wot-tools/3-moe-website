@@ -4,21 +4,32 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
-using WgApi;
+using MoeFetcher.WgApi;
+using System.Threading;
 
 namespace MoeFetcher
 {
     class Program
     {
+        private static Setting[] Settings;
         private static string StillUglyPath { get { return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\.."); } }
 
         static void Main(string[] args)
         {
-            WGApiClient client = new WGApiClient();
-            Player foo = client.GetPlayerMarks(-1, 2);
-            Player[] bar = client.GetPlayerWinrateRecords();
-            Player[] foobar = client.GetPlayerStats();
+            int[] playerIDs = { 501114475, 523993923 };
+            int[] clanIDs = { 500025989, 500034335 };
+
+            WGApiClient client = new WGApiClient("https://api.worldoftanks", Region.eu, "de900a7eb3e71b2c44543abdcc2ee8ea");
+            Player marks = client.GetPlayerMarks(playerIDs[0], 2);
+            Player[] winrates = client.GetPlayerWinrateRecords(playerIDs);
+            Player[] playerStats = client.GetPlayerStats(playerIDs);
+            Clan[] clanInfo = client.GetClanInformation(clanIDs);
             //Tokenize("AccountInfo");
+
+            while (false == Setting.TryLoadSettings(@"C:\temp\settings.json", out Settings))
+                Thread.Sleep(50);
+            if (Settings == null)
+                Console.WriteLine("settings not loaded. see example config file for correct settings");
             Console.Read();
         }
 

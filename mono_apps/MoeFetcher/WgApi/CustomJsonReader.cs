@@ -6,15 +6,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WgApi
+namespace MoeFetcher.WgApi
 {
     class CustomJsonReader : JsonTextReader
     {
         public CustomJsonReader(TextReader reader) : base(reader) { }
 
         //relies on getElement returning null after the last element
-        public IEnumerable<T> ReadArray<T>(Func<CustomJsonReader, T> getElement, Func<T, bool> includeElement)
+        public IEnumerable<T> ReadArray<T>(Func<CustomJsonReader, T> getElement, Func<T, bool> includeElement = null)
         {
+            if (includeElement == null)
+                includeElement = _ => true;
             T currentResult;
             LOOP:
             if ((currentResult = getElement(this)) == null)

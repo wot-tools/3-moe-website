@@ -3,14 +3,27 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WgApi
+namespace MoeFetcher.WgApi
 {
     class WGApiClient
     {
         private string StillUglyPath { get { return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\.."); } }
+
+        public Region Region { get; private set; }
+        private string BaseUri { get; set; }
+        private string ApplicationID { get; set; }
+
+        public WGApiClient(string baseUriWithoutTld, Region region, string applicationID)
+        {
+            Region = region;
+            ApplicationID = applicationID;
+
+            BaseUri = $"{baseUriWithoutTld}.{region}/";
+        }
 
         //marksOnGun
         //general problem: should read Methods stop reading when they found the value, or should they still read the complete object to set the current token position on the reader to the end of the object they read
@@ -24,8 +37,8 @@ namespace WgApi
 
         public Player GetPlayerMarks(int id, int minMark)
         {
-            string path = Path.Combine(StillUglyPath, "MoeList.json");
-            using (StreamReader reader = new StreamReader(path))
+            string apiResponse = GetApiResponse("wot/tanks/achievements/", BuildParameterString("achievements,tank_id", id.ToString()));
+            using (StringReader reader = new StringReader(apiResponse))
                 return ReadPlayerMarks(new CustomJsonReader(reader), minMark);
         }
 
@@ -52,10 +65,10 @@ namespace WgApi
             return result;
         }
 
-        public Player[] GetPlayerWinrateRecords()
+        public Player[] GetPlayerWinrateRecords(IEnumerable<int> ids)
         {
-            string path = Path.Combine(StillUglyPath, "TankBattles.json");
-            using (StreamReader reader = new StreamReader(path))
+            string apiResponse = GetApiResponse("wot/account/tanks/", BuildParameterString(account_id: String.Join(",", ids)));
+            using (StringReader reader = new StringReader(apiResponse))
                 return ReadPlayerWinrateRecords(new CustomJsonReader(reader));
         }
 
@@ -65,7 +78,7 @@ namespace WgApi
             {
                 if (ReadInfo(reader) < 0) throw new Exception();
                 reader.ReadToProperty("data");
-                return reader.ReadArray(r => ReadSinglePlayerWinrateRecords(r), _ => true).ToArray();
+                return reader.ReadArray(r => ReadSinglePlayerWinrateRecords(r)).ToArray();
             }
         }
 
@@ -76,7 +89,7 @@ namespace WgApi
                 return null;
             Player result = new Player();
             result.ID = int.Parse(id);
-            result.WinrateRecords = reader.ReadArray(r => ReadWinrateRecord(r), _ => true).ToArray();
+            result.WinrateRecords = reader.ReadArray(r => ReadWinrateRecord(r)).ToArray();
             return result;
         }
 
@@ -91,10 +104,11 @@ namespace WgApi
             return result;
         }
 
-        public Player[] GetPlayerStats()
+        public Player[] GetPlayerStats(IEnumerable<int> ids)
         {
-            string path = Path.Combine(StillUglyPath, "AccountInfo.json");
-            using (StreamReader reader = new StreamReader(path))
+            string fields = "statistics.all,client_language,global_rating,logout_at,created_at,last_battle_time,updated_at,clan_id,nickname";
+            string apiResponse = GetApiResponse("wot/account/info/", BuildParameterString(fields, String.Join(",", ids)));
+            using (StringReader reader = new StringReader(apiResponse))
                 return ReadPlayerStats(new CustomJsonReader(reader));
         }
 
@@ -104,7 +118,7 @@ namespace WgApi
             {
                 if (ReadInfo(reader) < 0) throw new Exception();
                 reader.ReadToProperty("data");
-                return reader.ReadArray(r => ReadSinglePlayerStats(r), _ => true).ToArray();
+                return reader.ReadArray(r => ReadSinglePlayerStats(r)).ToArray();
             }
         }
 
@@ -130,10 +144,81 @@ namespace WgApi
             result.UpdatedAt = reader.ReadValue("updated_at", reader.ReadAsEpoch);
             stats.WGRating = reader.ReadValue("global_rating", reader.ReadAsInt32).Value;
             result.LastBattle = reader.ReadValue("last_battle_time", reader.ReadAsEpoch);
-            result.LastLogin = reader.ReadValue("logout_at", reader.ReadAsEpoch);
+            result.Nick = reader.ReadValue("nickname", reader.ReadAsString);
+            result.LastLogout = reader.ReadValue("logout_at", reader.ReadAsEpoch);
             reader.ReadToPropertyIfExisting("", JsonToken.EndObject); //hack to set reader to end of player object
             result.Statistics = stats;
             return result;
+        }
+
+        public Clan[] GetClanInformation(IEnumerable<int> ids)
+        {
+            string apiResponse = GetApiResponse("wgn/clans/info/", BuildParameterString(clan_id: String.Join(",", ids)));
+            using (StringReader reader = new StringReader(apiResponse))
+                return ReadClanInformation(new CustomJsonReader(reader));
+        }
+
+        private Clan[] ReadClanInformation(CustomJsonReader reader)
+        {
+            using (reader)
+            {
+                if (ReadInfo(reader) < 0) throw new Exception();
+                reader.ReadToProperty("data");
+                return reader.ReadArray(r => ReadSingleClan(r)).ToArray();
+            }
+        }
+
+        private Clan ReadSingleClan(CustomJsonReader reader)
+        {
+            string id;
+            if ((id = reader.ReadNextPropertyNameAsData(JsonToken.EndObject)) == null)
+                return null;
+            Clan result = new Clan();
+            result.ID = int.Parse(id);
+            result.Color = reader.ReadValue("color", reader.ReadAsString);
+            result.UpdatedAt = reader.ReadValue("updated_at", reader.ReadAsEpoch);
+            result.Tag = reader.ReadValue("tag", reader.ReadAsString);
+            result.Count = reader.ReadValue("members_count", reader.ReadAsInt32).Value;
+            result.Emblems = ReadEmblems(reader);
+            //result.ID = reader.ReadValue("clan_id", reader.ReadAsInt32).Value;
+            result.Name = reader.ReadValue("name", reader.ReadAsString);
+            reader.ReadToPropertyIfExisting("", JsonToken.EndObject); //hack to set reader to end of player object
+            return result;
+        }
+
+        private Emblems ReadEmblems(CustomJsonReader reader)
+        {
+            Emblems result = new Emblems();
+            reader.ReadToProperty("emblems");
+            result.x32 = reader.ReadValue("portal", reader.ReadAsString);
+            result.x24 = reader.ReadValue("portal", reader.ReadAsString);
+            result.x256 = reader.ReadValue("wowp", reader.ReadAsString);
+            result.x64 = reader.ReadValue("portal", reader.ReadAsString);
+            result.x195 = reader.ReadValue("portal", reader.ReadAsString);
+            return result;
+        }
+
+        private string GetApiResponse(string endpoint, string parameters)
+        {
+            WebRequest request = WebRequest.Create($"{BaseUri}{endpoint}{parameters}");
+            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+            using (Stream stream = response.GetResponseStream())
+            using (StreamReader reader = new StreamReader(stream))
+                return reader.ReadToEnd();
+        }
+
+        private string BuildParameterString(string fields = null, string account_id = null, string clan_id = null)
+        {
+            StringBuilder builder = new StringBuilder();
+            builder.Append($"?application_id={ApplicationID}");
+            if (fields != null)
+                builder.Append($"&fields={fields}");
+            if (account_id != null)
+                builder.Append($"&account_id={account_id}");
+            if (clan_id != null)
+                builder.Append($"&clan_id={clan_id}");
+
+            return builder.ToString();
         }
     }
 }
