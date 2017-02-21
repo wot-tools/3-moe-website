@@ -11,10 +11,15 @@ namespace MoeFetcher
 {
     class Program
     {
-        private static Setting[] Settings;
         private static string StillUglyPath { get { return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\.."); } }
 
-        static void Main(string[] args)
+        static int Main(string[] args)
+        {
+            App app = new App(null);
+            return app.Run(args);
+        }
+
+        static void TestApiClient()
         {
             int[] playerIDs = { 501114475, 523993923 };
             int[] clanIDs = { 500025989, 500034335 };
@@ -24,16 +29,7 @@ namespace MoeFetcher
             Player[] winrates = client.GetPlayerWinrateRecords(playerIDs);
             Player[] playerStats = client.GetPlayerStats(playerIDs);
             Clan[] clanInfo = client.GetClanInformation(clanIDs);
-            //Tokenize("AccountInfo");
-
-            while (false == Setting.TryLoadSettings(@"C:\temp\settings.json", out Settings))
-                Thread.Sleep(50);
-            if (Settings == null)
-                Console.WriteLine("settings not loaded. see example config file for correct settings");
-            Console.Read();
         }
-
-
 
         static void Tokenize(string file)
         {

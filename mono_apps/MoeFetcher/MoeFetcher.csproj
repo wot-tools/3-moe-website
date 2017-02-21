@@ -45,6 +45,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App.cs" />
+    <Compile Include="ExitCodes.cs" />
+    <Compile Include="ILogger.cs" />
     <Compile Include="Setting.cs" />
     <Compile Include="WgApi\Clan.cs" />
     <Compile Include="WgApi\CustomJsonReader.cs" />
