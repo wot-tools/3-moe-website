@@ -29,6 +29,7 @@ namespace MoeFetcher
 
         private Dictionary<string, string> Arguments = new Dictionary<string, string>();
         private HashSet<int> ClanIDs = new HashSet<int>();
+        private HashSet<int> PlayerIDs = new HashSet<int>();
 
 
         //TODO: mit neuer tuple syntax schreiben
@@ -58,7 +59,7 @@ namespace MoeFetcher
                 return (int)ExitCodes.Error;
 
             RunStart = DateTime.Now;
-            RegularRecheckPlayers(GetPlayersToRecheck(ProcessIDs(ReadLines(Path.Combine(BasePath, ActiveSetting.RelativePathToPlayerIDs)))));
+            RecheckPlayers(GetPlayersToRecheck(ProcessIDs(ReadLines(Path.Combine(BasePath, ActiveSetting.RelativePathToPlayerIDs)))));
 
 
 
@@ -185,25 +186,28 @@ namespace MoeFetcher
             }
         }
 
-        private IEnumerable<string> ReadLines(string path)
+        private IEnumerable<int> ReadLines(string path)
         {
             int i = 1000;
+            int id;
             string line;
             using (Stream stream = new FileStream(path, FileMode.Open))
             using (StreamReader reader = new StreamReader(stream))
                 while (i-- > 0 && (line = reader.ReadLine()) != null)
-                    yield return line;
+                    if (int.TryParse(line, out id))
+                        PlayerIDs.Add(id);
+            return PlayerIDs;
         }
 
-        private IEnumerable<int[]> ProcessIDs(IEnumerable<string> ids)
+        private IEnumerable<int[]> ProcessIDs(IEnumerable<int> ids)
         {
             int index = 0;
             int maxCount = MaxIDCountForApi;
             int[] result = new int[maxCount];
 
-            foreach (string id in ids)
+            foreach (int id in ids)
             {
-                result[index++] = int.Parse(id);
+                result[index++] = id;
                 if (index >= maxCount)
                 {
                     yield return result;
@@ -249,16 +253,16 @@ namespace MoeFetcher
             yield return lastResult;
         }
 
-        private void ThreadedRecheckPlayers(IEnumerable<Player[]> playerBatches)
+        private void RecheckPlayers(IEnumerable<Player[]> playerBatches)
         {
             Stopwatch watch = Stopwatch.StartNew();
             int minMark = MinMark;
-            foreach (Player[] players in playerBatches)
+            int threadcount = 0;
+            using (ManualResetEvent resetEvent = new ManualResetEvent(false))
             {
-                int threadcount = 0;
-
-                using (ManualResetEvent resetEvent = new ManualResetEvent(false))
+                foreach (Player[] players in playerBatches)
                 {
+
                     ThreadPool.QueueUserWorkItem(_ =>
                     {
                         Interlocked.Increment(ref threadcount);
@@ -275,31 +279,8 @@ namespace MoeFetcher
                         if (Interlocked.Decrement(ref threadcount) == 0)
                             resetEvent.Set();
                     });
-                    resetEvent.WaitOne();
                 }
-
-
-
-            }
-            watch.Stop();
-            Logger.Info(watch.Elapsed.ToString());
-        }
-
-        private void RegularRecheckPlayers(IEnumerable<Player[]> playerBatches)
-        {
-            Stopwatch watch = Stopwatch.StartNew();
-            int minMark = MinMark;
-            foreach (Player[] players in playerBatches)
-            {
-                Player[] winrateRecords = Client.GetPlayerWinrateRecords(players.Select(p => p.ID));
-                for (int i = 0; i < players.Length; i++)
-                {
-                    players[i].WinrateRecords = winrateRecords.Single(p => players[i].ID == p.ID).WinrateRecords;
-                    players[i].Moes = Client.GetPlayerMarks(players[i].ID, minMark).Moes;
-                    if (players[i].ClanID.HasValue)
-                        ClanIDs.Add(players[i].ClanID.Value);
-                }
-                TempPlayers.AddRange(players);
+                resetEvent.WaitOne();
             }
             watch.Stop();
             Logger.Info(watch.Elapsed.ToString());

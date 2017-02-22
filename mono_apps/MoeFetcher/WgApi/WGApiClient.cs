@@ -5,14 +5,13 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MoeFetcher.WgApi
 {
     class WGApiClient
     {
-        private string StillUglyPath { get { return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\.."); } }
-
         public Region Region { get; private set; }
         private string BaseUri;
         private string ApplicationID;
@@ -25,7 +24,10 @@ namespace MoeFetcher.WgApi
 
             BaseUri = $"{baseUriWithoutTld}.{region}/";
             Logger = logger;
+#if DEBUG
             WindowEnd = DateTime.Now.AddSeconds(WindowSize);
+            StartMeasurePerformanceThread();
+#endif
         }
 
         private int ReadInfo(CustomJsonReader reader)
@@ -198,29 +200,33 @@ namespace MoeFetcher.WgApi
             return result;
         }
 
+#if DEBUG
         private DateTime WindowEnd;
         private int WindowSize = 1;
-        private int Count = 0;
-        private void MeasurePerformance()
-        {
-            if (WindowEnd > DateTime.Now)
-            {
-                Count += 1;
-                return;
-            }
-            WindowEnd = WindowEnd.AddSeconds(WindowSize);
-            Logger.Verbose("{0:000} api calls performed in the last {1} seconds", Count, WindowSize);
-            Count = 1;
-        }
-
-#if DEBUG
         private int ApiResponsesCount = 0;
+
+        private void StartMeasurePerformanceThread()
+        {
+            Thread thread = new Thread(_ =>
+            {
+                while (true)
+                    if (WindowEnd < DateTime.Now)
+                    {
+                        WindowEnd = WindowEnd.AddSeconds(WindowSize);
+                        int count = Interlocked.Exchange(ref ApiResponsesCount, 0);
+                        Logger.Verbose("{0:000} api calls performed in the last {1} seconds", count, WindowSize);
+                    }
+                    else
+                        Thread.Sleep(50);
+            });
+            thread.Start();
+        }
 #endif
 
         private string GetApiResponse(string endpoint, string parameters)
         {
 #if DEBUG
-            MeasurePerformance();
+            Interlocked.Increment(ref ApiResponsesCount);
 #endif
             WebRequest request = WebRequest.Create($"{BaseUri}{endpoint}{parameters}");
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
