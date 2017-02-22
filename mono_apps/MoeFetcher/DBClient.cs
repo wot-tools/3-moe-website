@@ -46,8 +46,28 @@ namespace MoeFetcher
 
         public void UpsertPlayer(Player player)
         {
-            string commandString = 
-            MySqlCommand command = new MySqlCommand()
+            StringBuilder builder = new StringBuilder();
+
+            string playerFormat = "INSERT INTO T_Players "//(p_account_id, f_clan_id, name, client_lang, "
+                //+ "battles, wins, last_battle, account_created, wg_rating, wn8) "
+                + "VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}') "
+                + "ON DUPLICATE KEY UPDATE p_account_id='{0}', f_clan_id='{1}', name='{2}', client_lang='{3}', "
+                + "battles='{4}', wins='{5}', last_battle='{6}', account_created='{7}', wg_rating='{8}', wn8='{9}';";
+
+            string markFormat = "INSERT INTO T_Marks "//(p_f_account_id, p_f_tank_id, battles, damage, spots, kills, decap, cap, wins, marks) "
+                + "VALUES ('{0}', '{1}', '0', '0', '0', '0', '0', '0', '0', '3') "
+                + "ON DUPLICATE KEY UPDATE p_f_account_id='{0}', p_f_tank_id='{1}', "
+                + "battles='0', damage='0', spots='0', kills='0', decap='0', cap='0', wins='0', marks='3';";
+
+            builder.AppendFormat(playerFormat, player.ID, player.ClanID ?? 0, player.Nick, player.ClientLanguage,
+                player.Statistics.Battles, player.Statistics.Victories, player.LastBattle, player.AccountCreated, player.Statistics.WGRating, "wn8");
+
+            foreach (Moe moe in player.Moes)
+                builder.AppendFormat(markFormat, player.ID, moe.TankID);
+
+            MySqlCommand command = new MySqlCommand(builder.ToString(), Connection);
+            command.ExecuteNonQuery();
+            StringBuilder query = new StringBuilder();
         }
     }
 }
