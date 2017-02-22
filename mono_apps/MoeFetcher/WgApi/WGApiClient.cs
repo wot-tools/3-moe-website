@@ -14,19 +14,19 @@ namespace MoeFetcher.WgApi
         private string StillUglyPath { get { return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\.."); } }
 
         public Region Region { get; private set; }
-        private string BaseUri { get; set; }
-        private string ApplicationID { get; set; }
+        private string BaseUri;
+        private string ApplicationID;
+        private ILogger Logger;
 
-        public WGApiClient(string baseUriWithoutTld, Region region, string applicationID)
+        public WGApiClient(string baseUriWithoutTld, Region region, string applicationID, ILogger logger)
         {
             Region = region;
             ApplicationID = applicationID;
 
             BaseUri = $"{baseUriWithoutTld}.{region}/";
+            Logger = logger;
+            WindowEnd = DateTime.Now.AddSeconds(WindowSize);
         }
-
-        //marksOnGun
-        //general problem: should read Methods stop reading when they found the value, or should they still read the complete object to set the current token position on the reader to the end of the object they read
 
         private int ReadInfo(CustomJsonReader reader)
         {
@@ -198,8 +198,30 @@ namespace MoeFetcher.WgApi
             return result;
         }
 
+        private DateTime WindowEnd;
+        private int WindowSize = 1;
+        private int Count = 0;
+        private void MeasurePerformance()
+        {
+            if (WindowEnd > DateTime.Now)
+            {
+                Count += 1;
+                return;
+            }
+            WindowEnd = WindowEnd.AddSeconds(WindowSize);
+            Logger.Verbose("{0:000} api calls performed in the last {1} seconds", Count, WindowSize);
+            Count = 1;
+        }
+
+#if DEBUG
+        private int ApiResponsesCount = 0;
+#endif
+
         private string GetApiResponse(string endpoint, string parameters)
         {
+#if DEBUG
+            MeasurePerformance();
+#endif
             WebRequest request = WebRequest.Create($"{BaseUri}{endpoint}{parameters}");
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
             using (Stream stream = response.GetResponseStream())

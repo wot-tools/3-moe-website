@@ -15,7 +15,7 @@ namespace MoeFetcher
 
         static int Main(string[] args)
         {
-            App app = new App(null);
+            App app = new App(new Logger());
             return app.Run(args);
         }
 
@@ -24,7 +24,7 @@ namespace MoeFetcher
             int[] playerIDs = { 501114475, 523993923 };
             int[] clanIDs = { 500025989, 500034335 };
 
-            WGApiClient client = new WGApiClient("https://api.worldoftanks", Region.eu, "de900a7eb3e71b2c44543abdcc2ee8ea");
+            WGApiClient client = new WGApiClient("https://api.worldoftanks", Region.eu, "de900a7eb3e71b2c44543abdcc2ee8ea", new Logger());
             Player marks = client.GetPlayerMarks(playerIDs[0], 2);
             Player[] winrates = client.GetPlayerWinrateRecords(playerIDs);
             Player[] playerStats = client.GetPlayerStats(playerIDs);

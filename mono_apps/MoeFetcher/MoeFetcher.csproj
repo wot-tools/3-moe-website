@@ -48,6 +48,7 @@
     <Compile Include="App.cs" />
     <Compile Include="ExitCodes.cs" />
     <Compile Include="ILogger.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="Setting.cs" />
     <Compile Include="WgApi\Clan.cs" />
     <Compile Include="WgApi\CustomJsonReader.cs" />
