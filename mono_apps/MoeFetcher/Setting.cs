@@ -5,13 +5,14 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WGApi;
 
 namespace MoeFetcher
 {
     class Setting
     {
         public string BaseUri { get; set; }
-        public WgApi.Region Region { get; set; }
+        public Region Region { get; set; }
         public string ApplicationID { get; set; }
         public string RelativePathToPlayerIDs { get; set; }
         public DateTime LastRunStart { get; set; }
@@ -72,7 +73,7 @@ namespace MoeFetcher
             using (StreamWriter writer = new StreamWriter(stream, Encoding.UTF8, 1024, true))
             {
                 writer.WriteLine("//WARNING: editing this file while the program is running may have unexpected results");
-                writer.WriteLine($"//possible regions: {String.Join(", ", (Enum.GetValues(typeof(WgApi.Region)) as WgApi.Region[]).Select(r => $"{r.ToString()}: {(int)r}"))}");
+                writer.WriteLine($"//possible regions: {String.Join(", ", (Enum.GetValues(typeof(Region)) as Region[]).Select(r => $"{r.ToString()}: {(int)r}"))}");
                 writer.Write(JsonConvert.SerializeObject(settings, Formatting.Indented));
             }
         }
@@ -85,7 +86,7 @@ namespace MoeFetcher
                 new Setting
                 {
                     BaseUri = "https://api.worldoftanks",
-                    Region = WgApi.Region.eu,
+                    Region = Region.eu,
                     ApplicationID = "appid1234",
                     RelativePathToPlayerIDs = "",
                     LastRunStart = new DateTime(2017, 1, 1, 13, 37, 00),
@@ -94,7 +95,7 @@ namespace MoeFetcher
                 new Setting
                 {
                     BaseUri = "https://api.worldoftanks",
-                    Region = WgApi.Region.ru,
+                    Region = Region.ru,
                     ApplicationID = "appid1234",
                     RelativePathToPlayerIDs = "",
                     LastRunStart = new DateTime(2017, 1, 1, 13, 37, 00),
@@ -103,7 +104,7 @@ namespace MoeFetcher
                 new Setting
                 {
                     BaseUri = "https://api.worldoftanks",
-                    Region = WgApi.Region.com,
+                    Region = Region.com,
                     ApplicationID = "appid1234",
                     RelativePathToPlayerIDs = "",
                     LastRunStart = new DateTime(2017, 1, 1, 13, 37, 00),
@@ -112,7 +113,7 @@ namespace MoeFetcher
                 new Setting
                 {
                     BaseUri = "https://api.worldoftanks",
-                    Region = WgApi.Region.asia,
+                    Region = Region.asia,
                     ApplicationID = "appid1234",
                     RelativePathToPlayerIDs = "",
                     LastRunStart = new DateTime(2017, 1, 1, 13, 37, 00),

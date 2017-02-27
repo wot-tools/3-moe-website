@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MoeFetcher.WgApi
+namespace WGApi
 {
-    enum Region
+    public enum Region
     {
         eu,
         com,

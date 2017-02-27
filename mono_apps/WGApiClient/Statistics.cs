@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MoeFetcher.WgApi
+namespace WGApi
 {
-    class Statistics
+    public class Statistics
     {
         [JsonProperty("spotted")]
         public int Spotted { get; set; }

@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MoeFetcher.WgApi
+namespace WGApi
 {
-    class Emblem
+    public class Emblem
     {
         [JsonProperty("portal")]
         public string Portal { get; set; }

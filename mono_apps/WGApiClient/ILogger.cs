@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MoeFetcher
+namespace WGApi
 {
-    interface ILogger
+    public interface ILogger
     {
         void VVVerbose(string message);
         void VVVerbose(string format, params object[] args);

@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 
-namespace MoeFetcher.WgApi
+namespace WGApi
 {
-    class TankStats
+    public class TankStats
     {
         [JsonProperty("tank_id")]
         public int TankID { get; set; }

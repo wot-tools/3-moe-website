@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-namespace MoeFetcher.WgApi
+namespace WGApi
 {
-    class Player
+    public class Player
     {
         [JsonProperty("clan_id")]
         public int? ClanID { get; set; }

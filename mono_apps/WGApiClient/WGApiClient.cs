@@ -8,9 +8,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MoeFetcher.WgApi
+namespace WGApi
 {
-    class WGApiClient
+    public class WGApiClient
     {
         public Region Region { get; private set; }
         private string BaseUri;
