@@ -3,7 +3,7 @@ using System;
 
 namespace WGApi
 {
-    public class Player
+    public class PlayerInfo
     {
         [JsonProperty("clan_id")]
         public int? ClanID { get; set; }

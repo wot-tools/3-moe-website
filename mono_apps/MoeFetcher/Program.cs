@@ -13,10 +13,8 @@ namespace MoeFetcher
     {
         static int Main(string[] args)
         {
-            //App app = new App(new Logger());
-            //return app.Run(args);
-            TestApiClient();
-            return 0;
+            App app = new App(new Logger());
+            return app.Run(args);
         }
 
         static void TestApiClient()
@@ -26,8 +24,10 @@ namespace MoeFetcher
 
             WGApiClient client = new WGApiClient("https://api.worldoftanks", Region.eu, "de900a7eb3e71b2c44543abdcc2ee8ea", new Logger());
             var marks = client.GetPlayerMarks(playerIDs.First());
+            var wr = client.GetPlayerWinrateRecords(playerIDs);
             var vehicleStats = client.GetPlayerTankStats(playerIDs.First());
-            var player = client.GetPlayerStats(playerIDs);
+            var players = client.GetPlayerStats(playerIDs);
+            var clans = client.GetClanInformation(clanIDs);
         }
     }
 }

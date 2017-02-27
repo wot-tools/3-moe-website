@@ -30,29 +30,30 @@ namespace WGApi
 #endif
         }
 
-        public Dictionary<string, Moe[]> GetPlayerMarks(int id)
+        public Moe[] GetPlayerMarks(int id)
         {
-            return GetApiResponse<Dictionary<string, Moe[]>>("wot/tanks/achievements/", BuildParameterString("achievements,tank_id", id.ToString()));
+            return GetApiResponse<Dictionary<string, Moe[]>>("wot/tanks/achievements/", BuildParameterString("achievements,tank_id", id.ToString())).Single().Value;
         }
 
-        public Dictionary<string, TankStats[]> GetPlayerTankStats(int id)
+        public Dictionary<string, WinrateRecord[]> GetPlayerWinrateRecords(IEnumerable<int> ids)
         {
-            return GetApiResponse<Dictionary<string, TankStats[]>>("wot/tanks/stats/", BuildParameterString("random,tank_id", id.ToString(), extra: "random"));
+            return GetApiResponse<Dictionary<string, WinrateRecord[]>>("wot/account/tanks/", BuildParameterString(accountID: String.Join(",", ids)));
         }
 
-        public Dictionary<string, Player> GetPlayerStats(IEnumerable<int> ids)
+        public TankStats[] GetPlayerTankStats(int id)
+        {
+            return GetApiResponse<Dictionary<string, TankStats[]>>("wot/tanks/stats/", BuildParameterString("random,tank_id", id.ToString(), extra: "random")).Single().Value;
+        }
+
+        public Dictionary<string, PlayerInfo> GetPlayerStats(IEnumerable<int> ids)
         {
             string fields = "statistics.random,client_language,global_rating,logout_at,created_at,last_battle_time,updated_at,clan_id,nickname";
-            return GetApiResponse<Dictionary<string, Player>>("wot/account/info/", BuildParameterString(fields, String.Join(",", ids), extra: "statistics.random"));
+            return GetApiResponse<Dictionary<string, PlayerInfo>>("wot/account/info/", BuildParameterString(fields, String.Join(",", ids), extra: "statistics.random"));
         }
 
-        public Clan[] GetClanInformation(IEnumerable<int> ids)
+        public Dictionary<string, Clan> GetClanInformation(IEnumerable<int> ids)
         {
-            string apiResponse = GetApiResponse("wgn/clans/info/", BuildParameterString(clanID: String.Join(",", ids)));
-
-
-
-            return null;
+            return GetApiResponse<Dictionary<string, Clan>>("wgn/clans/info/", BuildParameterString(clanID: String.Join(",", ids)));
         }
 
 #if DEBUG

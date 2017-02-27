@@ -39,12 +39,12 @@ namespace MoeFetcher
             Connection.Close();
         }
 
-        public void UpsertPlayer(IEnumerable<Player> players)
+        public void UpsertPlayer(IEnumerable<PlayerInfo> players)
         {
 
         }
 
-        public void UpsertPlayer(Player player, string id, Moe[] moes)
+        public void UpsertPlayer(PlayerInfo player, string id, Moe[] moes)
         {
             StringBuilder builder = new StringBuilder();
 

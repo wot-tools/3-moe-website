@@ -7,7 +7,7 @@
     <ProjectGuid>{391A1A15-AE97-408A-9373-3644494423D5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WGApiClient</RootNamespace>
+    <RootNamespace>WGApi</RootNamespace>
     <AssemblyName>WGApiClient</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -49,13 +49,14 @@
     <Compile Include="EpochDateTime.cs" />
     <Compile Include="ILogger.cs" />
     <Compile Include="Moe.cs" />
-    <Compile Include="Player.cs" />
+    <Compile Include="PlayerInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Region.cs" />
     <Compile Include="Statistics.cs" />
     <Compile Include="Status.cs" />
     <Compile Include="TankStats.cs" />
     <Compile Include="WGApiClient.cs" />
+    <Compile Include="WinrateRecord.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
