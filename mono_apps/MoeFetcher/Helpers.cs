@@ -10,4 +10,12 @@ namespace MoeFetcher
             return String.Join("", Enumerable.Repeat(s, count));
         }
     }
+
+    static class EpochDateTime
+    {
+        public static DateTime FromEpoch(int epoch)
+        {
+            return new DateTime(1970, 1, 1).AddSeconds(epoch);
+        }
+    }
 }

@@ -55,7 +55,6 @@
     <Compile Include="Logger.cs" />
     <Compile Include="Setting.cs" />
     <Compile Include="WgApi\Clan.cs" />
-    <Compile Include="WgApi\CustomJsonReader.cs" />
     <Compile Include="WgApi\Emblems.cs" />
     <Compile Include="WgApi\Moe.cs" />
     <Compile Include="WgApi\Player.cs" />
@@ -64,9 +63,9 @@
     <Compile Include="WgApi\Region.cs" />
     <Compile Include="WgApi\Statistics.cs" />
     <Compile Include="WgApi\Status.cs" />
-    <Compile Include="StringExtensions.cs" />
+    <Compile Include="Helpers.cs" />
     <Compile Include="WgApi\WGApiClient.cs" />
-    <Compile Include="WgApi\WinrateRecord.cs" />
+    <Compile Include="WgApi\TankStats.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
