@@ -47,6 +47,8 @@
     <Compile Include="Clan.cs" />
     <Compile Include="Emblems.cs" />
     <Compile Include="EpochDateTime.cs" />
+    <Compile Include="ExpectedValueList.cs" />
+    <Compile Include="ExpectedValues.cs" />
     <Compile Include="ILogger.cs" />
     <Compile Include="Moe.cs" />
     <Compile Include="PlayerInfo.cs" />
@@ -57,6 +59,7 @@
     <Compile Include="TankStats.cs" />
     <Compile Include="WGApiClient.cs" />
     <Compile Include="WinrateRecord.cs" />
+    <Compile Include="WN8.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

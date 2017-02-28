@@ -29,5 +29,12 @@ namespace MoeFetcher
             var players = client.GetPlayerStats(playerIDs);
             var clans = client.GetClanInformation(clanIDs);
         }
+
+        static void TestExpectedValues()
+        {
+            ExpectedValueList values = new ExpectedValueList();
+            var versions = values.Versions.ToArray();
+            var v29 = values[29];
+        }
     }
 }
