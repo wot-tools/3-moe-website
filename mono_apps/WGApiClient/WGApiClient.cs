@@ -26,7 +26,7 @@ namespace WGApi
             Logger = logger;
 #if DEBUG
             WindowEnd = DateTime.Now.AddSeconds(WindowSize);
-            StartMeasurePerformanceThread();
+            StartPerformanceMeasureThread();
 #endif
         }
 
@@ -60,10 +60,11 @@ namespace WGApi
         private DateTime WindowEnd;
         private int WindowSize = 1;
         private int ApiResponsesCount = 0;
+        Thread PerformanceMeasureThread;
 
-        private void StartMeasurePerformanceThread()
+        private void StartPerformanceMeasureThread()
         {
-            Thread thread = new Thread(_ =>
+            PerformanceMeasureThread = new Thread(_ =>
             {
                 while (true)
                     if (WindowEnd < DateTime.Now)
@@ -75,7 +76,12 @@ namespace WGApi
                     else
                         Thread.Sleep(50);
             });
-            thread.Start();
+            PerformanceMeasureThread.Start();
+        }
+
+        ~WGApiClient()
+        {
+            PerformanceMeasureThread.Abort();
         }
 #endif
 

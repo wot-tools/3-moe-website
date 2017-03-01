@@ -35,5 +35,82 @@ namespace WGApi
         public int Draws { get; set; }
         [JsonProperty("damage_received")]
         public int DamageReveived { get; set; }
+
+        [JsonIgnore]
+        public double AvgSpotted { get { return Spotted / (double)Battles; } }
+        [JsonIgnore]
+        public double Winrate { get { return Victories / (double)Battles * 100; } }
+        [JsonIgnore]
+        public double AvgDamage { get { return Damage / (double)Battles; } }
+        [JsonIgnore]
+        public double AvgExperience { get { return Experience / (double)Battles; } }
+        [JsonIgnore]
+        public double AvgFrags { get { return Frags / (double)Battles; } }
+        [JsonIgnore]
+        public double AvgSurvivedBattles { get { return SurvivedBattles / (double)Battles; } }
+        [JsonIgnore]
+        public double AvgCap { get { return Cap / (double)Battles; } }
+        [JsonIgnore]
+        public double AvgDecap { get { return Decap / (double)Battles; } }
+        [JsonIgnore]
+        public double AvgDamageReveived { get { return DamageReveived / (double)Battles; } }
+        [JsonIgnore]
+        public double HitRate { get { return Hits / (double)Shots; } }
+
+        public Statistics() { }
+
+        public Statistics(Statistics statistics)
+        {
+            Spotted = statistics.Spotted;
+            Battles = statistics.Battles;
+            Victories = statistics.Victories;
+            Damage = statistics.Damage;
+            Experience = statistics.Experience;
+            Frags = statistics.Frags;
+            SurvivedBattles = statistics.SurvivedBattles;
+            Cap = statistics.Cap;
+            Decap = statistics.Decap;
+            Shots = statistics.Shots;
+            Hits = statistics.Hits;
+            Draws = statistics.Draws;
+            DamageReveived = statistics.DamageReveived;
+        }
+
+        public static Statistics operator +(Statistics first, Statistics second)
+        {
+            return Operate(first, second, (f, s) => f + s);
+        }
+
+        public static Statistics operator -(Statistics first, Statistics second)
+        {
+            return Operate(first, second, (f, s) => f - s);
+        }
+
+
+        private static Statistics Operate(Statistics first, Statistics second, Func<int, int, int> operation)
+        {
+            Statistics result = new Statistics
+            {
+                Spotted = operation(first.Spotted, second.Spotted),
+                Battles = operation(first.Battles, second.Battles),
+                Victories = operation(first.Victories, second.Victories),
+                Damage = operation(first.Damage, second.Damage),
+                Experience = operation(first.Experience, second.Experience),
+                Frags = operation(first.Frags, second.Frags),
+                SurvivedBattles = operation(first.SurvivedBattles, second.SurvivedBattles),
+                Cap = operation(first.Cap, second.Cap),
+                Decap = operation(first.Decap, second.Decap),
+                Shots = operation(first.Shots, second.Shots),
+                Hits = operation(first.Hits, second.Hits),
+                Draws = operation(first.Draws, second.Draws),
+                DamageReveived = operation(first.DamageReveived, second.DamageReveived),
+            };
+            return result;
+        }
+
+        public double CalculateWN8(ExpectedValues expectedValues)
+        {
+            return WN8.Calculate(AvgDamage, AvgSpotted, AvgFrags, AvgDecap, Winrate, expectedValues);
+        }
     }
 }
