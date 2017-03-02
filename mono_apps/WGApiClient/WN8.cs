@@ -14,7 +14,7 @@ namespace WGApi
             double rSpot = spotted / expectedValues.Spots;
             double rFrag = frags / expectedValues.Frags;
             double rDef = decap / expectedValues.Defense;
-            double rWin = winrate / expectedValues.Winrate;
+            double rWin = winrate * 100 / expectedValues.Winrate;
 
             Func<double, double, double> normalize = (r, d) => (r - d) / (1 - d);
 
