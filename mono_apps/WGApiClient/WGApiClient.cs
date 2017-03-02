@@ -32,28 +32,28 @@ namespace WGApi
 
         public Moe[] GetPlayerMarks(int id)
         {
-            return GetApiResponse<Dictionary<string, Moe[]>>("wot/tanks/achievements/", BuildParameterString("achievements,tank_id", id.ToString())).Single().Value;
+            return GetApiResponse<Dictionary<int, Moe[]>>("wot/tanks/achievements/", BuildParameterString("achievements,tank_id", id.ToString())).Single().Value;
         }
 
-        public Dictionary<string, WinrateRecord[]> GetPlayerWinrateRecords(IEnumerable<int> ids)
+        public Dictionary<int, WinrateRecord[]> GetPlayerWinrateRecords(IEnumerable<int> ids)
         {
-            return GetApiResponse<Dictionary<string, WinrateRecord[]>>("wot/account/tanks/", BuildParameterString(accountID: String.Join(",", ids)));
+            return GetApiResponse<Dictionary<int, WinrateRecord[]>>("wot/account/tanks/", BuildParameterString(accountID: String.Join(",", ids)));
         }
 
         public TankStats[] GetPlayerTankStats(int id)
         {
-            return GetApiResponse<Dictionary<string, TankStats[]>>("wot/tanks/stats/", BuildParameterString("random,tank_id", id.ToString(), extra: "random")).Single().Value;
+            return GetApiResponse<Dictionary<int, TankStats[]>>("wot/tanks/stats/", BuildParameterString("random,tank_id", id.ToString(), extra: "random")).Single().Value;
         }
 
-        public Dictionary<string, PlayerInfo> GetPlayerStats(IEnumerable<int> ids)
+        public Dictionary<int, PlayerInfo> GetPlayerStats(IEnumerable<int> ids)
         {
             string fields = "statistics.random,client_language,global_rating,logout_at,created_at,last_battle_time,updated_at,clan_id,nickname";
-            return GetApiResponse<Dictionary<string, PlayerInfo>>("wot/account/info/", BuildParameterString(fields, String.Join(",", ids), extra: "statistics.random"));
+            return GetApiResponse<Dictionary<int, PlayerInfo>>("wot/account/info/", BuildParameterString(fields, String.Join(",", ids), extra: "statistics.random"));
         }
 
-        public Dictionary<string, Clan> GetClanInformation(IEnumerable<int> ids)
+        public Dictionary<int, Clan> GetClanInformation(IEnumerable<int> ids)
         {
-            return GetApiResponse<Dictionary<string, Clan>>("wgn/clans/info/", BuildParameterString(clanID: String.Join(",", ids)));
+            return GetApiResponse<Dictionary<int, Clan>>("wgn/clans/info/", BuildParameterString(clanID: String.Join(",", ids)));
         }
 
 #if DEBUG
