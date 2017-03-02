@@ -37,25 +37,25 @@ namespace WGApi
         public int DamageReveived { get; set; }
 
         [JsonIgnore]
-        public double AvgSpotted { get { return Spotted / (double)Battles; } }
+        public double AvgSpotted { get { return SafelyDivide(Spotted, Battles); } }
         [JsonIgnore]
-        public double Winrate { get { return Victories / (double)Battles * 100; } }
+        public double Winrate { get { return SafelyDivide(Victories, Battles); } }
         [JsonIgnore]
-        public double AvgDamage { get { return Damage / (double)Battles; } }
+        public double AvgDamage { get { return SafelyDivide(Damage, Battles); } }
         [JsonIgnore]
-        public double AvgExperience { get { return Experience / (double)Battles; } }
+        public double AvgExperience { get { return SafelyDivide(Experience, Battles); } }
         [JsonIgnore]
-        public double AvgFrags { get { return Frags / (double)Battles; } }
+        public double AvgFrags { get { return SafelyDivide(Frags, Battles); } }
         [JsonIgnore]
-        public double AvgSurvivedBattles { get { return SurvivedBattles / (double)Battles; } }
+        public double AvgSurvivedBattles { get { return SafelyDivide(SurvivedBattles, Battles); } }
         [JsonIgnore]
-        public double AvgCap { get { return Cap / (double)Battles; } }
+        public double AvgCap { get { return SafelyDivide(Cap, Battles); } }
         [JsonIgnore]
-        public double AvgDecap { get { return Decap / (double)Battles; } }
+        public double AvgDecap { get { return SafelyDivide(Decap, Battles); } }
         [JsonIgnore]
-        public double AvgDamageReveived { get { return DamageReveived / (double)Battles; } }
+        public double AvgDamageReveived { get { return SafelyDivide(DamageReveived, Battles); } }
         [JsonIgnore]
-        public double HitRate { get { return Hits / (double)Shots; } }
+        public double Hitrate { get { return SafelyDivide(Hits, Shots); } }
 
         public Statistics() { }
 
@@ -106,6 +106,13 @@ namespace WGApi
                 DamageReveived = operation(first.DamageReveived, second.DamageReveived),
             };
             return result;
+        }
+
+        private double SafelyDivide(int dividend, int divisor)
+        {
+            if (divisor == 0)
+                return 0;
+            return dividend / (double)divisor;
         }
 
         public double CalculateWN8(ExpectedValues expectedValues)
