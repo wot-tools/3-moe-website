@@ -56,6 +56,12 @@ namespace WGApi
             return GetApiResponse<Dictionary<int, Clan>>("wgn/clans/info/", BuildParameterString(clanID: String.Join(",", ids)));
         }
 
+        public Dictionary<int, Tank> GetVehicles()
+        {
+            string fields = "tag,name,nation,is_premium,short_name";
+            return GetApiResponse<Dictionary<int, Tank>>("wot/encyclopedia/vehicles/", BuildParameterString(fields));
+        }
+
 #if DEBUG
         private DateTime WindowEnd;
         private int WindowSize = 1;
