@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WGApi
 {
-    class WN8
+    public class WN8
     {
         public static double Calculate(double damage, double spotted, double frags, double decap, double winrate, ExpectedValues expectedValues)
         {
@@ -25,6 +25,21 @@ namespace WGApi
             double rDefC = Math.Max(0, Math.Min(rDamageC + 0.1, normalize(rDef, 0.1)));
 
             return 980 * rDamageC + 210 * rDamageC * rFragC + 155 * rFragC * rSpotC + 75 * rDefC * rFragC + 145 * Math.Min(1.8, rWinC);
+        }
+
+        public static double AccountWN8(ExpectedValueList expectedValueList, int version, Dictionary<int, Statistics> tankStats)
+        {
+            Dictionary<int, ExpectedValues> expectedValues = expectedValueList[version];
+            Statistics cumulatedStats = new Statistics();
+            ExpectedValues cumulatedExpected = new ExpectedValues();
+            foreach (var pair in tankStats)
+                if (expectedValues.TryGetValue(pair.Key, out ExpectedValues values))
+                {
+                    cumulatedExpected += values * pair.Value.Battles;
+                    cumulatedStats += pair.Value;
+                }
+            cumulatedExpected /= cumulatedStats.Battles;
+            return cumulatedStats.CalculateWN8(cumulatedExpected);
         }
     }
 }
