@@ -3,6 +3,8 @@ FROM ruby:2.4.0
 RUN apt-get update -qq
 RUN apt-get install -y build-essential libmariadbd-dev
 
+ENV SCOUT_DEV_TRACE=true
+
 ENV APP_HOME /app
 
 RUN mkdir $APP_HOME
