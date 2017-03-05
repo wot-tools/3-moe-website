@@ -2,7 +2,7 @@ class PlayersController < ApplicationController
 
 	def index
 		@q = Player.all.ransack(params[:q])
-		@players = @q.result.paginate(:page => params[:page], :per_page => 20)
+		@players = @q.result.includes(:clan).paginate(:page => params[:page], :per_page => 20)
 	end
 
 	def show
