@@ -86,26 +86,26 @@ namespace WGApi
             return Operate(first, second, (f, s) => f - s);
         }
 
-
-        private static Statistics Operate(Statistics first, Statistics second, Func<int, int, int> operation)
+        private static Statistics Operate(Statistics first, Statistics second, Func<int, int, int> operation) => Operate(first, second, 0, operation);
+        private static Statistics Operate(Statistics stats, int i, Func<int, int, int> operation) => Operate(stats, null, i, operation);
+        private static Statistics Operate(Statistics first, Statistics second, int i, Func<int, int, int> operation)
         {
-            Statistics result = new Statistics
+            return new Statistics
             {
-                Spotted = operation(first.Spotted, second.Spotted),
-                Battles = operation(first.Battles, second.Battles),
-                Victories = operation(first.Victories, second.Victories),
-                Damage = operation(first.Damage, second.Damage),
-                Experience = operation(first.Experience, second.Experience),
-                Frags = operation(first.Frags, second.Frags),
-                SurvivedBattles = operation(first.SurvivedBattles, second.SurvivedBattles),
-                Cap = operation(first.Cap, second.Cap),
-                Decap = operation(first.Decap, second.Decap),
-                Shots = operation(first.Shots, second.Shots),
-                Hits = operation(first.Hits, second.Hits),
-                Draws = operation(first.Draws, second.Draws),
-                DamageReveived = operation(first.DamageReveived, second.DamageReveived),
+                Spotted = operation(first.Spotted, second?.Spotted ?? i),
+                Battles = operation(first.Battles, second?.Battles ?? i),
+                Victories = operation(first.Victories, second?.Victories ?? i),
+                Damage = operation(first.Damage, second?.Damage ?? i),
+                Experience = operation(first.Experience, second?.Experience ?? i),
+                Frags = operation(first.Frags, second?.Frags ?? i),
+                SurvivedBattles = operation(first.SurvivedBattles, second?.SurvivedBattles ?? i),
+                Cap = operation(first.Cap, second?.Cap ?? i),
+                Decap = operation(first.Decap, second?.Decap ?? i),
+                Shots = operation(first.Shots, second?.Shots ?? i),
+                Hits = operation(first.Hits, second?.Hits ?? i),
+                Draws = operation(first.Draws, second?.Draws ?? i),
+                DamageReveived = operation(first.DamageReveived, second?.DamageReveived ?? i),
             };
-            return result;
         }
 
         private double SafelyDivide(int dividend, int divisor)
