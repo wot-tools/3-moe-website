@@ -9,7 +9,7 @@ class PlayersController < ApplicationController
 		@player = Player.find(params[:id])
 
 		@q = @player.marks.ransack(params[:q])
-		@marks = @q.result.paginate(:page => params[:page], :per_page => 20)
+		@marks = @q.result.includes(:tank, tank: [:nation, :vehicle_type]).paginate(:page => params[:page], :per_page => 20)
 		
 		rescue ActiveRecord::RecordNotFound
 			redirect_to players_path and return
