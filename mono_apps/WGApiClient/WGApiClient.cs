@@ -24,7 +24,7 @@ namespace WGApi
 
             BaseUri = $"{baseUriWithoutTld}.{region}/";
             Logger = logger;
-#if DEBUG
+#if MEASURE
             WindowEnd = DateTime.Now.AddSeconds(WindowSize);
             StartPerformanceMeasureThread();
 #endif
@@ -62,7 +62,19 @@ namespace WGApi
             return GetApiResponse<Dictionary<int, Tank>>("wot/encyclopedia/vehicles/", BuildParameterString(fields));
         }
 
-#if DEBUG
+        public Dictionary<string, int> SearchPlayerStartsWith(string search)
+        {
+            if (search.Length < 3)
+                return null;
+            return GetApiResponse<PlayerIDRecord[]>("wot/account/list/", BuildParameterString(search: search)).ToDictionary(r => r.Nickname, r => r.ID);
+        }
+
+        public int SearchPlayerExact(string search)
+        {
+            return GetApiResponse<PlayerIDRecord[]>("wot/account/list/", BuildParameterString(search: search, type: "exact")).SingleOrDefault()?.ID ?? -1;
+        }
+
+#if MEASURE
         private DateTime WindowEnd;
         private int WindowSize = 1;
         private int ApiResponsesCount = 0;
@@ -99,7 +111,7 @@ namespace WGApi
 
         private string GetApiResponse(string endpoint, string parameters)
         {
-#if DEBUG
+#if MEASURE
             Interlocked.Increment(ref ApiResponsesCount);
 #endif
             WebRequest request = WebRequest.Create($"{BaseUri}{endpoint}{parameters}");
@@ -109,7 +121,7 @@ namespace WGApi
                 return reader.ReadToEnd();
         }
 
-        private string BuildParameterString(string fields = null, string accountID = null, string clanID = null, string extra = null)
+        private string BuildParameterString(string fields = null, string accountID = null, string clanID = null, string extra = null, string search = null, string type = null)
         {
             StringBuilder builder = new StringBuilder();
             builder.Append($"?application_id={ApplicationID}");
@@ -121,6 +133,10 @@ namespace WGApi
                 builder.Append($"&clan_id={clanID}");
             if (extra != null)
                 builder.Append($"&extra={extra}");
+            if (search != null)
+                builder.Append($"&search={search}");
+            if (type != null)
+                builder.Append($"&type={type}");
 
             return builder.ToString();
         }
