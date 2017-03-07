@@ -8,7 +8,7 @@
 
 	<div class="clanName"><%= @clan.name %></div>
 	<div class="clanTag"><%= @clan.tag %></div>
-	<div class="moeCount"><%= image_tag("moe/95x85/china_3_marks.png", :class => "image3moe") %> <%= number_with_delimiter(@clan.marks.count) %></div>
+	<div class="moeCount"><%= image_tag("moe/95x85/china_3_marks.png", :class => "image3moe") %> <%= number_with_delimiter(@clan.mark_count) %></div>
 	<div><%= @clan.members %> Members</div>
 	<div class="externalClanLinks"><%= image_tag "http://eu.wargaming.net/favicon.ico" %> <%= link_to "WG profile", clan_url_wg(@clan.id) %> | <%= image_tag "http://wotlabs.net/images/favicon.png" %> <%= link_to "Wotlabs", clan_url_wotlabs(@clan.tag) %></div>
 </div>
@@ -29,7 +29,7 @@
 	<thead>
 		<tr>
 			<th><%= sort_link(@q, :name, "Player") %></th>
-			<th><%= sort_link(@q, :marks_count, "Marks") %></th>
+			<th><%= sort_link(@q, :mark_count, "Marks") %></th>
 			<th><%= sort_link(@q, :battles, "Battles") %></th>
 			<th><%= sort_link(@q, :winratio, "Win ratio") %></th>
 			<th><%= sort_link(@q, :wn8, "WN8") %></th>
@@ -46,7 +46,7 @@
 		<% @players.each do |player| %>
 			<tr>
 				<td><%= link_to player.name, player_path(player.id) %></td>
-				<td><%= player.marks.count %></td>
+				<td><%= player.mark_count %></td>
 				<td><%= number_with_delimiter(player.battles) %></td>
 				<td class="<%= css_class_by_winrate(player.winratio)%>"><%= winratio_percentage(player.winratio) %></td>
 				<td class="<%= css_class_by_wn8(player.wn8) %>"><%= number_with_delimiter(player.wn8) %></td>

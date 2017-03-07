@@ -21,7 +21,7 @@
 			<th><%= sort_link(@q, :name, "Clan") %></th>
 			<th><%= sort_link(@q, :tag, "Tag") %></th>
 			<th><%= sort_link(@q, :members, "Members") %></th>
-			<th><%= sort_link(@q, :marks_count, "3 MoE") %></th>
+			<th><%= sort_link(@q, :mark_count, "3 MoE") %></th>
 			<th><%= sort_link(@q, :moe_rating, "MoE Rating") %></th>
 			<th><%= sort_link(@q, :updatedAtWG, "Updated at (WG)") %></th>
 			<th><%= sort_link(@q, :clanCreated, "Created at") %></th>
@@ -34,7 +34,7 @@
 				<td><div class="clanName32px"><img src="<%= clan.icon32px%>"> <%= link_to clan.name, clan_path(clan) %></div></td>
 				<td><%= clan.tag %></td>
 				<td><%= clan.members %></td>
-				<td><%= number_with_delimiter(clan.marks.count) %></td>
+				<td><%= number_with_delimiter(clan.mark_count) %></td>
 				<td><%= number_with_delimiter(clan.moe_rating) %></td>
 				<td><%= clan.updatedAtWG %></td>
 				<td><%= clan.clanCreated %></td>

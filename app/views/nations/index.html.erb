@@ -3,19 +3,13 @@
 
 <h1>Nation Overview</h1>
 
-<%= search_form_for @q do |f| %>
-  <%= f.search_field :name_cont %>
-
-  <%= f.submit %>
-<% end %>
-
 <div class="digg_pagination"><%= will_paginate @nations %></div>
 <table>
   <thead>
     <tr>
       <th><%= sort_link(@q, :name, "Nation") %></th>
 	  <th><%= sort_link(@q, :tanks_count, "Tanks") %></th>
-      <th><%= sort_link(@q, :marks_count, "3 MoE") %></th>
+      <th><%= sort_link(@q, :mark_count, "3 MoE") %></th>
     </tr>
   </thead>
   <tbody>
@@ -23,7 +17,7 @@
       <tr>
         <td><%= image_tag "nations/" + nation.id + ".png" %> <%= link_to nation.name, nation_path(nation.id) %></td>
 		<td><%= number_with_delimiter(nation.tanks.count) %></td>
-        <td><%= number_with_delimiter(nation.marks.count) %></td>
+        <td><%= number_with_delimiter(nation.mark_count) %></td>
       </tr>
     <% end %>
   </tbody>
