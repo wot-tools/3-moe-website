@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170216230446) do
+ActiveRecord::Schema.define(version: 20170307181204) do
 
   create_table "articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "title"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20170216230446) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "moe_rating"
+    t.integer  "mark_count"
   end
 
   create_table "marks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -47,8 +48,9 @@ ActiveRecord::Schema.define(version: 20170216230446) do
 
   create_table "nations", id: :string, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "mark_count", default: 0, null: false
   end
 
   create_table "players", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -66,6 +68,7 @@ ActiveRecord::Schema.define(version: 20170216230446) do
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
     t.integer  "moe_rating"
+    t.integer  "mark_count"
     t.index ["clan_id"], name: "index_players_on_clan_id", using: :btree
   end
 
@@ -82,14 +85,16 @@ ActiveRecord::Schema.define(version: 20170216230446) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.integer  "moe_value"
+    t.integer  "mark_count"
     t.index ["nation_id"], name: "index_tanks_on_nation_id", using: :btree
     t.index ["vehicle_type_id"], name: "index_tanks_on_vehicle_type_id", using: :btree
   end
 
   create_table "vehicle_types", id: :string, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "mark_count", default: 0, null: false
   end
 
   add_foreign_key "marks", "players"

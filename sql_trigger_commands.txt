@@ -1,0 +1,19 @@
+delimiter //
+CREATE TRIGGER marks_after_insert AFTER INSERT ON marks
+FOR EACH ROW
+BEGIN
+	UPDATE tanks SET mark_count = mark_count + 1 WHERE id=NEW.tank_id;
+	UPDATE nations SET mark_count = mark_count + 1 WHERE id=(SELECT nation_id FROM tanks WHERE id = NEW.tank_id);
+	UPDATE vehicle_types SET mark_count = mark_count + 1 WHERE id=(SELECT vehicle_type_id FROM tanks WHERE id = NEW.tank_id);
+	UPDATE players SET mark_count = mark_count + 1 WHERE id=NEW.player_id;
+	UPDATE clans SET mark_count = mark_count + 1 WHERE id=(SELECT clan_id FROM players WHERE id = NEW.player_id);
+END;//
+CREATE TRIGGER players_after_update AFTER UPDATE ON players
+FOR EACH ROW
+BEGIN
+	IF OLD.clan_id <> NEW.clan_id THEN
+	UPDATE clans SET mark_count = mark_count - OLD.mark_count WHERE id = OLD.clan_id;
+	UPDATE clans SET mark_count = mark_count + NEW.mark_count WHERE id = NEW.clan_id;
+	END IF;
+END;//
+delimiter ;

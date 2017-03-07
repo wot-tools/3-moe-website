@@ -5,7 +5,7 @@
 	<div class="clearfix">
 		<div class="playerInfoDiv">
 			<div class="playerName"><%= @player.name %> <% if !@player.clientLang.blank? %><%= image_tag "clientlang/" + @player.clientLang + ".png"%><% end %></div>
-			<div class="moeCount"><%= @player.marks.count %></div>
+			<div class="moeCount"><%= @player.mark_count %></div>
 			<div><%= link_to "WG profile", player_url_wg(@player.id) %> | <%= link_to "Wotlabs", player_url_wotlabs(@player.name) %></div>
 		</div>
 
