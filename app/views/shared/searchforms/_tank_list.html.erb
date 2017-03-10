@@ -1,4 +1,7 @@
-	<%= search_form_for @q do |f| %>
-	  <%= f.search_field :name_or_shortname_cont %>
-	  <%= f.submit %>
-	<% end %>
+<%= search_form_for @q do |f| %>
+	<%= f.search_field :name_or_shortname_cont, placeholder: "Tank name" %>
+	<%= f.search_field :nation_name_cont, placeholder: "Nation" %>
+	<%= f.search_field :vehicle_type_name_cont, placeholder: "Tank type" %>
+
+	<%= f.submit %>
+<% end %>

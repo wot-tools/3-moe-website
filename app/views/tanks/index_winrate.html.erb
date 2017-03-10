@@ -4,11 +4,7 @@
 <div class="headline">Tank Overview - Winratio</div>
 <%= render "link_bar" %>
 <div>
-	<%= search_form_for @q do |f| %>
-	  <%= f.search_field :name_or_shortname_cont %>
-	  <%= f.submit %>
-	<% end %>
-
+	<%= render "shared/searchforms/tank_list" %>
 	<div class="digg_pagination"><%= will_paginate @tanks %></div>
 	<table>
 	  <thead>
@@ -59,7 +55,7 @@
 			<td><%= number_with_delimiter(@tanks_calculation.where("tanks.id = " + tank.id.to_s + " AND players.winratio < 0.56").count)%>
 			<td><%= number_with_delimiter(@tanks_calculation.where("tanks.id = " + tank.id.to_s + " AND players.winratio < 0.60").count)%>
 			<td><%= number_with_delimiter(@tanks_calculation.where("tanks.id = " + tank.id.to_s + " AND players.winratio < 0.65").count)%>
-			<td><%= number_with_delimiter(tank.marks.count)%>
+			<td><%= number_with_delimiter(tank.mark_count)%>
 		  </tr>
 		<% end %>
 	  </tbody>

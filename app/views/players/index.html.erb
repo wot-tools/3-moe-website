@@ -3,17 +3,7 @@
 
 <h1>Player Overview</h1>
 
-<%= search_form_for @q do |f| %>
-	<div class="fields">
-		<%= f.label :name_cont, "Player:" %>
-		<%= f.search_field :name_cont %>
-		<%= f.label :clan_tag_cont, "Clan:" %>
-		<%= f.search_field :clan_tag_cont %>
-	</div>
-	<div class="actions">
-		<%= f.submit %>
-	</div>
-<% end %>
+<%= render "shared/searchforms/player_list" %>
 
 <div class="digg_pagination"><%= will_paginate @players %></div>
 
