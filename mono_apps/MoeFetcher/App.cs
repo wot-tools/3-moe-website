@@ -238,7 +238,7 @@ namespace MoeFetcher
                         continue;
                     result[index++] = new Player
                     {
-                        ID = int.Parse(player.Key),
+                        ID = player.Key,
                         PlayerInfo = player.Value,
                     };
                     if (index >= maxCount)
@@ -273,7 +273,7 @@ namespace MoeFetcher
                         var winrateRecords = Client.GetPlayerWinrateRecords(players.Select(p => p.ID));
                         for (int i = 0; i < players.Length; i++)
                         {
-                            players[i].Winrates = winrateRecords[players[i].ID.ToString()];
+                            players[i].Winrates = winrateRecords[players[i].ID];
                             players[i].Moes = Client.GetPlayerMarks(players[i].ID);
                             if (players[i].PlayerInfo.ClanID.HasValue)
                                 ClanIDs.Add(players[i].PlayerInfo.ClanID.Value);
