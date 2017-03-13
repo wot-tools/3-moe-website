@@ -133,7 +133,7 @@ namespace MoeFetcher
         {
             int remainingLoadTries = SettingsAccessTryCount;
             Uri baseUri = new Uri(System.Reflection.Assembly.GetExecutingAssembly().CodeBase);
-            BasePath = Path.GetDirectoryName(baseUri.AbsolutePath);
+            BasePath = System.Net.WebUtility.UrlDecode(Path.GetDirectoryName(baseUri.AbsolutePath));
 
             while (false == Setting.TryLoadSettings(SettingsPath, out Settings))
             {
