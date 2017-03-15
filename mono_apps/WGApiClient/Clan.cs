@@ -21,9 +21,12 @@ namespace WGApi
         public string Color { get; set; }
         [JsonProperty("updated_at")]
         public int EpochUpdatedAt { set { UpdatedAt = EpochDateTime.FromEpoch(value); } }
+        [JsonProperty("created_at")]
+        private int EpochCreatedAt { set { CreatedAt = EpochDateTime.FromEpoch(value); } }
         [JsonProperty("emblems")]
         public Dictionary<string, Emblem> Emblems { get; set; }
 
         public DateTime UpdatedAt { get; set; }
+        public DateTime CreatedAt { get; set; }
     }
 }
