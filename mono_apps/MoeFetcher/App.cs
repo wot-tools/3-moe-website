@@ -21,6 +21,7 @@ namespace MoeFetcher
         private string SettingsPath { get { return Path.Combine(BasePath, "settings.json"); } }
 
         private WGApiClient Client;
+        private DBClient DatabaseClient;
         private Setting[] Settings;
         private Setting ActiveSetting;
         private int SettingIndex;
@@ -59,9 +60,16 @@ namespace MoeFetcher
                 return (int)ExitCodes.Error;
 
             RunStart = DateTime.Now;
+
+
+
+            Dictionary<int, Tank> tankDict = Client.GetVehicles();
+            DatabaseClient.UpsertTanks(tankDict);
+
             RecheckPlayers(GetPlayersToRecheck(ProcessIDs(ReadLines(Path.Combine(BasePath, ActiveSetting.RelativePathToPlayerIDs)))));
+            CheckClans(ProcessIDs(ClanIDs));
 
-
+            DatabaseClient.UpsertPlayers(TempPlayers);
 
 
 
@@ -165,6 +173,7 @@ namespace MoeFetcher
             }
             ActiveSetting = Settings[SettingIndex];
             Client = new WGApiClient(ActiveSetting.BaseUri, ActiveSetting.Region, ActiveSetting.ApplicationID, Logger);
+            DatabaseClient = new DBClient("db", "root", "root", "moe");
             Logger.Info("app set to region {0}", ActiveSetting.Region);
             return true;
         }
@@ -280,6 +289,28 @@ namespace MoeFetcher
                         }
                         lock (TempPlayers)
                             TempPlayers.AddRange(players);
+                        if (Interlocked.Decrement(ref threadcount) == 0)
+                            resetEvent.Set();
+                    });
+                }
+                resetEvent.WaitOne();
+            }
+            watch.Stop();
+            Logger.Info(watch.Elapsed.ToString());
+        }
+
+        private void CheckClans(IEnumerable<int[]> clanIDBatches)
+        {
+            Stopwatch watch = Stopwatch.StartNew();
+            int threadcount = 0;
+            using (ManualResetEvent resetEvent = new ManualResetEvent(false))
+            {
+                foreach (int[] clans in clanIDBatches)
+                {
+                    ThreadPool.QueueUserWorkItem(_ =>
+                    {
+                        Interlocked.Increment(ref threadcount);
+                        DatabaseClient.UpsertClans(Client.GetClanInformation(clans));
                         if (Interlocked.Decrement(ref threadcount) == 0)
                             resetEvent.Set();
                     });
