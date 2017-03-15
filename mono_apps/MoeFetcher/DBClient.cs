@@ -39,6 +39,73 @@ namespace MoeFetcher
             Connection.Close();
         }
 
+        public void UpsertTanks(Dictionary<int, Tank> tankDict)
+        {
+            MySqlCommand command = GetTankInsertCommand();
+
+            command.Parameters.AddWithValue("@id", 1);
+            command.Parameters.AddWithValue("@name", "1");
+            command.Parameters.AddWithValue("@nameshort", "1");
+            command.Parameters.AddWithValue("@tier", 1);
+            command.Parameters.AddWithValue("@vehicletypeid", "1");
+            command.Parameters.AddWithValue("@nationid", "1");
+            command.Parameters.AddWithValue("@bigicon", "1");
+            command.Parameters.AddWithValue("@smallicon", "1");
+            command.Parameters.AddWithValue("@contouricon", "1");
+            command.Parameters.AddWithValue("@now", DateTime.Now);
+
+            foreach(var keyValuePair in tankDict)
+            {
+                command.Parameters["@id"].Value = keyValuePair.Key;
+                command.Parameters["@name"].Value = keyValuePair.Value.Name;
+                command.Parameters["@nameshort"].Value = keyValuePair.Value.ShortName;
+                command.Parameters["@tier"].Value = keyValuePair.Value.Tier;
+                command.Parameters["@vehicletypeid"].Value = keyValuePair.Value.VehicleType;
+                command.Parameters["@nationid"].Value = keyValuePair.Value.Nation;
+                command.Parameters["@bigicon"].Value = keyValuePair.Value.Icons.Big;
+                command.Parameters["@smallicon"].Value = keyValuePair.Value.Icons.Small;
+                command.Parameters["@contouricon"].Value = keyValuePair.Value.Icons.Contour;
+                command.Parameters["@now"].Value = DateTime.Now;
+
+                command.ExecuteNonQuery();
+            }
+
+        }
+
+        public void UpsertTank(Tank tank, string id)
+        {
+            MySqlCommand command = GetTankInsertCommand();
+
+            command.Parameters.AddWithValue("@id", id);
+            command.Parameters.AddWithValue("@name", tank.Name);
+            command.Parameters.AddWithValue("@nameshort", tank.ShortName);
+            command.Parameters.AddWithValue("@tier", tank.Tier);
+            command.Parameters.AddWithValue("@vehicletypeid", tank.VehicleType);
+            command.Parameters.AddWithValue("@nationid", tank.Nation);
+            command.Parameters.AddWithValue("@bigicon", tank.Icons.Big);
+            command.Parameters.AddWithValue("@smallicon", tank.Icons.Small);
+            command.Parameters.AddWithValue("@contouricon", tank.Icons.Contour);
+            command.Parameters.AddWithValue("@now", DateTime.Now);
+
+            command.ExecuteNonQuery();
+        }
+
+        private MySqlCommand GetTankInsertCommand()
+        {
+            MySqlCommand command = new MySqlCommand()
+            {
+                CommandText = "INSERT INTO tanks ('id', 'name', 'name_short', 'tier', 'vehicle_type_id', 'nation_id',"
+                            + "'bigicon', 'contouricon', 'smallicon', 'created_at', 'updated_at')"
+                            + "VALUES (@id, @name, @nameshort, @tier, @vehicletypeid, @nationid, @bigicon, @contouricon, @smallicon, @now, @now)"
+                            + "ON DUPLICATE KEY UPDATE name=@name, name_short=@nameshort, tier=@tier, vehicle_type_id=@vehicletypeid, @nation_id=@nationid, "
+                            + "bigicon=@bigicon, smallicon=@smallicon, updated_at=@now;"
+            };
+
+            command.Prepare();
+
+            return command;
+        }
+
         public void UpsertNation(string id, string name)
         {
             UpsertSimpleItem(id, name, "nations");
@@ -66,7 +133,7 @@ namespace MoeFetcher
             command.ExecuteNonQuery();
         }
 
-        private void UpsertClans(IEnumerable<Clan> clans)
+        public void UpsertClans(Dictionary<int, Clan> clanDict)
         {
             MySqlCommand command = GetClanInsertCommand();
 
@@ -84,8 +151,9 @@ namespace MoeFetcher
             command.Parameters.AddWithValue("@icon256px", "1");
             command.Parameters.AddWithValue("now", DateTime.Now);
 
-            foreach(Clan clan in clans)
+            foreach(var keyValuePair in clanDict)
             {
+                Clan clan = keyValuePair.Value;
                 command.Parameters["@id"].Value = clan.ID;
                 command.Parameters["@name"].Value = clan.Name;
                 command.Parameters["@tag"].Value = clan.Tag;
@@ -104,7 +172,7 @@ namespace MoeFetcher
             }
         }
 
-        private void UpsertClan(Clan clan)
+        public void UpsertClan(Clan clan)
         {
             MySqlCommand command = GetClanInsertCommand();
 
