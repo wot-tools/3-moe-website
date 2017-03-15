@@ -21,7 +21,7 @@ namespace WGApi
                 if (_Directory == null)
                 {
                     Uri baseUri = new Uri(System.Reflection.Assembly.GetExecutingAssembly().CodeBase);
-                    _Directory = Path.GetDirectoryName(baseUri.AbsolutePath);
+                    _Directory = System.Net.WebUtility.UrlDecode(Path.GetDirectoryName(baseUri.AbsolutePath));
                 }
                 return _Directory;
             }
