@@ -19,5 +19,11 @@ namespace WGApi
         public string ShortName { get; set; }
         [JsonProperty("nation")]
         public string Nation { get; set; }
+        [JsonProperty("tier")]
+        public int Tier { get; set; }
+        [JsonProperty("type")]
+        public string VehicleType { get; set; }
+        [JsonProperty("images")]
+        public Icons Icons { get; set; }
     }
 }

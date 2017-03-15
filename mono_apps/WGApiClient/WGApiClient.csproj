@@ -58,6 +58,7 @@
     <Compile Include="EpochDateTime.cs" />
     <Compile Include="ExpectedValueList.cs" />
     <Compile Include="ExpectedValues.cs" />
+    <Compile Include="Icons.cs" />
     <Compile Include="ILogger.cs" />
     <Compile Include="Moe.cs" />
     <Compile Include="PlayerIDRecord.cs" />

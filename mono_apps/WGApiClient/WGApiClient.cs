@@ -58,7 +58,7 @@ namespace WGApi
 
         public Dictionary<int, Tank> GetVehicles()
         {
-            string fields = "tag,name,nation,is_premium,short_name";
+            string fields = "tag,name,nation,is_premium,short_name,tier,type,images";
             return GetApiResponse<Dictionary<int, Tank>>("wot/encyclopedia/vehicles/", BuildParameterString(fields));
         }
 
