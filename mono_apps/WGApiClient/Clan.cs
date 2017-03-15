@@ -20,7 +20,7 @@ namespace WGApi
         [JsonProperty("color")]
         public string Color { get; set; }
         [JsonProperty("updated_at")]
-        public int EpochUpdatedAt { set { UpdatedAt = EpochDateTime.FromEpoch(value); } }
+        private int EpochUpdatedAt { set { UpdatedAt = EpochDateTime.FromEpoch(value); } }
         [JsonProperty("created_at")]
         private int EpochCreatedAt { set { CreatedAt = EpochDateTime.FromEpoch(value); } }
         [JsonProperty("emblems")]
