@@ -8,10 +8,10 @@ class CreatePlayers < ActiveRecord::Migration[5.0]
 	  t.float :winratio, null: false, default: 0
 	  t.integer :mark_count, null: false, default: 0
 	  t.integer :moe_rating, null: false, default: 0
-      t.datetime :lastLogout
-      t.datetime :lastBattle
-      t.datetime :accountCreated
-      t.datetime :updatedAtWG      
+      t.datetime :lastLogout, null: false
+      t.datetime :lastBattle, null: false
+      t.datetime :accountCreated, null: false
+      t.datetime :updatedAtWG, null: false 
       t.string :clientLang, null: false
 	  t.references :clan, index: true, foreign_key: true
 

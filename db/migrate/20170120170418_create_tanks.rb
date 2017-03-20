@@ -10,8 +10,8 @@ class CreateTanks < ActiveRecord::Migration[5.0]
       t.string :bigicon, null: false
       t.string :contouricon, null: false
       t.string :smallicon, null: false
-	  t.references :nation, type: :string, index: true, foreign_key: true
-	  t.references :vehicle_type, type: :string, index: true, foreign_key: true
+	  t.references :nation, type: :string, index: true, null: false, foreign_key: true
+	  t.references :vehicle_type, type: :string, index: true, null: false, foreign_key: true
 
       t.timestamps
     end
