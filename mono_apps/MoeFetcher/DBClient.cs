@@ -114,6 +114,14 @@ namespace MoeFetcher
             return command;
         }
 
+        public void UpsertNations(Dictionary<string, string> nations)
+        {
+            foreach(var entry in nations)
+            {
+                UpsertNation(entry.Key, entry.Value);
+            }
+        }
+
         public void UpsertNation(string id, string name)
         {
             UpsertSimpleItem(id, name, "nations");
