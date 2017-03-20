@@ -1,0 +1,547 @@
+/* line 5, /app/app/assets/stylesheets/clans.scss */
+.clanInfoBlock {
+  margin: 10px 0px 10px 0px;
+}
+
+/* line 9, /app/app/assets/stylesheets/clans.scss */
+.clanImageDiv {
+  float: left;
+  margin: 0px 5px 0px 0px;
+  border: 1px solid #865DAD;
+  height: 128px;
+}
+
+/* line 16, /app/app/assets/stylesheets/clans.scss */
+.externalClanLinks a {
+  text-decoration: none;
+}
+
+/* line 20, /app/app/assets/stylesheets/clans.scss */
+.clanImage {
+  height: 128px;
+  width: 128px;
+}
+
+/* line 25, /app/app/assets/stylesheets/clans.scss */
+.clanName {
+  font-size: 26px;
+}
+
+/* line 28, /app/app/assets/stylesheets/clans.scss */
+.clanTag {
+  font-size: 20px;
+}
+
+/* line 31, /app/app/assets/stylesheets/clans.scss */
+.moeCount {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+/* line 35, /app/app/assets/stylesheets/clans.scss */
+.imageAlignBottom img {
+  vertical-align: bottom;
+}
+
+/* line 38, /app/app/assets/stylesheets/clans.scss */
+.image3moe {
+  height: 34px;
+  width: 38px;
+}
+
+/* line 5, /app/app/assets/stylesheets/nations.scss */
+.tankCount {
+  font-size: 18px;
+}
+
+/* line 9, /app/app/assets/stylesheets/nations.scss */
+.nationInfoBlock {
+  margin: 10px 0px 10px 0px;
+  height: 85px;
+}
+
+/* line 14, /app/app/assets/stylesheets/nations.scss */
+.MoEImageDiv {
+  float: left;
+  margin: 0px 5px 0px 0px;
+  border: 1px solid #865DAD;
+  height: 85px;
+}
+
+/* line 21, /app/app/assets/stylesheets/nations.scss */
+.largeImageMoE {
+  height: 85px;
+  width: 95px;
+}
+
+/* line 26, /app/app/assets/stylesheets/nations.scss */
+.nationName {
+  font-size: 26px;
+}
+
+/* line 30, /app/app/assets/stylesheets/nations.scss */
+.nationMoECount {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+/* line 35, /app/app/assets/stylesheets/nations.scss */
+.nationImage {
+  height: 16px;
+  width: 26px;
+}
+
+/* line 4, /app/app/assets/stylesheets/players.scss */
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* line 10, /app/app/assets/stylesheets/players.scss */
+.valueBoxes {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  clear: left;
+}
+
+/* line 16, /app/app/assets/stylesheets/players.scss */
+.valueBox, .statValueBox, .dateValueBox {
+  font-weight: bold;
+  padding: 10px 0;
+  text-align: center;
+  border: 2px solid #865DAD;
+  box-sizing: border-box;
+  width: 10%;
+  float: left;
+  margin-right: 5px;
+}
+
+/* line 27, /app/app/assets/stylesheets/players.scss */
+.statValueBox {
+  font-size: 10px;
+  min-width: 100px;
+}
+/* line 32, /app/app/assets/stylesheets/players.scss */
+.statValueBox div {
+  font-size: 25px;
+}
+
+/* line 37, /app/app/assets/stylesheets/players.scss */
+.darkBorder {
+  border: 2px solid #000;
+}
+
+/* line 41, /app/app/assets/stylesheets/players.scss */
+.dateValueBox {
+  font-size: 10px;
+  padding: 5px 0;
+  border: 1px solid #865DAD;
+  width: 15%;
+  min-width: 120px;
+  margin-right: 2px;
+}
+/* line 50, /app/app/assets/stylesheets/players.scss */
+.dateValueBox div {
+  font-size: 13px;
+}
+
+/* line 55, /app/app/assets/stylesheets/players.scss */
+.playerInfoDiv {
+  float: left;
+  padding: 5px;
+  border: 2px solid #865DAD;
+  margin-right: 5px;
+}
+
+/* line 62, /app/app/assets/stylesheets/players.scss */
+.playerInfoBlock {
+  margin: 10px 0px 10px 0px;
+}
+
+/* line 66, /app/app/assets/stylesheets/players.scss */
+.playerImageDiv {
+  float: left;
+  margin: 0px 5px 0px 0px;
+  border: 2px solid #865DAD;
+  height: 128px;
+}
+
+/* line 73, /app/app/assets/stylesheets/players.scss */
+.clanInfoDiv {
+  border: 2px solid #865DAD;
+  padding: 5px;
+  float: left;
+}
+/* line 78, /app/app/assets/stylesheets/players.scss */
+.clanInfoDiv .clanIcon img {
+  height: 32px;
+  width: 32px;
+}
+/* line 83, /app/app/assets/stylesheets/players.scss */
+.clanInfoDiv a {
+  text-decoration: none;
+}
+/* line 87, /app/app/assets/stylesheets/players.scss */
+.clanInfoDiv span {
+  font-size: 20px;
+}
+
+/* line 92, /app/app/assets/stylesheets/players.scss */
+.playerName {
+  font-size: 26px;
+}
+
+/* line 96, /app/app/assets/stylesheets/players.scss */
+.moeCount {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+/* line 101, /app/app/assets/stylesheets/players.scss */
+.image3moe {
+  height: 34px;
+  width: 38px;
+}
+
+/* line 5, /app/app/assets/stylesheets/tanks.scss */
+.tankInfoBlock {
+  margin: 10px 0px 10px 0px;
+}
+
+/* line 9, /app/app/assets/stylesheets/tanks.scss */
+.tankImageDiv {
+  float: left;
+  margin: 0px 5px 0px 0px;
+  border: 1px solid #865DAD;
+}
+
+/* line 14, /app/app/assets/stylesheets/tanks.scss */
+.tankName {
+  font-size: 26px;
+}
+
+/* line 17, /app/app/assets/stylesheets/tanks.scss */
+.moeCount {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+/* line 21, /app/app/assets/stylesheets/tanks.scss */
+.imageAlignBottom img {
+  vertical-align: bottom;
+}
+
+/* line 24, /app/app/assets/stylesheets/tanks.scss */
+.image3moe {
+  height: 34px;
+  width: 38px;
+}
+
+/* line 5, /app/app/assets/stylesheets/vehicle_types.scss */
+.tankCount {
+  font-size: 18px;
+}
+
+/* line 9, /app/app/assets/stylesheets/vehicle_types.scss */
+.tankTypeInfoBlock {
+  margin: 10px 0px 10px 0px;
+  height: 85px;
+}
+
+/* line 14, /app/app/assets/stylesheets/vehicle_types.scss */
+.MoEImageDiv {
+  float: left;
+  margin: 0px 5px 0px 0px;
+  border: 1px solid #865DAD;
+  height: 85px;
+}
+
+/* line 21, /app/app/assets/stylesheets/vehicle_types.scss */
+.largeImageMoE {
+  height: 85px;
+  width: 95px;
+}
+
+/* line 26, /app/app/assets/stylesheets/vehicle_types.scss */
+.tankTypeName {
+  font-size: 26px;
+}
+
+/* line 30, /app/app/assets/stylesheets/vehicle_types.scss */
+.tankTypeMoECount {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+/* line 35, /app/app/assets/stylesheets/vehicle_types.scss */
+.tankTypeImage {
+  height: 17px;
+  width: 27px;
+}
+
+/* line 8, /app/app/assets/stylesheets/global.scss */
+* {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+
+/* line 19, /app/app/assets/stylesheets/global.scss */
+.dred {
+  background-color: #930D0D;
+  color: #fff;
+}
+
+/* line 23, /app/app/assets/stylesheets/global.scss */
+.red {
+  background-color: #CD3333;
+  color: #fff;
+}
+
+/* line 27, /app/app/assets/stylesheets/global.scss */
+.orange {
+  background-color: #CC7A00;
+  color: #fff;
+}
+
+/* line 31, /app/app/assets/stylesheets/global.scss */
+.yellow {
+  background-color: #CCB800;
+  color: #fff;
+}
+
+/* line 35, /app/app/assets/stylesheets/global.scss */
+.green {
+  background-color: #849B24;
+  color: #fff;
+}
+
+/* line 39, /app/app/assets/stylesheets/global.scss */
+.dgreen {
+  background-color: #4D7326;
+  color: #fff;
+}
+
+/* line 43, /app/app/assets/stylesheets/global.scss */
+.blue {
+  background-color: #4099BF;
+  color: #fff;
+}
+
+/* line 47, /app/app/assets/stylesheets/global.scss */
+.dblue {
+  background-color: #3972C6;
+  color: #fff;
+}
+
+/* line 51, /app/app/assets/stylesheets/global.scss */
+.purple {
+  background-color: #793DB6;
+  color: #fff;
+}
+
+/* line 55, /app/app/assets/stylesheets/global.scss */
+.dpurple {
+  background-color: #401070;
+  color: #fff;
+}
+
+/* line 60, /app/app/assets/stylesheets/global.scss */
+.headerNavigationBar {
+  width: 100%;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #AF9DE0;
+  text-transform: uppercase;
+}
+
+/* line 70, /app/app/assets/stylesheets/global.scss */
+.headerButton {
+  float: left;
+  border-right: 1px solid #bbb;
+}
+/* line 74, /app/app/assets/stylesheets/global.scss */
+.headerButton a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 10px 10px;
+  text-decoration: none;
+  background: #865DAD;
+  /*font-family: 'Ubuntu Condensed', sans-serif;*/
+  font-size: 14px;
+  font-weight: 500;
+  font-style: normal;
+  font-weight: bold;
+  color: #FFFFFF;
+}
+/* line 88, /app/app/assets/stylesheets/global.scss */
+.headerButton a:hover, .headerButton a:focus {
+  color: #230033;
+  background: #A775FF;
+}
+
+/* line 95, /app/app/assets/stylesheets/global.scss */
+.headline {
+  font-size: 30px;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+/* line 102, /app/app/assets/stylesheets/global.scss */
+.smallTankIcon {
+  height: 31px;
+  width: 124px;
+  vertical-align: bottom;
+}
+
+/* line 108, /app/app/assets/stylesheets/global.scss */
+.smallVehicleTypeIcon {
+  vertical-align: bottom;
+}
+
+/* line 116, /app/app/assets/stylesheets/global.scss */
+a {
+  text-decoration: none;
+  color: #7524D8;
+}
+
+/* line 121, /app/app/assets/stylesheets/global.scss */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  overflow-x: auto;
+}
+/* line 126, /app/app/assets/stylesheets/global.scss */
+table td, table th {
+  border: 1px solid #ddd;
+  padding: 5px;
+}
+/* line 132, /app/app/assets/stylesheets/global.scss */
+table td span {
+  vertical-align: middle;
+}
+/* line 135, /app/app/assets/stylesheets/global.scss */
+table td img {
+  vertical-align: middle;
+}
+/* line 139, /app/app/assets/stylesheets/global.scss */
+table td a {
+  text-decoration: none;
+  vertical-align: middle;
+  color: #7524D8;
+}
+/* line 146, /app/app/assets/stylesheets/global.scss */
+table th {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: left;
+  background-color: #865DAD;
+  color: white;
+  font-size: 16px;
+}
+/* line 154, /app/app/assets/stylesheets/global.scss */
+table th a {
+  text-decoration: none;
+  color: white;
+}
+/* line 162, /app/app/assets/stylesheets/global.scss */
+table tr:nth-child(even) {
+  background-color: #E6E6E6;
+}
+/* line 164, /app/app/assets/stylesheets/global.scss */
+table tr:hover {
+  background-color: #DFD8F3;
+}
+
+/* line 168, /app/app/assets/stylesheets/global.scss */
+.digg_pagination {
+  background: white;
+  cursor: default;
+  margin-bottom: 0.1em;
+  margin-top: 0.1em;
+}
+/* line 174, /app/app/assets/stylesheets/global.scss */
+* html .digg_pagination {
+  height: 1%;
+}
+/* line 177, /app/app/assets/stylesheets/global.scss */
+*:first-child + html .digg_pagination {
+  overflow: hidden;
+}
+/* line 181, /app/app/assets/stylesheets/global.scss */
+.digg_pagination a, .digg_pagination span, .digg_pagination em {
+  padding: 0.2em 0.5em;
+  display: block;
+  float: left;
+  margin-right: 1px;
+}
+/* line 188, /app/app/assets/stylesheets/global.scss */
+.digg_pagination a {
+  text-decoration: none;
+  color: #4C10B5;
+  border: 1px solid #AF9DE0;
+}
+/* line 193, /app/app/assets/stylesheets/global.scss */
+.digg_pagination a:hover, .digg_pagination a:focus {
+  color: #230033;
+  background: #A775FF;
+  border-color: #230033;
+}
+/* line 200, /app/app/assets/stylesheets/global.scss */
+.digg_pagination .page_info {
+  background: #865DAD;
+  color: white;
+  padding: 0.4em 0.6em;
+  width: 22em;
+  margin-bottom: 0.3em;
+  text-align: center;
+}
+/* line 208, /app/app/assets/stylesheets/global.scss */
+.digg_pagination .page_info b {
+  color: #230033;
+  background: #6aa6ed;
+  padding: 0.1em 0.25em;
+}
+/* line 215, /app/app/assets/stylesheets/global.scss */
+.digg_pagination .disabled {
+  color: #999999;
+  border: 1px solid #dddddd;
+}
+/* line 220, /app/app/assets/stylesheets/global.scss */
+.digg_pagination .current {
+  font-style: normal;
+  font-weight: bold;
+  background: #865DAD;
+  color: white;
+  border: 1px solid #865DAD;
+}
+/* line 228, /app/app/assets/stylesheets/global.scss */
+.digg_pagination:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+/* line 236, /app/app/assets/stylesheets/global.scss */
+.actions {
+  margin-top: 2px;
+}
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+
+ */
