@@ -323,27 +323,43 @@ namespace MoeFetcher
 
             return command;
         }
-        
+
         public void UpsertMarks(Moe[] moes, int playerID)
         {
-            MySqlCommand command = new MySqlCommand()
+            using (MySqlConnection Connection = new MySqlConnection(ConnectionString))
             {
-                CommandText = "INSERT INTO marks ('tank_id', 'player_id', 'created_at', 'updated_at') VALUES (@tank_id, @player_id, @now, @now)"
-                            + "ON DUPLICATE KEY UPDATE updated_at=@now;"
-            };
+                Connection.Open();
+                using (MySqlCommand command = new MySqlCommand()
+                {
+                    Connection = Connection,
+                    CommandText = "INSERT INTO marks (tank_id, player_id, created_at, updated_at) VALUES (@tank_id, @player_id, @now, @now)"
+                                + "ON DUPLICATE KEY UPDATE updated_at=@now;"
+                })
+                {
+                    command.Prepare();
 
-            command.Prepare();
-            
-            command.Parameters.AddWithValue("@tank_id", 1);
-            command.Parameters.AddWithValue("@player_id", playerID);
-            command.Parameters.AddWithValue("@now", DateTime.Now);
+                    command.Parameters.AddWithValue("@tank_id", 1);
+                    command.Parameters.AddWithValue("@player_id", playerID);
+                    command.Parameters.AddWithValue("@now", DateTime.Now);
 
-            foreach(Moe moe in moes)
-            {
-                command.Parameters["@tank_id"].Value = moe.TankID;
-                command.Parameters["@now"].Value = DateTime.Now;
+                    foreach (Moe moe in moes)
+                    {
+                        command.Parameters["@tank_id"].Value = moe.TankID;
+                        command.Parameters["@now"].Value = DateTime.Now;
 
-                command.ExecuteNonQuery();
+                        try
+                        {
+                            command.ExecuteNonQuery();
+                        }
+                        catch (MySqlException ex)
+                        {
+                            Logger.Error($"Error {ex.ErrorCode}: {ex.Message}");
+                            Logger.Info($"tank_id: {moe.TankID}, player_id: {playerID}");
+                        }
+
+                    }
+                }
+                Connection.Close();
             }
         }
     }
