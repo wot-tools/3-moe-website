@@ -35,64 +35,78 @@ namespace MoeFetcher
 
         public void UpsertTanks(Dictionary<int, Tank> tankDict)
         {
-            MySqlCommand command = GetTankInsertCommand();
-
-            command.Parameters.AddWithValue("@id", 1);
-            command.Parameters.AddWithValue("@name", "1");
-            command.Parameters.AddWithValue("@nameshort", "1");
-            command.Parameters.AddWithValue("@tier", 1);
-            command.Parameters.AddWithValue("@vehicletypeid", "1");
-            command.Parameters.AddWithValue("@nationid", "1");
-            command.Parameters.AddWithValue("@bigicon", "1");
-            command.Parameters.AddWithValue("@smallicon", "1");
-            command.Parameters.AddWithValue("@contouricon", "1");
-            command.Parameters.AddWithValue("@now", DateTime.Now);
-
-            foreach(var keyValuePair in tankDict)
+            using (MySqlConnection Connection = new MySqlConnection(ConnectionString))
             {
-                command.Parameters["@id"].Value = keyValuePair.Key;
-                command.Parameters["@name"].Value = keyValuePair.Value.Name;
-                command.Parameters["@nameshort"].Value = keyValuePair.Value.ShortName;
-                command.Parameters["@tier"].Value = keyValuePair.Value.Tier;
-                command.Parameters["@vehicletypeid"].Value = keyValuePair.Value.VehicleType;
-                command.Parameters["@nationid"].Value = keyValuePair.Value.Nation;
-                command.Parameters["@bigicon"].Value = keyValuePair.Value.Icons.Big;
-                command.Parameters["@smallicon"].Value = keyValuePair.Value.Icons.Small;
-                command.Parameters["@contouricon"].Value = keyValuePair.Value.Icons.Contour;
-                command.Parameters["@now"].Value = DateTime.Now;
+                Connection.Open();
 
-                command.ExecuteNonQuery();
+                MySqlCommand command = GetTankInsertCommand(Connection);
+
+                command.Parameters.AddWithValue("@id", 1);
+                command.Parameters.AddWithValue("@name", "1");
+                command.Parameters.AddWithValue("@nameshort", "1");
+                command.Parameters.AddWithValue("@tier", 1);
+                command.Parameters.AddWithValue("@vehicletypeid", "1");
+                command.Parameters.AddWithValue("@nationid", "1");
+                command.Parameters.AddWithValue("@ispremium", true);
+                command.Parameters.AddWithValue("@bigicon", "1");
+                command.Parameters.AddWithValue("@smallicon", "1");
+                command.Parameters.AddWithValue("@contouricon", "1");
+                command.Parameters.AddWithValue("@now", DateTime.Now);
+
+                foreach (var keyValuePair in tankDict)
+                {
+                    if (keyValuePair.Value.Tier >= 5)
+                    {
+                        command.Parameters["@id"].Value = keyValuePair.Key;
+                        command.Parameters["@name"].Value = keyValuePair.Value.Name;
+                        command.Parameters["@nameshort"].Value = keyValuePair.Value.ShortName;
+                        command.Parameters["@tier"].Value = keyValuePair.Value.Tier;
+                        command.Parameters["@vehicletypeid"].Value = keyValuePair.Value.VehicleType;
+                        command.Parameters["@nationid"].Value = keyValuePair.Value.Nation;
+                        command.Parameters["@ispremium"].Value = keyValuePair.Value.IsPremium;
+                        command.Parameters["@bigicon"].Value = keyValuePair.Value.Icons.Big;
+                        command.Parameters["@smallicon"].Value = keyValuePair.Value.Icons.Small;
+                        command.Parameters["@contouricon"].Value = keyValuePair.Value.Icons.Contour;
+                        command.Parameters["@now"].Value = DateTime.Now;
+
+                        command.ExecuteNonQuery();
+                    }
+                }
             }
-
         }
 
         public void UpsertTank(Tank tank, string id)
         {
-            MySqlCommand command = GetTankInsertCommand();
+            using (MySqlConnection Connection = new MySqlConnection(ConnectionString))
+            {
+                Connection.Open();
+                MySqlCommand command = GetTankInsertCommand(Connection);
 
-            command.Parameters.AddWithValue("@id", id);
-            command.Parameters.AddWithValue("@name", tank.Name);
-            command.Parameters.AddWithValue("@nameshort", tank.ShortName);
-            command.Parameters.AddWithValue("@tier", tank.Tier);
-            command.Parameters.AddWithValue("@vehicletypeid", tank.VehicleType);
-            command.Parameters.AddWithValue("@nationid", tank.Nation);
-            command.Parameters.AddWithValue("@bigicon", tank.Icons.Big);
-            command.Parameters.AddWithValue("@smallicon", tank.Icons.Small);
-            command.Parameters.AddWithValue("@contouricon", tank.Icons.Contour);
-            command.Parameters.AddWithValue("@now", DateTime.Now);
+                command.Parameters.AddWithValue("@id", id);
+                command.Parameters.AddWithValue("@name", tank.Name);
+                command.Parameters.AddWithValue("@nameshort", tank.ShortName);
+                command.Parameters.AddWithValue("@tier", tank.Tier);
+                command.Parameters.AddWithValue("@vehicletypeid", tank.VehicleType);
+                command.Parameters.AddWithValue("@nationid", tank.Nation);
+                command.Parameters.AddWithValue("@ispremium", tank.IsPremium);
+                command.Parameters.AddWithValue("@bigicon", tank.Icons.Big);
+                command.Parameters.AddWithValue("@smallicon", tank.Icons.Small);
+                command.Parameters.AddWithValue("@contouricon", tank.Icons.Contour);
+                command.Parameters.AddWithValue("@now", DateTime.Now);
 
-            command.ExecuteNonQuery();
+                command.ExecuteNonQuery();
+            }
         }
 
-        private MySqlCommand GetTankInsertCommand()
+        private MySqlCommand GetTankInsertCommand(MySqlConnection connection)
         {
             MySqlCommand command = new MySqlCommand()
             {
-                CommandText = "INSERT INTO tanks ('id', 'name', 'name_short', 'tier', 'vehicle_type_id', 'nation_id',"
-                            + "'bigicon', 'contouricon', 'smallicon', 'created_at', 'updated_at')"
-                            + "VALUES (@id, @name, @nameshort, @tier, @vehicletypeid, @nationid, @bigicon, @contouricon, @smallicon, @now, @now)"
-                            + "ON DUPLICATE KEY UPDATE name=@name, name_short=@nameshort, tier=@tier, vehicle_type_id=@vehicletypeid, @nation_id=@nationid, "
-                            + "bigicon=@bigicon, smallicon=@smallicon, updated_at=@now;"
+                Connection = connection,
+                CommandText = "INSERT INTO tanks (id, name, shortname, tier, vehicle_type_id, nation_id, ispremium, bigicon, contouricon, smallicon, created_at, updated_at) "
+                            + "VALUES (@id, @name, @nameshort, @tier, @vehicletypeid, @nationid, @ispremium, @bigicon, @contouricon, @smallicon, @now, @now)"
+                            + "ON DUPLICATE KEY UPDATE name=@name, shortname=@nameshort, tier=@tier, vehicle_type_id=@vehicletypeid, nation_id=@nationid, "
+                            + "ispremium=@ispremium, bigicon=@bigicon, smallicon=@smallicon, updated_at=@now;"
             };
 
             command.Prepare();
