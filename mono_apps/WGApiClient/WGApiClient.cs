@@ -30,6 +30,11 @@ namespace WGApi
 #endif
         }
 
+        public TankopediaInfo GetTankopediaInformation()
+        {
+            return GetApiResponse<TankopediaInfo>("wot/encyclopedia/info/", BuildParameterString());
+        }
+
         public Moe[] GetPlayerMarks(int id)
         {
             return GetApiResponse<Dictionary<int, Moe[]>>("wot/tanks/achievements/", BuildParameterString("achievements,tank_id", id.ToString())).Single().Value;

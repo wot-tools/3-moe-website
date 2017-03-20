@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AchievementSection.cs" />
     <Compile Include="Clan.cs" />
     <Compile Include="Emblems.cs" />
     <Compile Include="EpochDateTime.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="Statistics.cs" />
     <Compile Include="Status.cs" />
     <Compile Include="Tank.cs" />
+    <Compile Include="TankopediaInfo.cs" />
     <Compile Include="TankStats.cs" />
     <Compile Include="WGApiClient.cs" />
     <Compile Include="WinrateRecord.cs" />
