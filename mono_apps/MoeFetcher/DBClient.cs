@@ -127,6 +127,14 @@ namespace MoeFetcher
             UpsertSimpleItem(id, name, "nations");
         }
 
+        public void UpsertVehicleTypes(Dictionary<string, string> vehicleTypes)
+        {
+            foreach(var entry in vehicleTypes)
+            {
+                UpsertVehicleType(entry.Key, entry.Value);
+            }
+        }
+
         public void UpsertVehicleType(string id, string name)
         {
             UpsertSimpleItem(id, name, "vehicle_types");
