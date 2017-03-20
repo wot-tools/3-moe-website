@@ -283,8 +283,8 @@ namespace MoeFetcher
                         for (int i = 0; i < players.Length; i++)
                         {
                             players[i].Winrates = winrateRecords[players[i].ID];
-                            players[i].Moes = Client.GetPlayerMarks(players[i].ID);
                             if (players[i].PlayerInfo.ClanID.HasValue)
+                            players[i].Moes = Client.GetPlayerMarks(players[i].ID).Where(x => x.Mark >= minMark).ToArray();
                                 ClanIDs.Add(players[i].PlayerInfo.ClanID.Value);
                         }
                         lock (TempPlayers)
