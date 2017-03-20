@@ -6,5 +6,7 @@ class CreateMarks < ActiveRecord::Migration[5.0]
 	  
       t.timestamps
     end
+	
+	add_index :marks, [:tank_id, :player_id], :unique => true
   end
 end
