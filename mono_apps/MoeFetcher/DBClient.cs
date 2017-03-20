@@ -10,7 +10,6 @@ namespace MoeFetcher
 {
     class DBClient
     {
-        private MySqlConnection Connection;
         private string IP;
         private string Database;
         private string User;
@@ -31,14 +30,7 @@ namespace MoeFetcher
             User = user;
             Password = password;
             Database = database;
-            Connection = new MySqlConnection(ConnectionString);
-            Connection.Open();
             Logger = logger;
-        }
-
-        ~DBClient()
-        {
-            Connection.Close();
         }
 
         public void UpsertTanks(Dictionary<int, Tank> tankDict)
