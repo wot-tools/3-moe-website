@@ -177,72 +177,83 @@ namespace MoeFetcher
 
         public void UpsertClans(Dictionary<int, Clan> clanDict)
         {
-            MySqlCommand command = GetClanInsertCommand();
-
-            command.Parameters.AddWithValue("@id", 1);
-            command.Parameters.AddWithValue("@name", "1");
-            command.Parameters.AddWithValue("@tag", "1");
-            command.Parameters.AddWithValue("@cHex", "1");
-            command.Parameters.AddWithValue("@members", 1);
-            command.Parameters.AddWithValue("@updatedAtWG", DateTime.Now);
-            command.Parameters.AddWithValue("@clanCreated", DateTime.Now);
-            command.Parameters.AddWithValue("@icon24px", "1");
-            command.Parameters.AddWithValue("@icon32px", "1");
-            command.Parameters.AddWithValue("@icon64px", "1");
-            command.Parameters.AddWithValue("@icon195px", "1");
-            command.Parameters.AddWithValue("@icon256px", "1");
-            command.Parameters.AddWithValue("now", DateTime.Now);
-
-            foreach(var keyValuePair in clanDict)
+            using (MySqlConnection Connection = new MySqlConnection(ConnectionString))
             {
-                Clan clan = keyValuePair.Value;
-                command.Parameters["@id"].Value = clan.ID;
-                command.Parameters["@name"].Value = clan.Name;
-                command.Parameters["@tag"].Value = clan.Tag;
-                command.Parameters["@cHex"].Value = clan.Color;
-                command.Parameters["@members"].Value = clan.Count;
-                command.Parameters["@updatedAtWG"].Value = clan.UpdatedAt;
-                command.Parameters["@clanCreated"].Value = clan.CreatedAt;
-                command.Parameters["@icon24px"].Value = clan.Emblems["x24"].Portal;
-                command.Parameters["@icon32px"].Value = clan.Emblems["x32"].Portal;
-                command.Parameters["@icon64px"].Value = clan.Emblems["x64"].Portal;
-                command.Parameters["@icon195px"].Value = clan.Emblems["x195"].Portal;
-                command.Parameters["@icon256px"].Value = clan.Emblems["x256"].Wowp;
-                command.Parameters["now"].Value = DateTime.Now;
+                Connection.Open();
+                using (MySqlCommand command = GetClanInsertCommand(Connection))
+                {
+                    command.Parameters.AddWithValue("@id", 1);
+                    command.Parameters.AddWithValue("@name", "1");
+                    command.Parameters.AddWithValue("@tag", "1");
+                    command.Parameters.AddWithValue("@cHex", "1");
+                    command.Parameters.AddWithValue("@members", 1);
+                    command.Parameters.AddWithValue("@updatedAtWG", DateTime.Now);
+                    command.Parameters.AddWithValue("@clanCreated", DateTime.Now);
+                    command.Parameters.AddWithValue("@icon24px", "1");
+                    command.Parameters.AddWithValue("@icon32px", "1");
+                    command.Parameters.AddWithValue("@icon64px", "1");
+                    command.Parameters.AddWithValue("@icon195px", "1");
+                    command.Parameters.AddWithValue("@icon256px", "1");
+                    command.Parameters.AddWithValue("@now", DateTime.Now);
 
-                command.ExecuteNonQuery();
+                    foreach (var keyValuePair in clanDict)
+                    {
+                        Clan clan = keyValuePair.Value;
+                        command.Parameters["@id"].Value = clan.ID;
+                        command.Parameters["@name"].Value = clan.Name;
+                        command.Parameters["@tag"].Value = clan.Tag;
+                        command.Parameters["@cHex"].Value = clan.Color;
+                        command.Parameters["@members"].Value = clan.Count;
+                        command.Parameters["@updatedAtWG"].Value = clan.UpdatedAt;
+                        command.Parameters["@clanCreated"].Value = clan.CreatedAt;
+                        command.Parameters["@icon24px"].Value = clan.Emblems["x24"].Portal;
+                        command.Parameters["@icon32px"].Value = clan.Emblems["x32"].Portal;
+                        command.Parameters["@icon64px"].Value = clan.Emblems["x64"].Portal;
+                        command.Parameters["@icon195px"].Value = clan.Emblems["x195"].Portal;
+                        command.Parameters["@icon256px"].Value = clan.Emblems["x256"].Wowp;
+                        command.Parameters["@now"].Value = DateTime.Now;
+
+                        command.ExecuteNonQuery();
+                    }
+                }
+                Connection.Close();
             }
         }
 
         public void UpsertClan(Clan clan)
         {
-            MySqlCommand command = GetClanInsertCommand();
+            using (MySqlConnection Connection = new MySqlConnection(ConnectionString))
+            {
+                Connection.Open();
+                using (MySqlCommand command = GetClanInsertCommand(Connection))
+                {
+                    command.Parameters.AddWithValue("@id", clan.ID);
+                    command.Parameters.AddWithValue("@name", clan.Name);
+                    command.Parameters.AddWithValue("@tag", clan.Tag);
+                    command.Parameters.AddWithValue("@cHex", clan.Color);
+                    command.Parameters.AddWithValue("@members", clan.Count);
+                    command.Parameters.AddWithValue("@updatedAtWG", clan.UpdatedAt);
+                    command.Parameters.AddWithValue("@clanCreated", clan.CreatedAt);
+                    command.Parameters.AddWithValue("@icon24px", clan.Emblems["x24"].Portal);
+                    command.Parameters.AddWithValue("@icon32px", clan.Emblems["x32"].Portal);
+                    command.Parameters.AddWithValue("@icon64px", clan.Emblems["x64"].Portal);
+                    command.Parameters.AddWithValue("@icon195px", clan.Emblems["x195"].Portal);
+                    command.Parameters.AddWithValue("@icon256px", clan.Emblems["x256"].Wowp);
+                    command.Parameters.AddWithValue("@now", DateTime.Now);
 
-            command.Parameters.AddWithValue("@id", clan.ID);
-            command.Parameters.AddWithValue("@name", clan.Name);
-            command.Parameters.AddWithValue("@tag", clan.Tag);
-            command.Parameters.AddWithValue("@cHex", clan.Color);
-            command.Parameters.AddWithValue("@members", clan.Count);
-            command.Parameters.AddWithValue("@updatedAtWG", clan.UpdatedAt);
-            command.Parameters.AddWithValue("@clanCreated", clan.CreatedAt);
-            command.Parameters.AddWithValue("@icon24px", clan.Emblems["x24"].Portal);
-            command.Parameters.AddWithValue("@icon32px", clan.Emblems["x32"].Portal);
-            command.Parameters.AddWithValue("@icon64px", clan.Emblems["x64"].Portal);
-            command.Parameters.AddWithValue("@icon195px", clan.Emblems["x195"].Portal);
-            command.Parameters.AddWithValue("@icon256px", clan.Emblems["x256"].Wowp);
-            command.Parameters.AddWithValue("now", DateTime.Now);
-
-            command.ExecuteNonQuery();
+                    command.ExecuteNonQuery();
+                }
+                Connection.Close();
+            }
         }
 
-        private MySqlCommand GetClanInsertCommand()
+        private MySqlCommand GetClanInsertCommand(MySqlConnection connection)
         {
             MySqlCommand command = new MySqlCommand()
             {
-                CommandText = "INSERT INTO clans ('id', 'name', 'tag', 'cHex', 'members', 'updatedAtWG', 'clanCreated', "
-                            + "'icon24px', 'icon32px', 'icon64px', 'icon195px', 'icon256px', 'created_at', 'updated_at')"
-                            + "VALUES (@id, @name, @tag, @cHex, @members, @updatedAtWG, @clanCreated, @icon24px, @icon32px, "
-                            + "@icon64px, @icon195px, @icon256px, @created_at, @updated_at"
+                Connection = connection,
+                CommandText = "INSERT INTO clans (id, name, tag, cHex, members, updatedAtWG, clanCreated, icon24px, icon32px, icon64px, icon195px, icon256px, created_at, updated_at) "
+                            + "VALUES (@id, @name, @tag, @cHex, @members, @updatedAtWG, @clanCreated, @icon24px, @icon32px, @icon64px, @icon195px, @icon256px, @now, @now) "
                             + "ON DUPLICATE KEY UPDATE name=@name, tag=@tag, cHex=@cHex, members=@members, updatedAtWG=@updatedAtWG, "
                             + "icon24px=@icon24px, icon32px=@icon32px, icon64px=@icon64px, icon195px=@icon195px, icon256px=@icon256px, "
                             + "updated_at=@now;"
