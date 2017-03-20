@@ -15,6 +15,7 @@ namespace MoeFetcher
         private string Database;
         private string User;
         private string Password;
+        private ILogger Logger;
 
         private string ConnectionString
         {
@@ -24,7 +25,7 @@ namespace MoeFetcher
             }
         }
 
-        public DBClient(string ip, string user, string password, string database)
+        public DBClient(string ip, string user, string password, string database, ILogger logger)
         {
             IP = ip;
             User = user;
@@ -32,6 +33,7 @@ namespace MoeFetcher
             Database = database;
             Connection = new MySqlConnection(ConnectionString);
             Connection.Open();
+            Logger = logger;
         }
 
         ~DBClient()
