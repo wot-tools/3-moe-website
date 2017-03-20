@@ -126,19 +126,37 @@ namespace MoeFetcher
 
         private void UpsertSimpleItem(string id, string name, string tableName)
         {
+            using (MySqlConnection Connection = new MySqlConnection(ConnectionString))
+            {
+                Connection.Open();
+                using (MySqlCommand command = GetSimpleInsertCommand(Connection, tableName))
+                {
+                    command.Connection = Connection;
+                    command.Prepare();
+
+                    command.Parameters.AddWithValue("@id", id);
+                    command.Parameters.AddWithValue("@name", name);
+                    command.Parameters.AddWithValue("@now", DateTime.Now);
+
+                    command.ExecuteNonQuery();
+                }
+                Connection.Close();
+            }
+        }
+
+        private MySqlCommand GetSimpleInsertCommand(MySqlConnection connection, string tableName)
+        {
             MySqlCommand command = new MySqlCommand()
             {
-                CommandText = $"INSERT INTO {tableName} ('id', 'name', 'created_at', 'updated_at') VALUES (@id, @name, @now, @now)"
+                Connection = connection,
+                CommandText = $"INSERT INTO {tableName} (id, name, created_at, updated_at) "
+                + "VALUES (@id, @name, @now, @now)"
                 + "ON DUPLICATE KEY UPDATE name=@name, updated_at=@now;"
             };
 
             command.Prepare();
 
-            command.Parameters.AddWithValue("@id", id);
-            command.Parameters.AddWithValue("@name", name);
-            command.Parameters.AddWithValue("@now", DateTime.Now);
-
-            command.ExecuteNonQuery();
+            return command;
         }
 
         public void UpsertClans(Dictionary<int, Clan> clanDict)
