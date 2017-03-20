@@ -235,70 +235,87 @@ namespace MoeFetcher
 
         public void UpsertPlayersWithoutMarks(IEnumerable<Player> players)
         {
-            MySqlCommand command = GetPlayerInsertCommand();
-
-            command.Parameters.AddWithValue("@id", 1);
-            command.Parameters.AddWithValue("@name", "1");
-            command.Parameters.AddWithValue("@battles", 1);
-            command.Parameters.AddWithValue("@wgrating", 1);
-            command.Parameters.AddWithValue("@wn8", 0);
-            command.Parameters.AddWithValue("@lastLogout", DateTime.Now);
-            command.Parameters.AddWithValue("@lastBattle", DateTime.Now);
-            command.Parameters.AddWithValue("@accountCreated", DateTime.Now);
-            command.Parameters.AddWithValue("@updatedAtWG", DateTime.Now);
-            command.Parameters.AddWithValue("@clientLang", "en");
-            command.Parameters.AddWithValue("@clan_id", 1);
-            command.Parameters.AddWithValue("@now", DateTime.Now);
-
-            foreach(Player player in players)
+            using (MySqlConnection Connection = new MySqlConnection(ConnectionString))
             {
-                command.Parameters["@id"].Value = player.ID;
-                command.Parameters["@name"].Value = player.PlayerInfo.Nick;
-                command.Parameters["@battles"].Value = player.PlayerInfo.Statistics.Random.Battles;
-                command.Parameters["@wgrating"].Value = player.PlayerInfo.Statistics.Random.Winrate;
-                command.Parameters["@wn8"].Value = 0;
-                command.Parameters["@lastLogout"].Value= player.PlayerInfo.LastLogout;
-                command.Parameters["@lastBattle"].Value = player.PlayerInfo.LastBattle;
-                command.Parameters["@accountCreated"].Value = player.PlayerInfo.AccountCreated;
-                command.Parameters["@updatedAtWG"].Value = player.PlayerInfo.UpdatedAt;
-                command.Parameters["@clientLang"].Value = player.PlayerInfo.ClientLanguage;
-                command.Parameters["@clan_id"].Value = player.PlayerInfo.ClanID;
-                command.Parameters["@now"].Value = DateTime.Now;
+                Connection.Open();
+                using (MySqlCommand command = GetPlayerInsertCommand(Connection))
+                {
+                    command.Parameters.AddWithValue("@id", 1);
+                    command.Parameters.AddWithValue("@name", "1");
+                    command.Parameters.AddWithValue("@battles", 1);
+                    command.Parameters.AddWithValue("@wgrating", 1);
+                    command.Parameters.AddWithValue("@wn8", 0);
+                    command.Parameters.AddWithValue("@winratio", 0.0);
+                    command.Parameters.AddWithValue("@lastLogout", DateTime.Now);
+                    command.Parameters.AddWithValue("@lastBattle", DateTime.Now);
+                    command.Parameters.AddWithValue("@accountCreated", DateTime.Now);
+                    command.Parameters.AddWithValue("@updatedAtWG", DateTime.Now);
+                    command.Parameters.AddWithValue("@clientLang", "en");
+                    command.Parameters.AddWithValue("@clan_id", 1);
+                    command.Parameters.AddWithValue("@now", DateTime.Now);
 
-                command.ExecuteNonQuery();
+                    foreach (Player player in players)
+                    {
+                        if (player.Moes.Length > 0)
+                        {
+                            command.Parameters["@id"].Value = player.ID;
+                            command.Parameters["@name"].Value = player.PlayerInfo.Nick;
+                            command.Parameters["@battles"].Value = player.PlayerInfo.Statistics.Random.Battles;
+                            command.Parameters["@wgrating"].Value = player.PlayerInfo.WGRating;
+                            command.Parameters["@wn8"].Value = 0;
+                            command.Parameters["@winratio"].Value = player.PlayerInfo.Statistics.Random.Winrate;
+                            command.Parameters["@lastLogout"].Value = player.PlayerInfo.LastLogout;
+                            command.Parameters["@lastBattle"].Value = player.PlayerInfo.LastBattle;
+                            command.Parameters["@accountCreated"].Value = player.PlayerInfo.AccountCreated;
+                            command.Parameters["@updatedAtWG"].Value = player.PlayerInfo.UpdatedAt;
+                            command.Parameters["@clientLang"].Value = player.PlayerInfo.ClientLanguage;
+                            command.Parameters["@clan_id"].Value = player.PlayerInfo.ClanID;
+                            command.Parameters["@now"].Value = DateTime.Now;
+
+                            command.ExecuteNonQuery();
+                        }
+                    }
+                }
+                Connection.Close();
             }
         }
 
         public void UpsertPlayerWithoutMarks(Player player)
         {
-            MySqlCommand command = GetPlayerInsertCommand();
+            using (MySqlConnection Connection = new MySqlConnection(ConnectionString))
+            {
+                Connection.Open();
+                using (MySqlCommand command = GetPlayerInsertCommand(Connection))
+                {
 
-            command.Parameters.AddWithValue("@id", player.ID);
-            command.Parameters.AddWithValue("@name", player.PlayerInfo.Nick);
-            command.Parameters.AddWithValue("@battles", player.PlayerInfo.Statistics.Random.Battles);
-            command.Parameters.AddWithValue("@wgrating", player.PlayerInfo.Statistics.Random.Winrate);
-            command.Parameters.AddWithValue("@wn8", 0);
-            command.Parameters.AddWithValue("@lastLogout", player.PlayerInfo.LastLogout);
-            command.Parameters.AddWithValue("@lastBattle", player.PlayerInfo.LastBattle);
-            command.Parameters.AddWithValue("@accountCreated", player.PlayerInfo.AccountCreated);
-            command.Parameters.AddWithValue("@updatedAtWG", player.PlayerInfo.UpdatedAt);
-            command.Parameters.AddWithValue("@clientLang", player.PlayerInfo.ClientLanguage);
-            command.Parameters.AddWithValue("@clan_id", player.PlayerInfo.ClanID);
-            command.Parameters.AddWithValue("@now", DateTime.Now);
+                    command.Parameters.AddWithValue("@id", player.ID);
+                    command.Parameters.AddWithValue("@name", player.PlayerInfo.Nick);
+                    command.Parameters.AddWithValue("@battles", player.PlayerInfo.Statistics.Random.Battles);
+                    command.Parameters.AddWithValue("@wgrating", player.PlayerInfo.WGRating);
+                    command.Parameters.AddWithValue("@wn8", 0);
+                    command.Parameters.AddWithValue("@winratio", player.PlayerInfo.Statistics.Random.Winrate);
+                    command.Parameters.AddWithValue("@lastLogout", player.PlayerInfo.LastLogout);
+                    command.Parameters.AddWithValue("@lastBattle", player.PlayerInfo.LastBattle);
+                    command.Parameters.AddWithValue("@accountCreated", player.PlayerInfo.AccountCreated);
+                    command.Parameters.AddWithValue("@updatedAtWG", player.PlayerInfo.UpdatedAt);
+                    command.Parameters.AddWithValue("@clientLang", player.PlayerInfo.ClientLanguage);
+                    command.Parameters.AddWithValue("@clan_id", player.PlayerInfo.ClanID);
+                    command.Parameters.AddWithValue("@now", DateTime.Now);
 
-            command.ExecuteNonQuery();
+                    command.ExecuteNonQuery();
+                }
+                Connection.Close();
+            }
         }
 
-        private MySqlCommand GetPlayerInsertCommand()
+        private MySqlCommand GetPlayerInsertCommand(MySqlConnection connection)
         {
             MySqlCommand command = new MySqlCommand()
             {
-                CommandText = "INSERT INTO players ('id', 'name', 'battles', 'wgrating', 'wn8', 'winratio', 'lastLogout', 'lastBattle',"
-                + "'accountCreated', 'updatedAtWG', 'clientLang', 'clan_id', 'created_at', 'updated_at') VALUES"
-                + "('@id', '@name', '@battles', '@wgrating', '@wn8', '@winratio', '@lastLogout', '@lastBattle',"
-                + "'@accountCreated', '@updatedAtWG', '@clientLang', '@clan_id', '@now', '@now')"
-                + "ON DUPLICATE KEY UPDATE name=@name, battles=@battles, wgrating=@wgrating, wn8=@wn8, winratio=@winratio, "
-                + "lastLogout=@lastLogout, lastBattle=@lastBattle, updatedAtWG=@updatedAtWG, clientLang=@clientLang, "
+                Connection = connection,
+                CommandText = "INSERT INTO players (id, name, battles, wgrating, wn8, winratio, lastLogout, lastBattle, accountCreated, updatedAtWG, clientLang, clan_id, created_at, updated_at)"
+                + "VALUES (@id, @name, @battles, @wgrating, @wn8, @winratio, @lastLogout, @lastBattle, @accountCreated, @updatedAtWG, @clientLang, @clan_id, @now, @now) "
+                + "ON DUPLICATE KEY UPDATE name=@name, battles=@battles, wgrating=@wgrating, wn8=@wn8, winratio=@winratio, lastLogout=@lastLogout, lastBattle=@lastBattle, updatedAtWG=@updatedAtWG, clientLang=@clientLang, "
                 + "clan_id=@clan_id, updated_at=@now;"
             };
 
