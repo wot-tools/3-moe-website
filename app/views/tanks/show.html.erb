@@ -29,7 +29,7 @@
 			<th><%= sort_link(@q, :player_lastLogout, "Last logout") %></th>
 			<th><%= sort_link(@q, :player_accountCreated, "Account created") %></th>
 			<th><%= sort_link(@q, :player_updatedAtWG, "Last update (WG)") %></th>
-			<th><%= sort_link(@q, :updated_at, "Checked last at") %></th>
+			<th><%= sort_link(@q, :player_updated_at, "Checked last at") %></th>
 			<th><%= sort_link(@q, :created_at, "3 MoE First detected at") %></th>			
 		</tr>
 	</thead>
@@ -50,7 +50,7 @@
 				<td><%= mark.player.accountCreated %></td>
 				<td><%= mark.player.updatedAtWG %></td>
 				<td><%= mark.player.updated_at %></td>
-				<td><%= mark.player.created_at %></td>
+				<td><%= mark.created_at %></td>
 			</tr>
 	  <% end %>
 	</tbody>
