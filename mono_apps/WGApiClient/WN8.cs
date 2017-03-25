@@ -39,6 +39,12 @@ namespace WGApi
             cumulatedExpected /= cumulatedStats.Battles;
             return cumulatedStats.CalculateWN8(cumulatedExpected);
         }
+
+        public static double AccountWN8Newest(ExpectedValueList expectedValueList, WinrateRecord[] winrateRecords, Statistics cumulatedStats)
+        {
+            return AccountWN8(expectedValueList, expectedValueList.Versions.Max(), winrateRecords, cumulatedStats);
+        }
+
         public static double AccountWN8(ExpectedValueList expectedValueList, int version, Dictionary<int, Statistics> tankStats)
         {
             Dictionary<int, ExpectedValues> expectedValues = expectedValueList[version];
