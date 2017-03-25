@@ -243,6 +243,12 @@ namespace MoeFetcher
             {
                 foreach (var player in Client.GetPlayerStats(idBatch))
                 {
+                    if (null == player.Value)
+                    {
+                        Logger.Error("Received null from server for player id {0}", player.Key);
+                        continue;
+                    }
+
                     if (player.Value.LastBattle <= lastRun)
                         continue;
                     result[index++] = new Player
