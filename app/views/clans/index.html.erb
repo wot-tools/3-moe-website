@@ -25,6 +25,7 @@
 			<th><%= sort_link(@q, :updatedAtWG, "Updated at (WG)") %></th>
 			<th><%= sort_link(@q, :clanCreated, "Created at") %></th>
 			<th><%= sort_link(@q, :created_at, "Tracking started") %></th>
+			<th><%= sort_link(@q, :updated_at, "Last checked at") %></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -38,6 +39,7 @@
 				<td><%= clan.updatedAtWG %></td>
 				<td><%= clan.clanCreated %></td>
 				<td><%= clan.created_at %></td>
+				<td><%= clan.updated_at %></td>
 			</tr>
 		<% end %>
 	</tbody>

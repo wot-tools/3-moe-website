@@ -39,6 +39,7 @@
 			<th><%= sort_link(@q, :lastLogout, "Last logout") %></th>
 			<th><%= sort_link(@q, :accountCreated, "Account created") %></th>
 			<th><%= sort_link(@q, :updatedAtWG, "Updated at (WG)") %></th>	
+			<th><%= sort_link(@q, :updated_at, "Checked last at") %></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -56,6 +57,7 @@
 				<td><%= player.lastLogout %></td>
 				<td><%= player.accountCreated %></td>
 				<td><%= player.updatedAtWG %></td>
+				<td><%= player.updated_at %></td>
 			</tr>
 		<% end %>
 	</tbody>
