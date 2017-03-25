@@ -13,5 +13,6 @@ namespace MoeFetcher
         public PlayerInfo PlayerInfo { get; set; }
         public Moe[] Moes { get; set; }
         public WinrateRecord[] Winrates { get; set; }
+        public int WN8 { get; set; }
     }
 }
