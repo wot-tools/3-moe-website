@@ -27,6 +27,18 @@ namespace WGApi
             return 980 * rDamageC + 210 * rDamageC * rFragC + 155 * rFragC * rSpotC + 75 * rDefC * rFragC + 145 * Math.Min(1.8, rWinC);
         }
 
+        public static double AccountWN8(ExpectedValueList expectedValueList, int version, WinrateRecord[] winrateRecords, Statistics cumulatedStats)
+        {
+            Dictionary<int, ExpectedValues> expectedValues = expectedValueList[version];
+            ExpectedValues cumulatedExpected = new ExpectedValues();
+            foreach (var winrateRecord in winrateRecords)
+                if (expectedValues.TryGetValue(winrateRecord.TankID, out ExpectedValues values))
+                {
+                    cumulatedExpected += values * winrateRecord.Battles;
+                }
+            cumulatedExpected /= cumulatedStats.Battles;
+            return cumulatedStats.CalculateWN8(cumulatedExpected);
+        }
         public static double AccountWN8(ExpectedValueList expectedValueList, int version, Dictionary<int, Statistics> tankStats)
         {
             Dictionary<int, ExpectedValues> expectedValues = expectedValueList[version];
