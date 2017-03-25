@@ -19,7 +19,7 @@ namespace WGApi
         private int EpochLastBattle { set { LastBattle = EpochDateTime.FromEpoch(value); } }
         [JsonProperty("updated_at")]
         private int EpochUpdatedAt { set { UpdatedAt = EpochDateTime.FromEpoch(value); } }
-        [JsonProperty("gobal_rating")]
+        [JsonProperty("global_rating")]
         public int WGRating { get; set; }
         [JsonProperty("statistics")]
         public Stats Statistics { get; set; }
