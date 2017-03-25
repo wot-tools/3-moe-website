@@ -33,8 +33,9 @@
 
 <%= search_form_for @q do |f| %>
 	<div class="fields">
-		<%= f.label :tank_name_cont, "Tank:" %>
-		<%= f.search_field :tank_name_cont %>
+		<%= f.search_field :tank_name_cont, placeholder: "Name" %>
+		<%= f.search_field :tank_nation_name_cont, placeholder: "Nation" %>
+		<%= f.search_field :tank_vehicle_type_name_cont, placeholder: "Type" %>
 	</div>
 	<div class="actions">
 		<%= f.submit %>

@@ -5,8 +5,7 @@
 
 <%= search_form_for @q do |f| %>
 	<div class="fields">
-		<%= f.label :name_or_tag_cont, "Clan name or tag:" %>
-		<%= f.search_field :name_or_tag_cont %>
+		<%= f.search_field :tag_or_name_cont, placeholder: "Tag or name" %>
 	</div>
 	<div class="actions">
 		<%= f.submit %>

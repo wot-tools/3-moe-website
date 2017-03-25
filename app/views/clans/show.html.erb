@@ -15,8 +15,7 @@
 
 <%= search_form_for @q do |f| %>
 	<div class="fields">
-		<%= f.label :name_cont, "Player:" %>
-		<%= f.search_field :name_cont %>
+		<%= f.search_field :name_cont, placeholder: "Name" %>
 	</div>
 	<div class="actions">
 		<%= f.submit %>
