@@ -307,7 +307,7 @@ namespace MoeFetcher
                             command.Parameters["@name"].Value = player.PlayerInfo.Nick;
                             command.Parameters["@battles"].Value = player.PlayerInfo.Statistics.Random.Battles;
                             command.Parameters["@wgrating"].Value = player.PlayerInfo.WGRating;
-                            command.Parameters["@wn8"].Value = 0;
+                            command.Parameters["@wn8"].Value = player.WN8;
                             command.Parameters["@winratio"].Value = player.PlayerInfo.Statistics.Random.Winrate;
                             command.Parameters["@lastLogout"].Value = player.PlayerInfo.LastLogout;
                             command.Parameters["@lastBattle"].Value = player.PlayerInfo.LastBattle;
@@ -337,7 +337,7 @@ namespace MoeFetcher
                     command.Parameters.AddWithValue("@name", player.PlayerInfo.Nick);
                     command.Parameters.AddWithValue("@battles", player.PlayerInfo.Statistics.Random.Battles);
                     command.Parameters.AddWithValue("@wgrating", player.PlayerInfo.WGRating);
-                    command.Parameters.AddWithValue("@wn8", 0);
+                    command.Parameters.AddWithValue("@wn8", player.WN8);
                     command.Parameters.AddWithValue("@winratio", player.PlayerInfo.Statistics.Random.Winrate);
                     command.Parameters.AddWithValue("@lastLogout", player.PlayerInfo.LastLogout);
                     command.Parameters.AddWithValue("@lastBattle", player.PlayerInfo.LastBattle);
