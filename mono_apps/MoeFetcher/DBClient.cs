@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace MoeFetcher
 {
@@ -15,6 +16,9 @@ namespace MoeFetcher
         private string User;
         private string Password;
         private ILogger Logger;
+        private Setting Settings;
+        private string BasePath;
+        private HashSet<int> AvailableTankIDs;
 
         private string ConnectionString
         {
@@ -24,13 +28,19 @@ namespace MoeFetcher
             }
         }
 
-        public DBClient(string ip, string user, string password, string database, ILogger logger)
+        public DBClient(string ip, string user, string password, string database, ILogger logger, Setting settings)
         {
             IP = ip;
             User = user;
             Password = password;
             Database = database;
             Logger = logger;
+            Settings = settings;
+
+            AvailableTankIDs = new HashSet<int>();
+
+            Uri baseUri = new Uri(System.Reflection.Assembly.GetExecutingAssembly().CodeBase);
+            BasePath = System.Net.WebUtility.UrlDecode(Path.GetDirectoryName(baseUri.AbsolutePath));
         }
 
         public void UpsertTanks(Dictionary<int, Tank> tankDict)
@@ -57,6 +67,8 @@ namespace MoeFetcher
                 {
                     if (keyValuePair.Value.Tier >= 5)
                     {
+                        AvailableTankIDs.Add(keyValuePair.Key);
+
                         command.Parameters["@id"].Value = keyValuePair.Key;
                         command.Parameters["@name"].Value = keyValuePair.Value.Name;
                         command.Parameters["@nameshort"].Value = keyValuePair.Value.ShortName;
@@ -75,7 +87,7 @@ namespace MoeFetcher
             }
         }
 
-        public void UpsertTank(Tank tank, string id)
+        public void UpsertTank(Tank tank, int id)
         {
             using (MySqlConnection Connection = new MySqlConnection(ConnectionString))
             {
@@ -93,8 +105,9 @@ namespace MoeFetcher
                 command.Parameters.AddWithValue("@smallicon", tank.Icons.Small);
                 command.Parameters.AddWithValue("@contouricon", tank.Icons.Contour);
                 command.Parameters.AddWithValue("@now", DateTime.Now);
-
+                                
                 command.ExecuteNonQuery();
+                AvailableTankIDs.Add(id);
             }
         }
 
@@ -389,6 +402,18 @@ namespace MoeFetcher
 
                     foreach (Moe moe in moes)
                     {
+                        if (!AvailableTankIDs.Contains(moe.TankID))
+                        {
+                            if (!ManualTankClient.TryLoadTank(Path.Combine(BasePath, Settings.RelativePathToManualTanksDirectory, $"{moe.TankID}.json"), out Tank tank))
+                            {
+                                Logger.Error($"Could not load manual tank with id {moe.TankID}, skipping this mark (player_id: {playerID}");
+                                continue;
+                            }
+
+                            Logger.Info($"Loaded manual tank with id {moe.TankID} and upserting it into db");
+                            UpsertTank(tank, moe.TankID);
+                        }
+
                         command.Parameters["@tank_id"].Value = moe.TankID;
                         command.Parameters["@now"].Value = DateTime.Now;
 

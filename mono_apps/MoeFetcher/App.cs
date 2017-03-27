@@ -209,7 +209,7 @@ namespace MoeFetcher
             }
             ActiveSetting = Settings[SettingIndex];
             Client = new WGApiClient(ActiveSetting.BaseUri, ActiveSetting.Region, ActiveSetting.ApplicationID, Logger);
-            DatabaseClient = new DBClient("localhost", "root", "root", "moe", Logger);
+            DatabaseClient = new DBClient("localhost", "root", "root", "moe", Logger, ActiveSetting);
             Logger.Info("app set to region {0}", ActiveSetting.Region);
             return true;
         }
