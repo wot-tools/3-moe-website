@@ -61,6 +61,7 @@ namespace MoeFetcher
 
             RunStart = DateTime.Now;
 
+            ExpectedValueList expectedValueList = new ExpectedValueList();
 
             TankopediaInfo Tankopedia = Client.GetTankopediaInformation();
 
@@ -72,8 +73,9 @@ namespace MoeFetcher
             RecheckPlayers(GetPlayersToRecheck(ProcessIDs(ReadLines(Path.Combine(BasePath, ActiveSetting.RelativePathToPlayerIDs)))));
             CheckClans(ProcessIDs(ClanIDs));
 
-            DatabaseClient.UpsertPlayers(TempPlayers);
+            CalculateWN8ForPlayers(expectedValueList);
 
+            DatabaseClient.UpsertPlayers(TempPlayers);
 
 
             Terminate();
