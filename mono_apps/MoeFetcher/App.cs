@@ -27,6 +27,7 @@ namespace MoeFetcher
         private int SettingIndex;
         private ILogger Logger;
         private DateTime RunStart;
+        private bool IgnoreLastRun;
 
         private Dictionary<string, string> Arguments = new Dictionary<string, string>();
         private HashSet<int> ClanIDs = new HashSet<int>();
@@ -38,6 +39,7 @@ namespace MoeFetcher
         {
             ["h"] = new Tuple<string, string>("help", null),
             ["s"] = new Tuple<string, string>("active-setting", "0"),
+            ["x"] = new Tuple<string, string>("ignore-last-run", null)
         };
 
         public App(ILogger logger)
@@ -54,6 +56,12 @@ namespace MoeFetcher
             {
                 DisplayHelp();
                 return (int)ExitCodes.Success;
+            }
+
+            if (Arguments.ContainsKey("ignore-last-run") || Arguments.ContainsKey("x"))
+            {
+                IgnoreLastRun = true;
+                Logger.Info("Ignoring last run datetime when determining players to recheck");
             }
 
             if (false == InitializeClient())
@@ -280,7 +288,7 @@ namespace MoeFetcher
                         continue;
                     }
 
-                    if (player.Value.LastBattle <= lastRun)
+                    if (player.Value.LastBattle <= lastRun && !IgnoreLastRun)
                         continue;
                     result[index++] = new Player
                     {
