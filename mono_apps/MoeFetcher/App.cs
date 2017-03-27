@@ -208,7 +208,7 @@ namespace MoeFetcher
 
         private IEnumerable<int> ReadLines(string path)
         {
-            int i = 1000;
+            int i = 1010;
             int id;
             string line;
             using (Stream stream = new FileStream(path, FileMode.Open))
