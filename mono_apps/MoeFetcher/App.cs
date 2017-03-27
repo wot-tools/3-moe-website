@@ -75,6 +75,17 @@ namespace MoeFetcher
 
             Terminate();
             return (int)ExitCodes.Success;
+       }
+
+        private void CalculateWN8ForPlayers(ExpectedValueList expectedValueList)
+        {
+            foreach(var player in TempPlayers)
+            {
+                // does not handle tanks without expected values properly
+                // potentially inflating wn8
+                // chosen because it needs less api requests
+                player.WN8 = (int)Math.Floor(WN8.AccountWN8Newest(expectedValueList, player.Winrates, player.PlayerInfo.Statistics.Random));
+            }
         }
 
         private List<Player> TempPlayers = new List<Player>();
