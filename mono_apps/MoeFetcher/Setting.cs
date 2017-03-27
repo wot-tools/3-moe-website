@@ -15,6 +15,7 @@ namespace MoeFetcher
         public Region Region { get; set; }
         public string ApplicationID { get; set; }
         public string RelativePathToPlayerIDs { get; set; }
+        public string RelativePathToManualTanksDirectory { get; set; }
         public DateTime LastRunStart { get; set; }
         public DateTime LastRunStop { get; set; }
 
@@ -89,6 +90,7 @@ namespace MoeFetcher
                     Region = Region.eu,
                     ApplicationID = "appid1234",
                     RelativePathToPlayerIDs = "",
+                    RelativePathToManualTanksDirectory = "",
                     LastRunStart = new DateTime(2017, 1, 1, 13, 37, 00),
                     LastRunStop = new DateTime(2017, 1, 3, 15, 12, 53)
                 },
@@ -98,6 +100,7 @@ namespace MoeFetcher
                     Region = Region.ru,
                     ApplicationID = "appid1234",
                     RelativePathToPlayerIDs = "",
+                    RelativePathToManualTanksDirectory = "",
                     LastRunStart = new DateTime(2017, 1, 1, 13, 37, 00),
                     LastRunStop = new DateTime(2017, 1, 3, 15, 12, 53)
                 },
@@ -107,6 +110,7 @@ namespace MoeFetcher
                     Region = Region.com,
                     ApplicationID = "appid1234",
                     RelativePathToPlayerIDs = "",
+                    RelativePathToManualTanksDirectory = "",
                     LastRunStart = new DateTime(2017, 1, 1, 13, 37, 00),
                     LastRunStop = new DateTime(2017, 1, 3, 15, 12, 53)
                 },
@@ -116,6 +120,7 @@ namespace MoeFetcher
                     Region = Region.asia,
                     ApplicationID = "appid1234",
                     RelativePathToPlayerIDs = "",
+                    RelativePathToManualTanksDirectory = "",
                     LastRunStart = new DateTime(2017, 1, 1, 13, 37, 00),
                     LastRunStop = new DateTime(2017, 1, 3, 15, 12, 53)
                 },
