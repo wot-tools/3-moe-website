@@ -61,21 +61,33 @@ namespace MoeFetcher
 
             RunStart = DateTime.Now;
 
+            Logger.Info($"Getting expected values | {DateTime.Now}");
             ExpectedValueList expectedValueList = new ExpectedValueList();
 
+            Logger.Info($"Getting tankopedia information | {DateTime.Now}");
             TankopediaInfo Tankopedia = Client.GetTankopediaInformation();
 
+            Logger.Info($"Inserting nations | {DateTime.Now}");
             DatabaseClient.UpsertNations(Tankopedia.Nations);
+            Logger.Info($"Inserting vehicle types | {DateTime.Now}");
             DatabaseClient.UpsertVehicleTypes(Tankopedia.VehicleTypes);
+
+            Logger.Info($"Starting to get tanks from the api | {DateTime.Now}");
             Dictionary<int, Tank> tankDict = Client.GetVehicles();
+            Logger.Info($"starting to insert tanks into db | {DateTime.Now}");
             DatabaseClient.UpsertTanks(tankDict);
 
+            Logger.Info($"starting to recheck players | {DateTime.Now}");
             RecheckPlayers(GetPlayersToRecheck(ProcessIDs(ReadLines(Path.Combine(BasePath, ActiveSetting.RelativePathToPlayerIDs)))));
+            Logger.Info($"starting to check clans | {DateTime.Now}");
             CheckClans(ProcessIDs(ClanIDs));
 
+            Logger.Info($"calculating wn8 | {DateTime.Now}");
             CalculateWN8ForPlayers(expectedValueList);
 
+            Logger.Info($"starting to insert players into db | {DateTime.Now}");
             DatabaseClient.UpsertPlayers(TempPlayers);
+            Logger.Info($"finished doing stuff | {DateTime.Now}");
 
 
             Terminate();
@@ -214,6 +226,9 @@ namespace MoeFetcher
         private IEnumerable<int> ReadLines(string path)
         {
             int i = 1010;
+
+            Logger.Info($"Starting to read {i} line(s) from file {path}");
+
             int id;
             string line;
             using (Stream stream = new FileStream(path, FileMode.Open))
