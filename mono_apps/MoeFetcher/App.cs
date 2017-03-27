@@ -62,7 +62,10 @@ namespace MoeFetcher
             RunStart = DateTime.Now;
 
 
+            TankopediaInfo Tankopedia = Client.GetTankopediaInformation();
 
+            DatabaseClient.UpsertNations(Tankopedia.Nations);
+            DatabaseClient.UpsertVehicleTypes(Tankopedia.VehicleTypes);
             Dictionary<int, Tank> tankDict = Client.GetVehicles();
             DatabaseClient.UpsertTanks(tankDict);
 
