@@ -54,6 +54,7 @@
     <Compile Include="DBClient.cs" />
     <Compile Include="ExitCodes.cs" />
     <Compile Include="Logger.cs" />
+    <Compile Include="ManualTankClient.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Setting.cs" />
     <Compile Include="Program.cs" />
