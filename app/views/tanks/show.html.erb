@@ -12,7 +12,13 @@
 	<div><%= link_to @tank.nation.name, nation_path(@tank.nation.id) %>, <%= link_to @tank.vehicle_type.name, vehicle_type_path(@tank.vehicle_type.id) %>, Tier <%= @tank.tier %></div>
 </div>
 
-<%= render "shared/searchforms/marks_player_list" %>
+<%= search_form_for @q, url: tank_path(@tank.id) do |f| %>
+	<%= f.search_field :player_name_cont, placeholder: "Name" %>
+	<%= f.search_field :player_clan_tag_or_player_clan_name_cont, placeholder: "Clan" %>
+
+	<%= f.submit %>
+<% end %>
+
 <div class="digg_pagination"><%= will_paginate @marks %></div>
 <table>
 	<thead>
