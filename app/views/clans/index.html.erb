@@ -4,12 +4,8 @@
 <h1>All clans with 3 MoE</h1>
 
 <%= search_form_for @q do |f| %>
-	<div class="fields">
 		<%= f.search_field :tag_or_name_cont, placeholder: "Tag or name" %>
-	</div>
-	<div class="actions">
 		<%= f.submit %>
-	</div>
 <% end %>
 
 <div class="digg_pagination"><%= will_paginate @clans %></div>

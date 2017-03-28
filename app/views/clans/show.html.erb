@@ -14,12 +14,8 @@
 </div>
 
 <%= search_form_for @q do |f| %>
-	<div class="fields">
 		<%= f.search_field :name_cont, placeholder: "Name" %>
-	</div>
-	<div class="actions">
 		<%= f.submit %>
-	</div>
 <% end %>
 
 <div class="digg_pagination"><%= will_paginate @players %></div>

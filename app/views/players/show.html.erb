@@ -32,14 +32,10 @@
 </div>
 
 <%= search_form_for @q do |f| %>
-	<div class="fields">
 		<%= f.search_field :tank_name_cont, placeholder: "Name" %>
 		<%= f.search_field :tank_nation_name_cont, placeholder: "Nation" %>
 		<%= f.search_field :tank_vehicle_type_name_cont, placeholder: "Type" %>
-	</div>
-	<div class="actions">
 		<%= f.submit %>
-	</div>
 <% end %>
 
 <div class="digg_pagination"><%= will_paginate @marks %></div>
