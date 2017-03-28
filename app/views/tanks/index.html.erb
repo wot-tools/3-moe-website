@@ -4,6 +4,6 @@
 <div class="headline">Tank Overview</div>
 <%= render "link_bar" %>
 
-<%= render partial: "shared/tank_list", locals: {tanks: @tanks} %>
+<%= render partial: "shared/tank_list", locals: {tanks: @tanks, rUrl: tanks_path} %>
 
 <%= render "shared/footer" %>

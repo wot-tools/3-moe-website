@@ -4,7 +4,7 @@
 <div class="headline">Tank Overview - Winratio</div>
 <%= render "link_bar" %>
 <div>
-	<%= render "shared/searchforms/tank_list" %>
+	<%= render partial: "shared/searchforms/tank_list", locals: {rUrl: tankswinrate_path} %>
 	<div class="digg_pagination"><%= will_paginate @tanks %></div>
 	<table>
 	  <thead>

@@ -11,6 +11,6 @@
 	<div class="tankCount"><%= number_with_delimiter(@nation.tanks.count) %> Tanks</div>
 </div>
 
-<%= render partial: "shared/tank_list", locals: {tanks: @tanks} %>
+<%= render partial: "shared/tank_list", locals: {tanks: @tanks, rUrl: nation_path(@nation.id)} %>
 
 <%= render "shared/footer" %>
