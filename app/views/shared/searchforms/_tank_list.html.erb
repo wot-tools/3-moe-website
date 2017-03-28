@@ -1,7 +1,8 @@
-<%= search_form_for @q do |f| %>
+<%= search_form_for @q, url: rUrl do |f| %>
 	<%= f.search_field :name_or_shortname_cont, placeholder: "Tank name" %>
-	<%= f.search_field :nation_name_cont, placeholder: "Nation" %>
-	<%= f.search_field :vehicle_type_name_cont, placeholder: "Tank type" %>
+	<%= f.collection_select :vehicle_type_id_in, VehicleType.all, :id, :name, {}, { :multiple => true, :size => VehicleType.all.count} %>
+	<%= f.collection_select :nation_id_in, Nation.all, :id, :name, {}, { :multiple => true, :size => Nation.all.count} %>
+	<%= f.collection_select :tier_in, (5..10), :to_s, :to_s, {}, { :multiple => true, :size => 6} %>
 
 	<%= f.submit %>
 <% end %>
