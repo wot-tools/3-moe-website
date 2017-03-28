@@ -13,9 +13,9 @@
 	<div class="externalClanLinks"><%= image_tag "http://eu.wargaming.net/favicon.ico" %> <%= link_to "WG profile", clan_url_wg(@clan.id) %> | <%= image_tag "http://wotlabs.net/images/favicon.png" %> <%= link_to "Wotlabs", clan_url_wotlabs(@clan.tag) %></div>
 </div>
 
-<%= search_form_for @q do |f| %>
-		<%= f.submit %>
+<%= search_form_for @q, url: clan_path(@clan.id) do |f| %>
 	<%= f.search_field :name_cont, placeholder: "Player name" %>
+	<%= f.submit %>
 <% end %>
 
 <div class="digg_pagination"><%= will_paginate @players %></div>
@@ -34,7 +34,7 @@
 			<th><%= sort_link(@q, :lastBattle, "Last battle") %></th>
 			<th><%= sort_link(@q, :lastLogout, "Last logout") %></th>
 			<th><%= sort_link(@q, :accountCreated, "Account created") %></th>
-			<th><%= sort_link(@q, :updatedAtWG, "Updated at (WG)") %></th>	
+			<th><%= sort_link(@q, :updatedAtWG, "Updated at (WG)") %></th>
 			<th><%= sort_link(@q, :updated_at, "Checked last at") %></th>
 		</tr>
 	</thead>
