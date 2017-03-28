@@ -288,7 +288,7 @@ namespace MoeFetcher
                         continue;
                     }
 
-                    if (player.Value.LastBattle <= lastRun && !IgnoreLastRun)
+                    if (!IgnoreLastRun && player.Value.LastBattle <= lastRun)
                         continue;
                     result[index++] = new Player
                     {
