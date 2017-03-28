@@ -31,11 +31,12 @@
 	</div>
 </div>
 
-<%= search_form_for @q do |f| %>
-		<%= f.search_field :tank_name_cont, placeholder: "Name" %>
-		<%= f.search_field :tank_nation_name_cont, placeholder: "Nation" %>
-		<%= f.search_field :tank_vehicle_type_name_cont, placeholder: "Type" %>
-		<%= f.submit %>
+<%= search_form_for @q, url: player_path(@player.id) do |f| %>
+	<%= f.search_field :tank_name_or_tank_shortname_cont, placeholder: "Tank name" %>
+	<%= f.collection_select :tank_vehicle_type_id_in, VehicleType.all, :id, :name, {}, { :multiple => true, :size => VehicleType.all.count}%>
+	<%= f.collection_select :tank_nation_id_in, Nation.all, :id, :name, {}, { :multiple => true, :size => Nation.all.count}%>
+	<%= f.collection_select :tank_tier_in, (5..10), :to_s, :to_s, {}, { :multiple => true, :size => 6}%>
+	<%= f.submit %>
 <% end %>
 
 <div class="digg_pagination"><%= will_paginate @marks %></div>
