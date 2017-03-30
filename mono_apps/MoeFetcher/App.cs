@@ -109,7 +109,7 @@ namespace MoeFetcher
                 // does not handle tanks without expected values properly
                 // potentially inflating wn8
                 // chosen because it needs less api requests
-                player.WN8 = (int)Math.Floor(WN8.AccountWN8Newest(expectedValueList, player.Winrates, player.PlayerInfo.Statistics.Random));
+                player.WN8 = (int)Math.Floor(WN8.EstimatedAccountWN8Newest(expectedValueList, player.Winrates, player.PlayerInfo.Statistics.Random));
             }
         }
 
