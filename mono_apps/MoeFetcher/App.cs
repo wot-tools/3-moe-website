@@ -33,13 +33,11 @@ namespace MoeFetcher
         private HashSet<int> ClanIDs = new HashSet<int>();
         private HashSet<int> PlayerIDs = new HashSet<int>();
 
-
-        //TODO: mit neuer tuple syntax schreiben
-        private Dictionary<string, Tuple<string, string>> ArgCombinations = new Dictionary<string, Tuple<string, string>>
+        private Dictionary<string, (string Name, string DefaultValue)> ArgCombinations = new Dictionary<string, (string, string)>
         {
-            ["h"] = new Tuple<string, string>("help", null),
-            ["s"] = new Tuple<string, string>("active-setting", "0"),
-            ["x"] = new Tuple<string, string>("ignore-last-run", null)
+            ["h"] = ("help", null),
+            ["s"] = ("active-setting", "0"),
+            ["x"] = ("ignore-last-run", null)
         };
 
         public App(ILogger logger)
@@ -141,7 +139,7 @@ namespace MoeFetcher
                     value = arguments.Pop();
 
                 string trimmedArg = argument.TrimStart('-');
-                if (false == ArgCombinations.Any(p => p.Key == trimmedArg || p.Value.Item1 == trimmedArg))
+                if (false == ArgCombinations.Any(p => p.Key == trimmedArg || p.Value.Name == trimmedArg))
                 {
                     Logger.CriticalError("unrecognized argument: {0}", argument);
                     return false;
@@ -159,11 +157,11 @@ namespace MoeFetcher
                 if (Arguments.TryGetValue(kvp.Key, out string value))
                 {
                     Arguments.Remove(kvp.Key);
-                    Arguments.Add(kvp.Value.Item1, value);
+                    Arguments.Add(kvp.Value.Name, value);
                 }
-                else if (false == Arguments.ContainsKey(kvp.Value.Item1) && kvp.Value.Item2 != null)
+                else if (false == Arguments.ContainsKey(kvp.Value.Name) && kvp.Value.DefaultValue != null)
                 {
-                    Arguments.Add(kvp.Value.Item1, kvp.Value.Item2);
+                    Arguments.Add(kvp.Value.Name, kvp.Value.DefaultValue);
                 }
             }
         }
@@ -237,12 +235,11 @@ namespace MoeFetcher
 
             Logger.Info($"Starting to read {i} line(s) from file {path}");
 
-            int id;
             string line;
             using (Stream stream = new FileStream(path, FileMode.Open))
             using (StreamReader reader = new StreamReader(stream))
                 while (i-- > 0 && (line = reader.ReadLine()) != null)
-                    if (int.TryParse(line, out id))
+                    if (int.TryParse(line, out int id))
                         PlayerIDs.Add(id);
             return PlayerIDs;
         }
