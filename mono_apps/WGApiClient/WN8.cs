@@ -50,9 +50,19 @@ namespace WGApi
             return AccountWN8(expectedValueList[version], tankStats);
         }
 
+        public static double AccountWN8(ExpectedValueList expectedValueList, int version, Dictionary<int, Statistics> tankStats, out Statistics cumulatedStats)
+        {
+            return AccountWN8(expectedValueList[version], tankStats, out cumulatedStats);
+        }
+
         public static double AccountWN8(Dictionary<int, ExpectedValues> expectedValues, Dictionary<int, Statistics> tankStats)
         {
-            Statistics cumulatedStats = new Statistics();
+            return AccountWN8(expectedValues, tankStats, out _);
+        }
+
+        public static double AccountWN8(Dictionary<int, ExpectedValues> expectedValues, Dictionary<int, Statistics> tankStats, out Statistics cumulatedStats)
+        {
+            cumulatedStats = new Statistics();
             ExpectedValues cumulatedExpected = new ExpectedValues();
             foreach (var pair in tankStats)
                 if (expectedValues.TryGetValue(pair.Key, out ExpectedValues values))
