@@ -34,7 +34,7 @@ namespace WGApi
         [JsonProperty("draws")]
         public int Draws { get; set; }
         [JsonProperty("damage_received")]
-        public int DamageReveived { get; set; }
+        public int DamageReceived { get; set; }
 
         [JsonIgnore]
         public double AvgSpotted { get { return SafelyDivide(Spotted, Battles); } }
@@ -53,7 +53,7 @@ namespace WGApi
         [JsonIgnore]
         public double AvgDecap { get { return SafelyDivide(Decap, Battles); } }
         [JsonIgnore]
-        public double AvgDamageReveived { get { return SafelyDivide(DamageReveived, Battles); } }
+        public double AvgDamageReceived { get { return SafelyDivide(DamageReceived, Battles); } }
         [JsonIgnore]
         public double Hitrate { get { return SafelyDivide(Hits, Shots); } }
 
@@ -73,7 +73,7 @@ namespace WGApi
             Shots = statistics.Shots;
             Hits = statistics.Hits;
             Draws = statistics.Draws;
-            DamageReveived = statistics.DamageReveived;
+            DamageReceived = statistics.DamageReceived;
         }
 
         public static Statistics operator +(Statistics first, Statistics second)
@@ -104,7 +104,7 @@ namespace WGApi
                 Shots = operation(first.Shots, second?.Shots ?? i),
                 Hits = operation(first.Hits, second?.Hits ?? i),
                 Draws = operation(first.Draws, second?.Draws ?? i),
-                DamageReveived = operation(first.DamageReveived, second?.DamageReveived ?? i),
+                DamageReceived = operation(first.DamageReceived, second?.DamageReceived ?? i),
             };
         }
 
