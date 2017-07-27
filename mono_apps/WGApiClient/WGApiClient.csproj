@@ -63,6 +63,7 @@
     <Compile Include="Icons.cs" />
     <Compile Include="ILogger.cs" />
     <Compile Include="Moe.cs" />
+    <Compile Include="Nations.cs" />
     <Compile Include="PlayerIDRecord.cs" />
     <Compile Include="PlayerInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Tank.cs" />
     <Compile Include="TankopediaInfo.cs" />
     <Compile Include="TankStats.cs" />
+    <Compile Include="Tiers.cs" />
     <Compile Include="WGApiClient.cs" />
     <Compile Include="WinrateRecord.cs" />
     <Compile Include="WN8.cs" />
