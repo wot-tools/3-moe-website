@@ -153,6 +153,39 @@ namespace MoeFetcher
             UpsertSimpleItem(id, name, "vehicle_types");
         }
 
+        public void UpsertTiers(IEnumerable<int> tiers)
+        {
+            foreach(int tier in tiers)
+            {
+                UpsertTier(tier);
+            }
+        }
+
+        public void UpsertTier(int tier)
+        {
+            UpsertSimpleItem(tier, tier.ToString(), "tiers");
+        }
+
+        private void UpsertSimpleItem(int id, string name, string tableName)
+        {
+            using (MySqlConnection Connection = new MySqlConnection(ConnectionString))
+            {
+                Connection.Open();
+                using (MySqlCommand command = GetSimpleInsertCommand(Connection, tableName))
+                {
+                    command.Connection = Connection;
+                    command.Prepare();
+
+                    command.Parameters.AddWithValue("@id", id);
+                    command.Parameters.AddWithValue("@name", name);
+                    command.Parameters.AddWithValue("@now", DateTime.Now);
+
+                    command.ExecuteNonQuery();
+                }
+                Connection.Close();
+            }
+        }
+
         private void UpsertSimpleItem(string id, string name, string tableName)
         {
             using (MySqlConnection Connection = new MySqlConnection(ConnectionString))
