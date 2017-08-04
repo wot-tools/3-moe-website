@@ -79,7 +79,7 @@ namespace MoeFetcher
                 Name = "",
                 ShortName = "",
                 IsPremium = false,
-                Nation = "",
+                Nation = 0,
                 VehicleType = "",
                 Icons = new Icons()
                 {
