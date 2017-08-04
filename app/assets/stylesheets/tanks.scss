@@ -4,6 +4,7 @@
 
 .tankInfoBlock {
 	margin: 10px 0px 10px 0px;
+	overflow: auto;
 }
 
 .tankImageDiv {
@@ -15,13 +16,21 @@
 	font-size: 26px;
 }
 .moeCount {
-	font-size: 30px;
+	font-size: 35px;
     font-weight: bold;
 }
 .imageAlignBottom img{
 	vertical-align: bottom;
 }
 .image3moe {
-	height: 34px;
-    width: 38px;
+	height: 50px;
+    width: 56px;
+}
+
+.imageNation {
+	margin-right: 3px;
+}
+
+.imageTankType {
+	vertical-align: text-top;
 }

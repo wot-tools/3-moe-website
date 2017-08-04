@@ -10,7 +10,7 @@
 	<div class="clanTag"><%= @clan.tag %></div>
 	<div class="moeCount"><%= image_tag("moe/95x85/china_3_marks.png", :class => "image3moe") %> <%= number_with_delimiter(@clan.mark_count) %></div>
 	<div><%= @clan.members %> Members</div>
-	<div class="externalClanLinks"><%= image_tag "http://eu.wargaming.net/favicon.ico" %> <%= link_to "WG profile", clan_url_wg(@clan.id) %> | <%= image_tag "http://wotlabs.net/images/favicon.png" %> <%= link_to "Wotlabs", clan_url_wotlabs(@clan.tag) %></div>
+	<div class="externalClanLinks"><%= link_to(image_tag("http://eu.wargaming.net/favicon.ico") + "WG profile", clan_url_wg(@clan.id), :class => "linkWithImage") %> <%= link_to(image_tag("http://wotlabs.net/images/favicon.png") + "Wotlabs", clan_url_wotlabs(@clan.tag), :class => "linkWithImage") %></div>
 </div>
 
 <%= search_form_for @q, url: clan_path(@clan.id) do |f| %>

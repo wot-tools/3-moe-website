@@ -92,6 +92,18 @@ $link-color: #7524D8;
 	}
 }
 
+.verticalStackCheckbox {
+	position: relative;
+	display: block;
+}
+
+.linkWithImage {
+	img {
+		vertical-align: text-top;
+		margin-right: 3px;
+		}
+}
+
 .headline {
 	font-size: 30px;
     margin-top: 10px;

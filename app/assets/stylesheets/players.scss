@@ -52,15 +52,56 @@
 	}
 }
 
-.playerInfoDiv {
-	float: left;
-	padding: 5px;
-	border: 2px solid #865DAD;
-	margin-right: 5px;
-}
-
 .playerInfoBlock {
 	margin: 10px 0px 10px 0px;
+	
+	.playerInfoDiv {
+		float: left;
+		padding: 5px;
+		border: 2px solid #865DAD;
+		margin-right: 5px;
+		
+		.playerName {
+			font-size: 26px;
+		}
+		
+		.playerLinkDiv {
+			margin-top: 6px
+		}
+
+		.moeCount {
+			font-size: 30px;
+			font-weight: bold;
+		}
+	}
+	
+	.clanInfoDiv {
+		border: 2px solid #865DAD;
+		padding: 5px;
+		float: left;
+
+		img {
+			vertical-align: text-top;
+		}
+
+		.clanLinkDiv {
+			margin-top: 6px
+		}
+
+		.clanIcon {
+			height: 32px;
+			width: 32px;
+			vertical-align: bottom;
+		}
+
+		a {
+			text-decoration: none;
+		}
+
+		span {
+			font-size: 22px;
+		}
+	}
 }
 
 .playerImageDiv {
@@ -68,34 +109,6 @@
 	margin: 0px 5px 0px 0px;
 	border: 2px solid #865DAD;
 	height: 128px;
-}
-
-.clanInfoDiv {
-	border: 2px solid #865DAD;
-	padding: 5px;
-	float: left;
-	
-	.clanIcon img {
-		height: 32px;
-		width: 32px;
-	}
-	
-	a {
-		text-decoration: none;
-	}
-	
-	span {
-		font-size: 20px;
-	}
-}
-
-.playerName {
-	font-size: 26px;
-}
-
-.moeCount {
-	font-size: 30px;
-	font-weight: bold;
 }
 
 .image3moe {

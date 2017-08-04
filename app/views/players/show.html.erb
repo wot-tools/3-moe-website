@@ -6,13 +6,13 @@
 		<div class="playerInfoDiv">
 			<div class="playerName"><%= @player.name %> <% if !@player.clientLang.blank? %><%= image_tag "clientlang/" + @player.clientLang + ".png"%><% end %></div>
 			<div class="moeCount"><%= @player.mark_count %></div>
-			<div><%= link_to "WG profile", player_url_wg(@player.id) %> | <%= link_to "Wotlabs", player_url_wotlabs(@player.name) %></div>
+			<div class="playerLinkDiv"><%= link_to(image_tag("http://eu.wargaming.net/favicon.ico") +  "WG profile", player_url_wg(@player.id), :class => "linkWithImage") %> <%= link_to(image_tag("http://wotlabs.net/images/favicon.png") + "Wotlabs", player_url_wotlabs(@player.name), :class => "linkWithImage") %></div>
 		</div>
 
 		<% if @player.clan %>
 		<div class="clanInfoDiv">
 			<img class="clanIcon" src="<%= @player.clan&.icon32px%>"><span class="clanTag"> <%= link_to @player.clan.tag, clan_path(@player.clan.id)%></span>
-			<div><%= image_tag "http://eu.wargaming.net/favicon.ico" %> <%= link_to "WG profile", clan_url_wg(@player.clan.id) %> | <%= image_tag "http://wotlabs.net/images/favicon.png" %> <%= link_to "Wotlabs", clan_url_wotlabs(@player.clan.tag) %></div>
+			<div class="clanLinkDiv"><%= link_to(image_tag("http://eu.wargaming.net/favicon.ico") + "WG profile", clan_url_wg(@player.clan.id), :class => "linkWithImage") %> <%= link_to(image_tag("http://wotlabs.net/images/favicon.png") + "Wotlabs", clan_url_wotlabs(@player.clan.tag), :class => "linkWithImage") %></div>
 		</div>
 		<% end %>
 	</div>
