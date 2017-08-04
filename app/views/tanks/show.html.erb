@@ -8,7 +8,7 @@
 
 	<div class="tankName"><%= @tank.name %></div>
 	<div class="moeCount"><%= image_tag("moe/95x85/" + @tank.nation.id + "_3_marks.png", :class => "image3moe") %> <%= number_with_delimiter(@tank.mark_count) %></div>
-	<div><%= image_tag("nations/" + @tank.nation.id + ".png", :class => "imageNation") %><%= link_to @tank.nation.name, nation_path(@tank.nation.id) %>, Tier <%= @tank.tier %> <%= link_to @tank.vehicle_type.name, vehicle_type_path(@tank.vehicle_type.id) %><%= image_tag("vehicletypes/" + @tank.vehicle_type.id + ".png", :class => "imageTankType")%></div>
+	<div><%= image_tag("nations/" + @tank.nation.id + ".png", :class => "imageNation") %><%= link_to @tank.nation.name, nation_path(@tank.nation.id) %>, Tier <%= @tank.tier.name %> <%= link_to @tank.vehicle_type.name, vehicle_type_path(@tank.vehicle_type.id) %><%= image_tag("vehicletypes/" + @tank.vehicle_type.id + ".png", :class => "imageTankType")%></div>
 </div>
 
 <%= search_form_for @q, url: tank_path(@tank.id) do |f| %>
