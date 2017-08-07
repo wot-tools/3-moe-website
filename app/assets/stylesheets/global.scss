@@ -248,3 +248,31 @@ table {
 .actions {
 	margin-top: 2px;
 }
+
+.smallMarginBottom {
+	margin-bottom: 3px;
+}
+
+.buttonFilter {
+	margin-left: 3px;
+}
+
+.overflowAuto{
+	overflow: auto;
+}
+
+.leftFloat {
+	float: left;
+}
+
+.filterBox {
+	padding: 3px;
+	float: left;
+	border: 1px solid #865DAD;
+}
+
+.outerFilterBox {
+	overflow: auto;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
