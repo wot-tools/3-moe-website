@@ -79,7 +79,7 @@ namespace MoeFetcher
             DatabaseClient.UpsertVehicleTypes(Tankopedia.VehicleTypes);
 
             Logger.Info($"Inserting tiers | {DateTime.Now}");
-            DatabaseClient.UpsertTiers(Enumerable.Range(1, 10));
+            DatabaseClient.UpsertTiers(Enumerable.Range(6, 10));
 
             Logger.Info($"Starting to get tanks from the api | {DateTime.Now}");
             Dictionary<int, Tank> tankDict = Client.GetVehicles();
