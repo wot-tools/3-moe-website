@@ -31,13 +31,7 @@
 	</div>
 </div>
 
-<%= search_form_for @q, url: player_path(@player.id) do |f| %>
-	<%= f.search_field :tank_name_or_tank_shortname_cont, placeholder: "Tank name" %>
-	<%= f.collection_select :tank_vehicle_type_id_in, VehicleType.all, :id, :name, {}, { :multiple => true, :size => VehicleType.all.count}%>
-	<%= f.collection_select :tank_nation_id_in, Nation.all, :id, :name, {}, { :multiple => true, :size => Nation.all.count}%>
-	<%= f.collection_select :tank_tier_id_in, Tier.all, :id, :name, {}, { :multiple => true, :size => 6}%>
-	<%= f.submit %>
-<% end %>
+<%= render partial: "tank_list_filter", locals: {rUrl: player_path(@player.id)} %>
 
 <div class="digg_pagination"><%= will_paginate @marks %></div>
 
