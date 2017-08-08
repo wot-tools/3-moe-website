@@ -1,57 +1,57 @@
 <% content_for :title do %>Distribution<% end %>
 <%= render "shared/navigationbar" %>
 <h1>3 MoE distribution data</h1>
-
-<p>Number of players with X 3 MoE</p>
+<%= render "link_bar" %>
+<h1>Number of players with X 3 MoE</h1>
 <table border="1" >
-  <tr>
-	<th>Type</th>
-	<th>Heavy Tank</th>
-	<th>Medium Tank</th>
-	<th>Light Tank</th>
-	<th>Tank Destroyer</th>
-	<th>SPG</th>
-	<th>Tier 5</th>
-	<th>Tier 6</th>
-	<th>Tier 7</th>
-	<th>Tier 8</th>
-	<th>Tier 9</th>
-	<th>Tier 10</th>
-  </tr>  
-  <tr>
-	<th>3 MoE</th>
-	<td><%= %></td>
-	<td><%= %></td>
-	<td><%= %></td>
-	<td><%= %></td>
-	<td><%= %></td>
-	<td><%= %></td>
-	<td><%= %></td>
-	<td><%= %></td>
-	<td><%= %></td>
-	<td><%= %></td>
-	<td><%= %></td>
-  </tr>
-    <tr>
-	<th>Total Tanks</th>
-	<td><%= number_with_delimiter(Tank.group("vehicle_type_id").count[1]) %></td>
-	<td><%= number_with_delimiter(Tank.group("vehicle_type_id").count[2]) %></td>
-	<td><%= number_with_delimiter(Tank.group("vehicle_type_id").count[3]) %></td>
-	<td><%= number_with_delimiter(Tank.group("vehicle_type_id").count[4]) %></td>
-	<td><%= number_with_delimiter(Tank.group("vehicle_type_id").count[5]) %></td>
-	<% (5..10).each do |tier| %>
-		<td><%= number_with_delimiter(Tank.group(:tier).count[tier])%></td>
-	<% end %>
-  </tr>
+	<tr>
+		<th>Type</th>
+		<th>Heavy Tank</th>
+		<th>Medium Tank</th>
+		<th>Light Tank</th>
+		<th>Tank Destroyer</th>
+		<th>SPG</th>
+		<th>Tier 5</th>
+		<th>Tier 6</th>
+		<th>Tier 7</th>
+		<th>Tier 8</th>
+		<th>Tier 9</th>
+		<th>Tier 10</th>
+	</tr>  
+	<tr>
+		<th>3 MoE</th>
+		<td><%=  number_with_delimiter(VehicleType.find("heavyTank").mark_count) %></td>
+		<td><%=  number_with_delimiter(VehicleType.find("mediumTank").mark_count) %></td>
+		<td><%=  number_with_delimiter(VehicleType.find("lightTank").mark_count) %></td>
+		<td><%=  number_with_delimiter(VehicleType.find("AT-SPG").mark_count) %></td>
+		<td><%=  number_with_delimiter(VehicleType.find("SPG").mark_count) %></td>
+		<td><%=  number_with_delimiter(Tier.find(5).mark_count) %></td>
+		<td><%=  number_with_delimiter(Tier.find(6).mark_count) %></td>
+		<td><%=  number_with_delimiter(Tier.find(7).mark_count) %></td>
+		<td><%=  number_with_delimiter(Tier.find(8).mark_count) %></td>
+		<td><%=  number_with_delimiter(Tier.find(9).mark_count) %></td>
+		<td><%=  number_with_delimiter(Tier.find(10).mark_count) %></td>
+	</tr>
+	<tr>
+		<th>Total Tanks</th>
+		<td><%= number_with_delimiter(Tank.group("vehicle_type_id").count["heavyTank"]) %></td>
+		<td><%= number_with_delimiter(Tank.group("vehicle_type_id").count["mediumTank"]) %></td>
+		<td><%= number_with_delimiter(Tank.group("vehicle_type_id").count["lightTank"]) %></td>
+		<td><%= number_with_delimiter(Tank.group("vehicle_type_id").count["AT-SPG"]) %></td>
+		<td><%= number_with_delimiter(Tank.group("vehicle_type_id").count["SPG"]) %></td>
+		<% (5..10).each do |tier| %>
+			<td><%= number_with_delimiter(Tank.group(:tier_id).count[tier])%></td>
+		<% end %>
+	</tr>
     <tr>
 	<th>Available Tanks (non prem.)</th>
-	<td><%= number_with_delimiter(Tank.where("ispremium = false").group("vehicle_type_id").count[1]) %></td>
-	<td><%= number_with_delimiter(Tank.where("ispremium = false").group("vehicle_type_id").count[2]) %></td>
-	<td><%= number_with_delimiter(Tank.where("ispremium = false").group("vehicle_type_id").count[3]) %></td>
-	<td><%= number_with_delimiter(Tank.where("ispremium = false").group("vehicle_type_id").count[4]) %></td>
-	<td><%= number_with_delimiter(Tank.where("ispremium = false").group("vehicle_type_id").count[5]) %></td>
+	<td><%= number_with_delimiter(Tank.where("ispremium = false").group("vehicle_type_id").count["heavyTank"]) %></td>
+	<td><%= number_with_delimiter(Tank.where("ispremium = false").group("vehicle_type_id").count["mediumTank"]) %></td>
+	<td><%= number_with_delimiter(Tank.where("ispremium = false").group("vehicle_type_id").count["lightTank"]) %></td>
+	<td><%= number_with_delimiter(Tank.where("ispremium = false").group("vehicle_type_id").count["AT-SPG"]) %></td>
+	<td><%= number_with_delimiter(Tank.where("ispremium = false").group("vehicle_type_id").count["SPG"]) %></td>
 	<% (5..10).each do |tier| %>
-		<td><%= number_with_delimiter(Tank.where("ispremium = false").group(:tier).count[tier])%></td>
+		<td><%= number_with_delimiter(Tank.where("ispremium = false").group(:tier_id).count[tier])%></td>
 	<% end %>
   </tr>
     <tr>
