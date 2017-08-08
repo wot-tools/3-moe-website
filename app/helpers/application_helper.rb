@@ -50,7 +50,7 @@ module ApplicationHelper
 		elsif (winrate < 0.47)
 			return "red";   # bad
 		elsif (winrate < 0.48)
-			return "#orange";   # below average
+			return "orange";   # below average
 		elsif (winrate < 0.50)
 			return "yellow";   # average
 		elsif (winrate < 0.52)
