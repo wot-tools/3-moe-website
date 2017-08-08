@@ -1,0 +1,16 @@
+<% content_for :title do %>Tier <% @tier.name %><% end %>
+<%= render "shared/navigationbar" %>
+
+<div class="tierInfoBlock">
+	<div class="MoEImageDiv">
+		<%= image_tag("moe/95x85/china_3_marks.png", :class => "largeImageMoE") %>
+	</div>
+
+	<div class="tierName">Tier <%= @tier.name %></div>
+	<div class="tierMoECount"><%= number_with_delimiter(@tier.mark_count) %></div>
+	<div class="tankCount"><%= number_with_delimiter(@tier.tanks.count) %> Tanks</div>
+</div>
+
+<%= render partial: "shared/tank_list", locals: {tanks: @tanks, rUrl: nation_path(@tier.id), bFilterVehicleType: true, bFilterNation: true, bFilterTier: false} %>
+
+<%= render "shared/footer" %>

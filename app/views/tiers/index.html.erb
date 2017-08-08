@@ -1,0 +1,27 @@
+<% content_for :title do %>Tiers<% end %>
+<%= render "shared/navigationbar" %>
+
+<h1>Tier Overview</h1>
+
+<div class="digg_pagination"><%= will_paginate @tiers %></div>
+<table>
+  <thead>
+    <tr>
+      <th><%= sort_link(@q, :name, "Tier") %></th>
+	  <th><%= sort_link(@q, :tanks_count, "Tanks") %></th>
+      <th><%= sort_link(@q, :mark_count, "3 MoE") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tiers.each do |tier| %>
+      <tr>
+        <td><%= link_to tier.name, tier_path(tier.id) %></td>
+		<td><%= number_with_delimiter(tier.tanks.count) %></td>
+        <td><%= number_with_delimiter(tier.mark_count) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<div class="digg_pagination"><%= will_paginate @tiers %></div>
+
+<%= render "shared/footer" %>
