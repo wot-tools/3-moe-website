@@ -49,7 +49,7 @@
 		<% @marks.each do |mark| %>
 			<tr>
 				<td><img src="<%= mark.tank.smallicon %>"> <%= link_to mark.tank.name, tank_path(mark.tank.id) %></td>
-				<td><%= mark.tank.tier.name %></td>
+				<td><%= link_to mark.tank.tier.name, tier_path(mark.tank.tier.id) %></td>
 				<td><%= image_tag("nations/" + mark.tank.nation.id + ".png", :class => "smallNationIcon") %> <%= link_to mark.tank.nation.name, nation_path(mark.tank.nation.id) %></td>
 				<td><%= image_tag("vehicletypes/" + mark.tank.vehicle_type.id + ".png", :class => "smallVehicleTypeIcon") %> <%= link_to mark.tank.vehicle_type.name, vehicle_type_path(mark.tank.vehicle_type.id)	 %></td>
 				<td><%= mark.created_at %></td>
