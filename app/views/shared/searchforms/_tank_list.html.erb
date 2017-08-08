@@ -6,23 +6,29 @@
 				<%= f.submit "Filter", class: "buttonFilter"%>
 			</div>
 
-			<div class="leftFloat">
-				<%= f.collection_check_boxes(:vehicle_type_id_in, VehicleType.all, :id, :name) do |b| %>
-					<%= b.label(class: "verticalStackCheckbox") { b.check_box + image_tag("vehicletypes/" + b.value + ".png", :class => "imageTankType") + b.text } %>
-				<% end %>
-			</div>
+			<% if bFilterVehicleType %>
+				<div class="leftFloat MarginRight">
+					<%= f.collection_check_boxes(:vehicle_type_id_in, VehicleType.all, :id, :name) do |b| %>
+						<%= b.label(class: "verticalStackCheckbox") { b.check_box + image_tag("vehicletypes/" + b.value + ".png", :class => "imageTankType") + b.text } %>
+					<% end %>
+				</div>
+			<% end %>
 			
-			<div class="leftFloat">
-				<%= f.collection_check_boxes(:nation_id_in, Nation.all, :id, :name) do |b| %>
-					<%= b.label(class: "verticalStackCheckbox") { b.check_box + image_tag("nations/" + b.value + ".png", :class => "imageNation") + b.text } %>
-				<% end %>
-			</div>
+			<% if bFilterNation %>
+				<div class="leftFloat MarginRight">
+					<%= f.collection_check_boxes(:nation_id_in, Nation.all, :id, :name) do |b| %>
+						<%= b.label(class: "verticalStackCheckbox") { b.check_box + image_tag("nations/" + b.value + ".png", :class => "imageNation") + b.text } %>
+					<% end %>
+				</div>
+			<% end %>
 			
-			<div class="leftFloat">
-				<%= f.collection_check_boxes(:tier_id_in, Tier.all, :id, :name) do |b| %>
-					<%= b.label(class: "verticalStackCheckbox") { b.check_box + b.text } %>
-				<% end %>
-			</div>
+			<% if bFilterTier %>
+				<div class="leftFloat">
+					<%= f.collection_check_boxes(:tier_id_in, Tier.all, :id, :name) do |b| %>
+						<%= b.label(class: "verticalStackCheckbox") { b.check_box + b.text } %>
+					<% end %>
+				</div>
+			<% end %>
 			
 			
 		<% end %>

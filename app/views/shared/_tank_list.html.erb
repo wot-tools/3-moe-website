@@ -1,5 +1,5 @@
 <div>
-	<%= render partial: "shared/searchforms/tank_list", locals: {rUrl: rUrl} %>
+	<%= render partial: "shared/searchforms/tank_list", locals: {rUrl: rUrl, bFilterVehicleType: bFilterVehicleType, bFilterNation: bFilterNation, bFilterTier: bFilterTier} %>
 
 	<div class="digg_pagination"><%= will_paginate tanks %></div>
 	<table>
