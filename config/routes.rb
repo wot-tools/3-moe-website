@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   get 'stats/distribution'
+  get 'stats/distribution/marks', to: 'stats#distribution_marks', as: 'statsdistributionmarks'
+  get 'stats/distribution/winratio', to: 'stats#distribution_winrate', as: 'statsdistributionwinrate'
+  get 'stats/distribution/wn8', to: 'stats#distribution_wn8', as: 'statsdistributionwn8'
 
   get 'welcome/index'
    

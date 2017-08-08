@@ -1,0 +1,20 @@
+<% content_for :title do %>Distribution<% end %>
+<%= render "shared/navigationbar" %>
+<h1>3 MoE distribution data</h1>
+<%= render "link_bar" %>
+
+<h1>Number of players with x 3 MoE</h1>
+<table border="1" >
+  <tr>
+	<th>Marks</th>
+	<th>Players</th>
+  </tr>
+  
+  <% (1..Mark.group(:player_id).count.max_by{|k,v| v}[1]).each do |marks_count| %>
+    <tr>
+	  <td><%= number_with_delimiter(marks_count) %></td>
+	  <td><%= number_with_delimiter(Mark.group(:player_id).count.values.count(marks_count)) %></td>
+    </tr>
+  <% end %>
+</table>
+<%= render "shared/footer" %>

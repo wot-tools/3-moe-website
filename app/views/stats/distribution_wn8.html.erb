@@ -1,0 +1,30 @@
+<% content_for :title do %>Distribution<% end %>
+<%= render "shared/navigationbar" %>
+<h1>3 MoE distribution data</h1>
+<%= render "link_bar" %>
+
+<h1>3 MoE on WN8</h1>
+<table border="1" >
+  <tr>
+	<th>Lower</th>
+	<th>Upper</th>
+	<th>Players</th>
+	<th>Marks</th>
+  </tr>
+ 
+  <% (0..5000).step(100) do |wn8_number| %>
+    <tr>
+	  <td class="<%= css_class_by_wn8(wn8_number)%>"><%= number_with_delimiter(wn8_number) %></td>
+	  <td class="<%= css_class_by_wn8(wn8_number + 100)%>"><%= number_with_delimiter(wn8_number + 100) %></td>
+	  <td><%= number_with_delimiter(Player.where("wn8 >="+ (wn8_number).to_s + " and wn8 <"+ (wn8_number + 100).to_s).count) %></td>
+	  <td><%= number_with_delimiter(Player.select("*").joins("INNER JOIN marks on players.id = marks.player_id").where("wn8 >="+ (wn8_number).to_s + " and wn8 <"+ (wn8_number + 100).to_s).count) %></td>
+    </tr>
+  <% end %>
+  <tr>
+	<td class="<%= css_class_by_wn8(5000)%>"><%= number_with_delimiter(5000)%></td>
+	<td class="<%= css_class_by_wn8(Float::INFINITY)%>">&#x221e;</td>
+	<td><%= number_with_delimiter(Player.where("wn8 >= 5000").count) %></td>
+	<td><%= number_with_delimiter(Player.select("*").joins("INNER JOIN marks on players.id = marks.player_id").where("wn8 >= 5000").count) %></td>
+  </tr>
+</table>
+<%= render "shared/footer" %>
