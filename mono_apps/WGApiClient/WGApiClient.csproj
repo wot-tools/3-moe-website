@@ -74,6 +74,7 @@
     <Compile Include="TankopediaInfo.cs" />
     <Compile Include="TankStats.cs" />
     <Compile Include="Tiers.cs" />
+    <Compile Include="VehicleTypes.cs" />
     <Compile Include="WGApiClient.cs" />
     <Compile Include="WinrateRecord.cs" />
     <Compile Include="WN8.cs" />
