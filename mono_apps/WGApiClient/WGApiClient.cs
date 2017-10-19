@@ -76,7 +76,14 @@ namespace WGApi
 
         public int SearchPlayerExact(string search)
         {
-            return GetApiResponse<PlayerIDRecord[]>("wot/account/list/", BuildParameterString(search: search, type: "exact")).SingleOrDefault()?.ID ?? -1;
+            try
+            {
+                return GetApiResponse<PlayerIDRecord[]>("wot/account/list/", BuildParameterString(search: search, type: "exact")).SingleOrDefault()?.ID ?? -1;
+            }
+            catch (JsonSerializationException e)
+            {
+                return -1;
+            }
         }
 
 #if MEASURE
