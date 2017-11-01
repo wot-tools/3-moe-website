@@ -9,9 +9,57 @@ using System.Threading.Tasks;
 
 namespace WGApi
 {
-    public class ExpectedValueList
+    public interface IExpectedValueList
     {
-        private string LinkFormat = @"http://www.wnefficiency.net/exp/expected_tank_values_{0}.json";
+        Task Initialize();
+        Dictionary<int, ExpectedValues> this[string version] { get; }
+        IEnumerable<string> Versions { get; }
+    }
+
+    public class VbaddictExpectedValueList : ExpectedValueListBase
+    {
+        protected override string ExclAbsMinVersion => "-1";
+        protected override string CheckAtLeastUntilVersion => "29";
+        protected override string LinkFormat => "http://www.wnefficiency.net/exp/expected_tank_values_{0}.json";
+        protected override string FileName => "expectedValues.json";
+        protected override IEnumerable<string> CreateVersionValues(string start)
+        {
+            int version = int.Parse(start);
+            while (true)
+            {
+                version += 1;
+                yield return version.ToString();
+            }
+        }
+    }
+
+    public class XvmExpectedValueList : ExpectedValueListBase
+    {
+        protected override string ExclAbsMinVersion => "2017-10-07";
+        protected override string CheckAtLeastUntilVersion => DateTime.Today.ToString("yyyy-MM-dd");
+        protected override string LinkFormat => "https://stat.modxvm.com/wn8-data-exp/json/wn8exp-{0}.json";
+        protected override string FileName => "xvmExpectedValues.json";
+        protected override IEnumerable<string> CreateVersionValues(string start)
+        {
+            DateTime date = DateTime.Parse(start);
+            while (true)
+            {
+                date = date.AddDays(1);
+                yield return date.ToString("yyyy-MM-dd");
+            }
+        }
+    }
+
+    public abstract class ExpectedValueListBase : IExpectedValueList
+    {
+        public event EventHandler ValuesLoaded;
+
+        private void OnValuesLoaded()
+        {
+            ValuesLoaded?.Invoke(this, new EventArgs());
+        }
+
+        protected abstract string LinkFormat { get; }
 
         private string _Directory;
         private string Directory
@@ -27,29 +75,31 @@ namespace WGApi
             }
         }
 
-        private string SaveFilePath { get { return Path.Combine(Directory, "expectedValues.json"); } }
+        protected abstract string FileName { get; }
+        private string SaveFilePath { get { return Path.Combine(Directory, FileName); } }
 
-        private Dictionary<int, Dictionary<int, ExpectedValues>> Values;
+        protected Dictionary<string, Dictionary<int, ExpectedValues>> Values;
 
-        public Dictionary<int, ExpectedValues> this[int i] { get { return Values[i]; } }
-        public IEnumerable<int> Versions { get { return Values.Select(p => p.Key); } }
+        public Dictionary<int, ExpectedValues> this[string version] { get { return Values[version]; } }
+        public IEnumerable<string> Versions { get { return Values.Select(p => p.Key); } }
 
-        public ExpectedValueList()
-        {
-            Initialize();
-        }
+        protected abstract string ExclAbsMinVersion { get; }
+        protected abstract string CheckAtLeastUntilVersion { get; }
 
-        private void Initialize()
+        public async Task Initialize()
         {
             if (Open(SaveFilePath))
-                AddNewValues(Versions.Max());
+                await AddNewValues(Versions.Last());
             else
             {
-                Values = new Dictionary<int, Dictionary<int, ExpectedValues>>();
-                AddNewValues(-1, 29);
+                Values = new Dictionary<string, Dictionary<int, ExpectedValues>>();
+                await AddNewValues(ExclAbsMinVersion, CheckAtLeastUntilVersion);
             }
             Save(SaveFilePath);
         }
+
+        /// <param name="start">exclusive</param>
+        protected abstract IEnumerable<string> CreateVersionValues(string start);
 
         private bool Open(string path)
         {
@@ -57,11 +107,10 @@ namespace WGApi
             {
                 using (Stream stream = File.OpenRead(path))
                 using (StreamReader reader = new StreamReader(stream))
-                    Values = JsonConvert.DeserializeObject<Dictionary<int, Dictionary<int, ExpectedValues>>>(reader.ReadToEnd());
+                    Values = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<int, ExpectedValues>>>(reader.ReadToEnd());
                 return true;
             }
             catch (FileNotFoundException)
-
             {
                 return false;
             }
@@ -74,19 +123,28 @@ namespace WGApi
                 writer.Write(JsonConvert.SerializeObject(Values));
         }
 
-        private void AddNewValues(int latestVersion, int checkAtLeastTo = 0)
+        /// <param name="latestVersion">exclusive</param>
+        private async Task AddNewValues(string latestVersion, string checkAtLeastTo = null)
         {
-            int version = latestVersion + 1;
-            while (TryAddNewValues(version) || checkAtLeastTo >= version)
-                version += 1;
+            bool reachedMinVersion = false;
+            foreach (string version in CreateVersionValues(latestVersion))
+                if (await TryAddNewValues(version) || !reachedMinVersion)
+                    reachedMinVersion |= version == (checkAtLeastTo ?? version);
+                else
+                    break;
+
+
+            //int version = latestVersion + 1;
+            //while (TryAddNewValues(version) || checkAtLeastTo >= version)
+            //    version += 1;
         }
 
-        private bool TryAddNewValues(int version)
+        private async Task<bool> TryAddNewValues(string version)
         {
             ApiWrapper<ExpectedValues[]> apiObject;
             try
             {
-                apiObject = JsonConvert.DeserializeObject<ApiWrapper<ExpectedValues[]>>(GetApiResponse(version));
+                apiObject = JsonConvert.DeserializeObject<ApiWrapper<ExpectedValues[]>>(await GetApiResponse(version));
             }
             catch
             {
@@ -100,10 +158,10 @@ namespace WGApi
             return true;
         }
 
-        private string GetApiResponse(int version)
+        private async Task<string> GetApiResponse(string version)
         {
             WebRequest request = WebRequest.Create(String.Format(LinkFormat, version));
-            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+            using (var response = await request.GetResponseAsync())
             using (Stream stream = response.GetResponseStream())
             using (StreamReader reader = new StreamReader(stream))
                 return reader.ReadToEnd();
@@ -121,7 +179,7 @@ namespace WGApi
         private class Header
         {
             [JsonProperty("version")]
-            public int Version { get; set; }
+            public string Version { get; set; }
         }
     }
 }
