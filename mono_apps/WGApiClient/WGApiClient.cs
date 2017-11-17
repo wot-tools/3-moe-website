@@ -30,53 +30,64 @@ namespace WGApi
 #endif
         }
 
-        public TankopediaInfo GetTankopediaInformation()
+        public async Task<TankopediaInfo> GetTankopediaInformationAsync()
         {
-            return GetApiResponse<TankopediaInfo>("wot/encyclopedia/info/", BuildParameterString());
+            return await GetApiResponseAsync<TankopediaInfo>("wot/encyclopedia/info/", BuildParameterString());
         }
 
-        public Moe[] GetPlayerMarks(int id)
+        public async Task<Moe[]> GetPlayerMarksAsync(int id)
         {
-            return GetApiResponse<Dictionary<int, Moe[]>>("wot/tanks/achievements/", BuildParameterString("achievements,tank_id", id.ToString())).Single().Value;
+            var result = await GetApiResponseAsync<Dictionary<int, Moe[]>>("wot/tanks/achievements/", BuildParameterString("achievements,tank_id", id.ToString()));
+            return result.Single().Value;
         }
 
-        public Dictionary<int, WinrateRecord[]> GetPlayerWinrateRecords(IEnumerable<int> ids)
+        public async Task<Dictionary<int, WinrateRecord[]>> GetPlayerWinrateRecordsAsync(IEnumerable<int> ids)
         {
-            return GetApiResponse<Dictionary<int, WinrateRecord[]>>("wot/account/tanks/", BuildParameterString(accountID: String.Join(",", ids)));
+            return await GetApiResponseAsync<Dictionary<int, WinrateRecord[]>>("wot/account/tanks/", BuildParameterString(accountID: String.Join(",", ids)));
         }
 
-        public TankStats[] GetPlayerTankStats(int id)
+        public async Task<TankStats[]> GetPlayerTankStatsAsync(int id)
         {
-            return GetApiResponse<Dictionary<int, TankStats[]>>("wot/tanks/stats/", BuildParameterString("random,tank_id", id.ToString(), extra: "random")).Single().Value;
+            var result = await GetApiResponseAsync<Dictionary<int, TankStats[]>>("wot/tanks/stats/", BuildParameterString("random,tank_id", id.ToString(), extra: "random"));
+            return result.Single().Value;
         }
 
-        public Dictionary<int, PlayerInfo> GetPlayerStats(IEnumerable<int> ids)
+        public async Task<Dictionary<int, PlayerInfo>> GetPlayerStatsAsync(IEnumerable<int> ids)
         {
             string fields = "statistics.random,client_language,global_rating,logout_at,created_at,last_battle_time,updated_at,clan_id,nickname";
-            return GetApiResponse<Dictionary<int, PlayerInfo>>("wot/account/info/", BuildParameterString(fields, String.Join(",", ids), extra: "statistics.random"));
+            return await GetApiResponseAsync<Dictionary<int, PlayerInfo>>("wot/account/info/", BuildParameterString(fields, String.Join(",", ids), extra: "statistics.random"));
         }
 
-        public Dictionary<int, Clan> GetClanInformation(IEnumerable<int> ids)
+        public async Task<Dictionary<int, Clan>> GetClanInformationAsync(IEnumerable<int> ids)
         {
-            return GetApiResponse<Dictionary<int, Clan>>("wgn/clans/info/", BuildParameterString(clanID: String.Join(",", ids)));
+            return await GetApiResponseAsync<Dictionary<int, Clan>>("wgn/clans/info/", BuildParameterString(clanID: String.Join(",", ids)));
         }
 
-        public Dictionary<int, Tank> GetVehicles()
+        public async Task<Dictionary<int, Tank>> GetVehiclesAsync()
         {
             string fields = "tag,name,nation,is_premium,short_name,tier,type,images";
-            return GetApiResponse<Dictionary<int, Tank>>("wot/encyclopedia/vehicles/", BuildParameterString(fields));
+            return await GetApiResponseAsync<Dictionary<int, Tank>>("wot/encyclopedia/vehicles/", BuildParameterString(fields));
         }
 
-        public Dictionary<string, int> SearchPlayerStartsWith(string search)
+        public async Task<Dictionary<string, int>> SearchPlayerStartsWithAsync(string search)
         {
             if (search.Length < 3)
                 return null;
-            return GetApiResponse<PlayerIDRecord[]>("wot/account/list/", BuildParameterString(search: search)).ToDictionary(r => r.Nickname, r => r.ID);
+            var result = await GetApiResponseAsync<PlayerIDRecord[]>("wot/account/list/", BuildParameterString(search: search));
+            return result.ToDictionary(r => r.Nickname, r => r.ID);
         }
 
-        public int SearchPlayerExact(string search)
+        public async Task<int> SearchPlayerExactAsync(string search)
         {
-            return GetApiResponse<PlayerIDRecord[]>("wot/account/list/", BuildParameterString(search: search, type: "exact")).SingleOrDefault()?.ID ?? -1;
+            try
+            {
+                var result = await GetApiResponseAsync<PlayerIDRecord[]>("wot/account/list/", BuildParameterString(search: search, type: "exact"));
+                return result.SingleOrDefault()?.ID ?? -1;
+            }
+            catch (JsonSerializationException)
+            {
+                return -1;
+            }
         }
 
 #if MEASURE
@@ -108,19 +119,19 @@ namespace WGApi
         }
 #endif
 
-        private T GetApiResponse<T>(string endpoint, string parameters)
+        private async Task<T> GetApiResponseAsync<T>(string endpoint, string parameters)
         {
-            string apiResponse = GetApiResponse(endpoint, parameters);
+            string apiResponse = await GetApiResponseAsync(endpoint, parameters);
             return JsonConvert.DeserializeObject<WrappedResponse<T>>(apiResponse).Data;
         }
 
-        private string GetApiResponse(string endpoint, string parameters)
+        private async Task<string> GetApiResponseAsync(string endpoint, string parameters)
         {
 #if MEASURE
             Interlocked.Increment(ref ApiResponsesCount);
 #endif
             WebRequest request = WebRequest.Create($"{BaseUri}{endpoint}{parameters}");
-            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+            using (var response = await request.GetResponseAsync())
             using (Stream stream = response.GetResponseStream())
             using (StreamReader reader = new StreamReader(stream))
                 return reader.ReadToEnd();

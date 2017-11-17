@@ -27,7 +27,7 @@ namespace WGApi
             return 980 * rDamageC + 210 * rDamageC * rFragC + 155 * rFragC * rSpotC + 75 * rDefC * rFragC + 145 * Math.Min(1.8, rWinC);
         }
 
-        public static double EstimatedAccountWN8(ExpectedValueList expectedValueList, int version, WinrateRecord[] winrateRecords, Statistics cumulatedStats)
+        public static double EstimatedAccountWN8(IExpectedValueList expectedValueList, string version, WinrateRecord[] winrateRecords, Statistics cumulatedStats)
         {
             Dictionary<int, ExpectedValues> expectedValues = expectedValueList[version];
             ExpectedValues cumulatedExpected = new ExpectedValues();
@@ -40,17 +40,17 @@ namespace WGApi
             return cumulatedStats.CalculateWN8(cumulatedExpected);
         }
 
-        public static double EstimatedAccountWN8Newest(ExpectedValueList expectedValueList, WinrateRecord[] winrateRecords, Statistics cumulatedStats)
+        public static double EstimatedAccountWN8Newest(IExpectedValueList expectedValueList, WinrateRecord[] winrateRecords, Statistics cumulatedStats)
         {
             return EstimatedAccountWN8(expectedValueList, expectedValueList.Versions.Max(), winrateRecords, cumulatedStats);
         }
 
-        public static double AccountWN8(ExpectedValueList expectedValueList, int version, Dictionary<int, Statistics> tankStats)
+        public static double AccountWN8(IExpectedValueList expectedValueList, string version, Dictionary<int, Statistics> tankStats)
         {
             return AccountWN8(expectedValueList[version], tankStats);
         }
 
-        public static double AccountWN8(ExpectedValueList expectedValueList, int version, Dictionary<int, Statistics> tankStats, out Statistics cumulatedStats)
+        public static double AccountWN8(IExpectedValueList expectedValueList, string version, Dictionary<int, Statistics> tankStats, out Statistics cumulatedStats)
         {
             return AccountWN8(expectedValueList[version], tankStats, out cumulatedStats);
         }
@@ -74,7 +74,7 @@ namespace WGApi
             return cumulatedStats.CalculateWN8(cumulatedExpected);
         }
 
-        public static double AccountWN8Newest(ExpectedValueList expectedValueList, Dictionary<int, Statistics> tankStats)
+        public static double AccountWN8Newest(IExpectedValueList expectedValueList, Dictionary<int, Statistics> tankStats)
         {
             return AccountWN8(expectedValueList, expectedValueList.Versions.Max(), tankStats);
         }
