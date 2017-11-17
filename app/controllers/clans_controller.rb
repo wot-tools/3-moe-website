@@ -6,7 +6,7 @@ class ClansController < ApplicationController
 	end
 
 	def show
-		@clan = Clan.find(params[:id])
+		@clan = Clan.find_by_tag(params[:id])
 		
 		@q = @clan.players.ransack(params[:q])
 		@players = @q.result.distinct.paginate(:page => params[:page], :per_page => 20)
