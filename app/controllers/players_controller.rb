@@ -6,7 +6,7 @@ class PlayersController < ApplicationController
 	end
 
 	def show
-		@player = Player.find(params[:id])
+		@player = Player.find_by_name(params[:id])
 
 		@q = @player.marks.ransack(params[:q])
 		@marks = @q.result.includes(:tank, tank: [:nation, :vehicle_type]).paginate(:page => params[:page], :per_page => 20)
