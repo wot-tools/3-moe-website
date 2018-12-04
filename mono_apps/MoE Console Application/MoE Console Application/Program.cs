@@ -926,7 +926,7 @@ namespace MoE_Console_Application
             string appID = "b8f444ecca8a5752b421ef9c610254b9";
 
             Log.AddInfo($"Loading MoETank list from {GetMoETanksFileName(serverID)}");
-            List<MoETank> moeTanks = ReadObjectFromFile<List<MoETank>>(GetMoETanksRetryFileName(serverID));
+            List<MoETank> moeTanks = ReadObjectFromFile<List<MoETank>>(GetMoETanksFileName(serverID));
             Log.AddInfo($"Found {moeTanks.Count} tanks in the list");
 
             Log.AddInfo($"Loading player list from {GetPlayerListFileName(serverID)}");
